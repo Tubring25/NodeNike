@@ -3,25 +3,59 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mysql = require('mysql')
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-// 改写
-// var http = require('http');
-// var server = http.createServer(app);
+
+const option = {
+  host: 'localhost',
+  user: 'root',
+  password: 'Root6741',
+  port: '3306',
+  database: 'node-nike',
+  connectTimeout: 5000,
+  multipleStatements: false
+}
+
+const conn = mysql.createConnection(option)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
+app.all('/login', (req, res) => {
+  conn.query('SELECT * FROM user', (e, r) => res.json(new Result({
+    data: r
+  })))
+})
+
+function Result({
+  code = 1,
+  msg = "",
+  data = {}
+}) {
+  this.code = code;
+  this.msg = msg;
+  this.data = data;
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.use(bodyParser.json)
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
