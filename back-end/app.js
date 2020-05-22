@@ -18,14 +18,20 @@ var app = express();
 const option = {
   host: 'localhost',
   user: 'root',
-  password: 'Root6741',
+  password: '123456',
   port: '3306',
-  database: 'node-nike',
+  database: 'nodenike',
   connectTimeout: 5000,
   multipleStatements: false
 }
 
 const conn = mysql.createConnection(option)
+conn.connect(function (err) {
+  if (err) {
+    return console.error('error'+err.message)
+  }
+  console.log("Connected!");
+})
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
