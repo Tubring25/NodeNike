@@ -15,41 +15,8 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 
-const option = {
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  port: '3306',
-  database: 'nodenike',
-  connectTimeout: 5000,
-  multipleStatements: false
-}
-
-const conn = mysql.createConnection(option)
-conn.connect(function (err) {
-  if (err) {
-    return console.error('error'+err.message)
-  }
-  console.log("Connected!");
-})
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
-
-app.all('/login', (req, res) => {
-  conn.query('SELECT * FROM user', (e, r) => res.json(new Result({
-    data: r
-  })))
-})
-
-function Result({
-  code = 1,
-  msg = "",
-  data = {}
-}) {
-  this.code = code;
-  this.msg = msg;
-  this.data = data;
-}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
