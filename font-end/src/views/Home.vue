@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {getCategoryType} from '../api/user'
 export default {
   name: "Home",
   data() {
@@ -35,9 +36,17 @@ export default {
       ]
     };
   },
+  created() {
+    this.getCategoryType_()
+    alert(123)
+    console.log(3333)
+  },
   methods: {
     navSelect(inx, indP){
-      debugger
+    },
+    getCategoryType_(){
+      console.log(12333)
+      getCategoryType()
     }
   },
 };

@@ -45,6 +45,7 @@ router.get('/categoryGender', function(req, res) {
 				msg: '获取分类失败'
 			});
 		} else {
+      result.pop();
 			res.json({
 				code: 0,
 				data: result
@@ -53,4 +54,27 @@ router.get('/categoryGender', function(req, res) {
   });
 })
 
+// 获取商品分类： 系列
+router.get('/categorySeries', function (req, res) {
+	let sql = 'select * from series';
+	conn.query(sql, (err, result) => {
+		if (err) {
+			res.json({ code: 1, msg: '获取分类失败' });
+		} else {
+			res.json({ code: 0, data: result });
+		}
+	});
+});
+
+// 获取商品分类： 类型(鞋类 | 服饰 | 背包)
+router.get('/categoryType', function(req, res) {
+  let sql = 'select * from categoryType';
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.json({code:1, msg: '获取分类失败'})
+    } else {
+      res.json({code:0, data: result})
+    }
+  })
+})
 module.exports = router;
