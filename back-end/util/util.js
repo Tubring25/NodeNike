@@ -1,6 +1,9 @@
-/*生成指定长度的随机数*/
+/**
+ * tools
+ */
+
 const util = {
-  randomCode: function(length) {
+  randomCode: function (length) {
     var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     var result = "";
     for (var i = 0; i < length; i++) {
@@ -11,4 +14,4 @@ const util = {
   }
 }
 
-exports.exports = util;
+module.exports = util;

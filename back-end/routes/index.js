@@ -6,8 +6,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/test/:data', (req, res)=>{
-  return res.json({query: req.query, data: req.params, json: req.body})
-})
-
 module.exports = router;
