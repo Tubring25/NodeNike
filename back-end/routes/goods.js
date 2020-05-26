@@ -77,4 +77,41 @@ router.get('/categoryType', function(req, res) {
     }
   })
 })
+
+// 获取轮播图
+router.get('/banner', function (req, res) {
+  let sql = 'select * from banner'
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.json({code:1, msg: '获取banner失败'})
+    } else {
+      res.json({code: 0, data: result.slice(-3)})
+    }
+  })
+})
+
+// 获取热门商品
+router.get('/hotGoods', function(req, res) {
+  let sql = 'select * from goods where isHot = 1'
+  conn.query(sql, (err, result) => {
+    if(err) {
+      res.json({code:1 , msg: err})
+    } else {
+      res.json({code: 0, data: result})
+    }
+  })
+})
+
+// 获取新品
+router.get('/newGoods', function (req, res) {
+  let sql = 'select * from goods where isNew =1'
+  conn.query(sql, (err, result) => {
+    if(err) {
+      res.json({code: 1, msg: err})
+    } else {
+      res.json({code: 0, data: result})
+    }
+  })
+})
+
 module.exports = router;
