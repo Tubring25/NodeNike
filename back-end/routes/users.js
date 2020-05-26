@@ -3,8 +3,6 @@ var router = express.Router();
 let conn = require('../db/db');
 let util = require('../util/util');
 
-let user = {};
-
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 	let sql = 'SELECT * FROM user';
@@ -22,23 +20,7 @@ router.get('/', function (req, res, next) {
 		}
 	});
 });
-//获取手机验证码
-router.get('/getPhoneCode', function (req, res) {
-	let phone = req.query.phone;
-	let phoneCode = util.randomCode(4);
-	if (!phoneCode || !phone) {
-		res.json({
-			code: 1,
-			message: '获取验证码失败'
-		});
-	} else {
-		user[phone] = phoneCode;
-		res.json({
-			code: 00,
-			data: phoneCode
-		});
-	}
-});
+
 // 密码登录
 router.post('/login', (req, res) => {
   let name = req.body.name;
@@ -69,5 +51,24 @@ router.post('/login', (req, res) => {
 		}
 	});
 });
+
+// 注册
+router.post('/register', (req, res) => {
+	let sql = 'insert into user(name, phone, gender, password) values(?,?,?,?)'
+	let addData = Object.values(req.body)
+	for (let i in req.body) {
+		if (util.trim(req.body[i]) == '' || req.body[i] == null || req.body == undefined) {
+			res.json({ code: 1, msg: '缺少数据' });
+			return 
+		}
+	}
+	conn.query(sql, addData, (err, result) => {
+		if (err) {
+			res.json({code: 1,msg: err})
+		} else {
+			res.json({code: 0,data: {}})
+		}
+	})
+})
 
 module.exports = router;
