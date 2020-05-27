@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
 	let sql = 'SELECT * from user WHERE name =? LIMIT 1 ;';
 	conn.query(sql, [name], (err, result) => {
 		if (err) {
-			res.json({ code: 0, msg: '查询用户失败' });
+			res.json({ code: 1, msg: err });
 		} else {
 			if (result[0]) {
 				if (result[0].password === password) {
@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
 					});
 				}
 			} else {
-        res.json({code: 1, msg: '用户不存在'})
+        res.json({code: 2, msg: '用户不存在'})
 			}
 		}
 	});
@@ -54,19 +54,30 @@ router.post('/login', (req, res) => {
 
 // 注册
 router.post('/register', (req, res) => {
-	let sql = 'insert into user(name, phone, gender, password) values(?,?,?,?)'
-	let addData = Object.values(req.body)
-	for (let i in req.body) {
-		if (util.trim(req.body[i]) == '' || req.body[i] == null || req.body == undefined) {
-			res.json({ code: 1, msg: '缺少数据' });
-			return 
-		}
-	}
-	conn.query(sql, addData, (err, result) => {
-		if (err) {
-			res.json({code: 1,msg: err})
-		} else {
-			res.json({code: 0,data: {}})
+	let sql2 = 'SELECT * from user WHERE phone = ?';
+	let phone = req.body.phone
+	conn.query(sql2, [phone], (err, result) => {
+		if (err){
+			res.json({ code: 1, msg: err });
+		}else {
+			if(result.length == 0) {
+				let sql = 'insert into user(name, phone, gender, email, password) values(?,?,?,?,?)';
+				let addData = Object.values(req.body);
+				for (let i in req.body) {
+					if (util.trim(req.body[i]) == '' || req.body[i] == null || req.body == undefined) {
+						res.json({ code: 1, msg: '缺少数据' });
+					}
+				}
+				conn.query(sql, addData, (err, result) => {
+					if (err) {
+						res.json({ code: 1, msg: err });
+					} else {
+						res.json({ code: 0, data: '注册成功' });
+					}
+				});
+			} else {
+				res.json({code:2, msg: "该手机号已被注册"})
+			}
 		}
 	})
 })
