@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import {getCategoryType, getCategoryGender, getCategorySeries, getBanner, getGoods} from '../api/goods'
+import {getCategoryType, getCategoryGender, getCategorySeries, getBanner, getGoods, getHotGoods, getNewGoods} from '../api/goods'
 import {register,login} from '../api/user.js'
 import util from '../util/util'
 export default {
@@ -86,6 +86,8 @@ export default {
       loginForm: {name: '', password: ''}, // 登录信息
       hasLogin: false, // 是否登录
       userInfo: {}, // 用户信息
+      hotGodds:[], // 热门商品
+      newGoods: [], // 最新商品
     };
   },
   created() {
@@ -93,6 +95,8 @@ export default {
     this.getCategoryGender_()
     this.getCategorySeries_()
     this.getBanner_()
+    this.getHotGoods_()
+    this.getNewGoods_()
     if(localStorage.getItem('userInfo')) {
       this.hasLogin = true
       this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -119,9 +123,22 @@ export default {
         this.navSeries = res.data.data
       })
     },
+    // 获取轮播图
     getBanner_(){
       getBanner().then(res=>{
         this.banner = res.data.data
+      })
+    },
+    // 获取热门商品
+    getHotGoods_(){
+      getHotGoods().then(res=>{
+        this.hotGodds = res.data.data
+      })
+    },
+    // 获取最新商品
+    getNewGoods_() {
+      getNewGoods().then(res=>{
+        this.newGoods = res.data.data
       })
     },
     // 展示弹出框
@@ -199,6 +216,7 @@ export default {
         })
       }
     },
+    // 退出登录
     loginout(){
       this.hasLogin = false
       this.userInfo = {}

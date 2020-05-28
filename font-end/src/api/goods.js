@@ -24,6 +24,15 @@ export function getCategorySeries() {
 export function getBanner() {
   return Axios.get(baseUrl + 'banner')
 }
-export function getGoods() {
-  return Axios.get(baseUrl + 'goods')
+// 获取商品列表
+export function getGoods(data) {
+  return Axios.get(baseUrl + "goods", {params: data});
+}
+// 获取热门商品
+export function getHotGoods() {
+  return Axios.get(baseUrl + "hotGoods");
+}
+// 获取最新商品
+export function getNewGoods() {
+  return Axios.get(baseUrl + "hotGoods");
 }
