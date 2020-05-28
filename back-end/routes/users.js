@@ -33,7 +33,8 @@ router.post('/login', (req, res) => {
 			if (result[0]) {
 				if (result[0].password === password) {
           res.cookie('user_id', result[0].id);
-          let response = result[0]
+					let response = result[0]
+					
           delete response.password
 					res.json({
 						code: 0,

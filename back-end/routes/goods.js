@@ -8,31 +8,27 @@ let util = require('../util/util')
 
 // 获取商品列表篇
 router.get('/goods', function (req, res) {
-  let cid = req.query.cid
-  if (cid) {
-    let sqlStr = 'SELECT * from goods WHERE cid = ?'
-    conn.query(sqlStr,[cid],(error, result, field) => {
-      if(error) {
-        res.json({
-          code: 1,
-          msg: '获取商品失败'
-        })
-      }else{
-        result = JSON.parse(JSON.stringify(result))
-        if (result) {
-          res.json({
-            code: 0,
-            data: result
-          })
-        } else {
-          res.json({
-            code: 1,
-            msg: '商品不存在'
-          });
-        }
+  let page
+  req.query.page == 0 ? page = 1 : page = req.query.page
+  let pageSize = req.query.pageSize || 10
+  let ind = page * pageSize
+  let params = JSON.parse(JSON.stringify(req.query))
+  if(params.page) delete params.page
+  if(params.pageSize) delete params.pageSize
+  let paramString = 'where'
+  // if (params == {}){
+    
+  // } else {
+
+  // }
+  let sql = `select * from goods limit ` + pageSize + `,` + ind
+    conn.query(sql,(err, result) => {
+      if(err) {
+        res.json({code:1, msg: err})
+      } else {
+        res.json({code:0, data: result})
       }
     })
-  }
 })
 
 // 获取商品分类：性别

@@ -23,7 +23,7 @@
         </div>
       </el-submenu>
     </el-menu>
-    <el-carousel :interval="4000" arrow="always" class="banner" height="750px">
+    <el-carousel :interval="4000" arrow="always" class="banner" height="650px">
       <el-carousel-item v-for="item in banner" :key="item.id">
         <!-- <img :src="item.url" alt=""> -->
         <el-image :src="item.url" fit="fill"></el-image>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import apiGoods from '../api/goods'
+import {getCategoryType, getCategoryGender, getCategorySeries, getBanner, getGoods} from '../api/goods'
 import {register,login} from '../api/user.js'
 import util from '../util/util'
 export default {
@@ -103,24 +103,24 @@ export default {
     },
     // 获取商品分类: 分类(服饰 | 鞋类 | 背包)
     getCategoryType_(){
-      apiGoods.getCategoryType().then(res=>{
+      getCategoryType().then(res=>{
         console.log(typeof(res.data.data[0].cid))
       })
     },
     // 获取商品分类: 性别
     getCategoryGender_() {
-      apiGoods.getCategoryGender().then(res => {
+      getCategoryGender().then(res => {
         this.navGender = res.data.data
       })
     },
     // 获取商品分类: 系列
     getCategorySeries_() {
-      apiGoods.getCategorySeries().then(res=>{
+      getCategorySeries().then(res=>{
         this.navSeries = res.data.data
       })
     },
     getBanner_(){
-      apiGoods.getBanner().then(res=>{
+      getBanner().then(res=>{
         this.banner = res.data.data
       })
     },
@@ -227,7 +227,7 @@ export default {
   }
 }
 .banner {
-  height: 440px;
+  height: 650px;
 }
 .dialog {
   .input {

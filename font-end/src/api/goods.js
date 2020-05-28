@@ -8,23 +8,22 @@ import qs from 'qs'
 const baseUrl = "http://localhost:3000/goods/";
 
 
-const goods = {
-  // 获取商品分类: 分类(鞋类 | 服饰 | 背包)
-  getCategoryType: function () {
-    return Axios.get(baseUrl + "categoryType");
-  },
-  // 获取商品分类: 性别
-  getCategoryGender: function () {
-    return Axios.get(baseUrl + 'categoryGender')
-  },
-  // 获取商品分类: 系列
-  getCategorySeries: function () {
-    return Axios.get(baseUrl + 'categorySeries')
-  },
-  // 获取轮播图
-  getBanner: function () {
-    return Axios.get(baseUrl + 'banner')
-  }
+// 获取商品分类: 分类(鞋类 | 服饰 | 背包)
+export function getCategoryType() {
+  return Axios.get(baseUrl + "categoryType");
 }
-
-export default goods;
+// 获取商品分类: 性别
+export function getCategoryGender() {
+  return Axios.get(baseUrl + 'categoryGender')
+}
+// 获取商品分类: 系列
+export function getCategorySeries() {
+  return Axios.get(baseUrl + 'categorySeries')
+}
+// 获取轮播图
+export function getBanner() {
+  return Axios.get(baseUrl + 'banner')
+}
+export function getGoods() {
+  return Axios.get(baseUrl + 'goods')
+}
