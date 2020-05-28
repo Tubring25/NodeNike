@@ -10,25 +10,17 @@ let util = require('../util/util')
 router.get('/goods', function (req, res) {
   let page
   req.query.page == 0 ? page = 1 : page = req.query.page
-  let pageSize = req.query.pageSize || 10
-  let ind = page * pageSize
-  let params = JSON.parse(JSON.stringify(req.query))
-  if(params.page) delete params.page
-  if(params.pageSize) delete params.pageSize
-  let paramString = 'where'
-  // if (params == {}){
-    
-  // } else {
-
-  // }
-  let sql = `select * from goods limit ` + pageSize + `,` + ind
-    conn.query(sql,(err, result) => {
-      if(err) {
-        res.json({code:1, msg: err})
-      } else {
-        res.json({code:0, data: result})
-      }
-    })
+  let pageSize = req.query.pageSize
+  let ind = (page-1) * pageSize
+  let sql = `select * from goods limit ` + ind + `,` + pageSize;
+  conn.query(sql, (err, result) => {
+		if (err) {
+			res.json({ code: 1, msg: err });
+		} else {
+			res.json({ code: 0, data: result });
+		}
+  });
+  
 })
 
 // 获取商品分类：性别
