@@ -34,5 +34,5 @@ export function getHotGoods() {
 }
 // 获取最新商品
 export function getNewGoods() {
-  return Axios.get(baseUrl + "hotGoods");
+  return Axios.get(baseUrl + "newGoods");
 }

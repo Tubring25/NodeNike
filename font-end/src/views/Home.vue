@@ -2,7 +2,7 @@
   <div class="container">
     <el-row class="header">
       <el-col :span="16">
-        <img class="logo" src="../assets/logo.png" alt="">
+        <img class="logo" src="../static/logo.png" alt="">
       </el-col>
       <el-col :span="4">
         <i class="el-icon-user"></i>
@@ -29,9 +29,50 @@
         <el-image :src="item.url" fit="fill"></el-image>
       </el-carousel-item>
     </el-carousel>
+    <h3>热门商品</h3>
+    <hr>
+    <div class="goods-box">
+      <div class="item" v-for="item in hotGoods" :key="item.id">
+        <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
+        <p class="name">{{item.name}}</p>
+        <p class="price">¥{{item.price}}</p>
+      </div>
+    </div>
+    <h3>最新商品</h3>
+    <hr>
+    <div class="goods-box">  
+      <div class="item" v-for="item in newGoods" :key="item.id">
+        <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
+        <p class="name">{{item.name}}</p>
+        <p class="price">¥{{item.price}}</p>
+      </div>
+    </div>
 
+    <div class="activity-con">
+      <h3 class="act-title"><img src="../static/mini-logo.png" alt=""> 至酷精选 玩转潮流</h3>
+      <div class="activity-box">
+        <div class="activity">
+          <img class="img" src="../static/act1.jpg" alt="">
+          <div class="name">ALL STAR</div>
+          <div class="desc">查看更多 ></div>
+        </div>
+        <div class="activity">
+          <img class="img" src="../static/act2.jpg" alt="">
+          <div class="name">CHUCK 70</div>
+          <div class="desc">查看更多 ></div>
+        </div>
+        <div class="activity">
+          <img class="img" src="../static/act3.jpg" alt="">
+          <div class="name">JACK PURCELL</div>
+          <div class="desc">查看更多 ></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+      <img class="footer" src="../static/logo.png" alt="">
+    </div>
     <!-- dialog for login and register -->
-    <el-dialog class="dialog" :title="dialogTitle" :visible.sync="registerVisible" center width="40%">
+    <el-dialog class="dialog" :title="dialogTitle" :visible.sync="registerVisible" center width="35%">
       <el-form :mode="loginForm" label-width="120px" label-position="right" v-if="dialogStatus === 1">
         <el-form-item label="用户名" prop="name">
           <el-input class="input" v-model="loginForm.name" placeholder="请输入用户名" maxlength="30"></el-input>
@@ -86,7 +127,7 @@ export default {
       loginForm: {name: '', password: ''}, // 登录信息
       hasLogin: false, // 是否登录
       userInfo: {}, // 用户信息
-      hotGodds:[], // 热门商品
+      hotGoods:[], // 热门商品
       newGoods: [], // 最新商品
     };
   },
@@ -132,7 +173,7 @@ export default {
     // 获取热门商品
     getHotGoods_(){
       getHotGoods().then(res=>{
-        this.hotGodds = res.data.data
+        this.hotGoods = res.data.data
       })
     },
     // 获取最新商品
@@ -247,9 +288,123 @@ export default {
 .banner {
   height: 650px;
 }
+h3 {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 40px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+  top: 20px;
+}
+hr {
+  width: 1500px;
+  margin: 0 auto;
+}
+.goods-box {
+  width: 1500px;
+  margin: 0 auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .item {
+    width: 300px;
+    height: 400px;
+    margin: 20px 30px;
+    cursor: pointer;
+    .image {
+      display: block;
+      width: 220px;
+      margin: 0 auto;
+    }
+    .name {
+      width: 280px;
+      margin: 0 auto;
+      margin-top: 80px;
+      font-size: 22px;
+      text-align: center;
+      overflow: hidden; 
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .price {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+  .item:hover {
+    border: 1px solid #333;
+  }
+}
+.activity-con {
+  margin-bottom: 50px;
+}
+.act-title {
+  font-size: 25px;
+  width: 1500px;
+  color: #fff;
+  background: #333;
+  text-align: left;
+  margin-top: 50px;
+  img {
+    display: inline-block;
+    margin: 0 20px;
+  }
+}
+.activity-box {
+  width: 1500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 50px;
+  .img {
+    width: 350px;
+    cursor: pointer;
+  }
+  .name {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: center;
+  }
+  .desc {
+    font-weight: bold;
+    font-size: 25px;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
+    color: #fff;
+    background: #333;
+    text-align: center;
+    cursor: pointer;
+  }
+  .desc:hover {
+    color: #333;
+    background: rgb(209, 209, 209);
+  }
+}
+.footer-box {
+  height: 80px;
+  background: black;
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
 .dialog {
   .input {
-    width: 250px;
+    width: 80%;
   }
 }
 </style>
