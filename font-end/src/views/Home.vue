@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-row class="header">
-      <el-col :span="16">
+      <el-col :span="16" style="height:50px">
         <img class="logo" src="../static/logo.png" alt="">
       </el-col>
       <el-col :span="4">
@@ -279,6 +279,7 @@ export default {
   color: #fff;
   .logo{
     padding-left: 10%;
+    height: 50px;
   }
   span {
     padding: 0 10px;
