@@ -36,3 +36,7 @@ export function getHotGoods() {
 export function getNewGoods() {
   return Axios.get(baseUrl + "newGoods");
 }
+// 获取单挑商品
+export function getSingleGood(data) {
+  return Axios.get(baseUrl + 'singleGood', {params: data});
+}

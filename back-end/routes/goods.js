@@ -22,6 +22,18 @@ router.get('/goods', function (req, res) {
   });
   
 })
+// 获取单挑商品
+router.get('/singleGood', function(req, res) {
+  let id = req.query.id
+  let sql = `select * from goods where id=` + id
+  conn.query(sql, (err, result) => {
+    if(err){
+      res.json({code:1, msg: err})
+    } else {
+      res.json({code: 0, data: result[0]})
+    }
+  })
+})
 
 // 获取商品分类：性别
 router.get('/categoryGender', function(req, res) {

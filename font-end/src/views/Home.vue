@@ -32,7 +32,7 @@
     <h3>热门商品</h3>
     <hr>
     <div class="goods-box">
-      <div class="item" v-for="item in hotGoods" :key="item.id">
+      <div class="item" v-for="item in hotGoods" :key="item.id" @click="goodsDetail(item.id)">
         <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
         <p class="name">{{item.name}}</p>
         <p class="price">¥{{item.price}}</p>
@@ -41,7 +41,7 @@
     <h3>最新商品</h3>
     <hr>
     <div class="goods-box">  
-      <div class="item" v-for="item in newGoods" :key="item.id">
+      <div class="item" v-for="item in newGoods" :key="item.id" @click="goodsDetail(item.id)">
         <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
         <p class="name">{{item.name}}</p>
         <p class="price">¥{{item.price}}</p>
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import {getCategoryType, getCategoryGender, getCategorySeries, getBanner, getGoods, getHotGoods, getNewGoods} from '../api/goods'
+import {getCategoryGender, getCategorySeries, getBanner, getGoods, getHotGoods, getNewGoods} from '../api/goods'
 import {register,login} from '../api/user.js'
 import util from '../util/util'
 export default {
@@ -132,7 +132,6 @@ export default {
     };
   },
   created() {
-    this.getCategoryType_()
     this.getCategoryGender_()
     this.getCategorySeries_()
     this.getBanner_()
@@ -146,11 +145,9 @@ export default {
   methods: {
     navSelect(inx, indP){
     },
-    // 获取商品分类: 分类(服饰 | 鞋类 | 背包)
-    getCategoryType_(){
-      getCategoryType().then(res=>{
-        console.log(typeof(res.data.data[0].cid))
-      })
+    // 前往商品详情页
+    goodsDetail(goodsId){
+      this.$router.push({path:'./goodsDetail', query:{goodsId: goodsId}})
     },
     // 获取商品分类: 性别
     getCategoryGender_() {
