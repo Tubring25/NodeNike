@@ -113,5 +113,16 @@ router.get('/newGoods', function (req, res) {
     }
   })
 })
+// 随机推荐
+router.get('/randomGood', function (req, res) {
+  let sql = 'select * from goods'
+  conn.query(sql, (err, result) => {
+    if(err) {
+      res.json({code:1, err})
+    } else {
+      
+    }
+  })
+})
 
 module.exports = router;

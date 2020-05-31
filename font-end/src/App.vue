@@ -7,5 +7,6 @@
 <style lang="scss">
 #app {
   margin: 0;
+  p{margin: 0;}
 }
 </style>

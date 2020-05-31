@@ -297,11 +297,11 @@ h3 {
   top: 20px;
 }
 hr {
-  width: 1500px;
+  width: 90%;
   margin: 0 auto;
 }
 .goods-box {
-  width: 1500px;
+  width: 90%;
   margin: 0 auto;
   margin-top: 100px;
   display: flex;
@@ -343,7 +343,7 @@ hr {
 }
 .act-title {
   font-size: 25px;
-  width: 1500px;
+  width: 90%;
   color: #fff;
   background: #333;
   text-align: left;
@@ -354,7 +354,7 @@ hr {
   }
 }
 .activity-box {
-  width: 1500px;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
