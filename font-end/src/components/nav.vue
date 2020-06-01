@@ -1,54 +1,28 @@
 <template>
   <div class="container">
-    <navBar></navBar>
-    <el-carousel :interval="4000" arrow="always" class="banner" height="650px">
-      <el-carousel-item v-for="item in banner" :key="item.id">
-        <!-- <img :src="item.url" alt=""> -->
-        <el-image :src="item.url" fit="fill"></el-image>
-      </el-carousel-item>
-    </el-carousel>
-    <h3>热门商品</h3>
-    <hr>
-    <div class="goods-box">
-      <div class="item" v-for="item in hotGoods" :key="item.id" @click="goodsDetail(item.id)">
-        <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
-        <p class="name">{{item.name}}</p>
-        <p class="price">¥{{item.price}}</p>
-      </div>
-    </div>
-    <h3>最新商品</h3>
-    <hr>
-    <div class="goods-box">  
-      <div class="item" v-for="item in newGoods" :key="item.id" @click="goodsDetail(item.id)">
-        <el-image class="image" :src="item.imgurl" fit="fill"></el-image>
-        <p class="name">{{item.name}}</p>
-        <p class="price">¥{{item.price}}</p>
-      </div>
-    </div>
-
-    <div class="activity-con">
-      <h3 class="act-title"><img src="../static/mini-logo.png" alt=""> 至酷精选 玩转潮流</h3>
-      <div class="activity-box">
-        <div class="activity">
-          <img class="img" src="../static/act1.jpg" alt="">
-          <div class="name">ALL STAR</div>
-          <div class="desc">查看更多 ></div>
+    <el-row class="header">
+      <el-col :span="16" style="height:50px">
+        <img class="logo" src="../static/logo.png" alt="">
+      </el-col>
+      <el-col :span="4">
+        <i class="el-icon-user"></i>
+        <span v-if="hasLogin">{{userInfo.name}}</span>
+        <span v-show="!hasLogin" @click="login(1)">登录</span>/<span v-if="!hasLogin" @click="login(0)">注册</span>
+        <span v-if="hasLogin" @click="loginout">退出</span>
+      </el-col>
+      <el-col :span="4">
+        <i class="el-icon-shopping-cart-full"></i>
+        <span>购物车</span>
+      </el-col>
+    </el-row>
+    <el-menu class="el-menu-demo" mode="horizontal" @select="navSelect" background-color="#333" text-color="#fff" active-text-color="#ffd04b">
+      <el-submenu :index="(index).toString()" v-for="(item, index) in navGender" :key="index" :ref="item.id">
+        <template slot="title">{{item.name}}</template>
+        <div class="subTitle" v-for="(item2, index2) in navSeries" :key="index2">
+          <el-menu-item :index="index+'-'+index2" :ref="item2.id">{{item2.name}}</el-menu-item>
         </div>
-        <div class="activity">
-          <img class="img" src="../static/act2.jpg" alt="">
-          <div class="name">CHUCK 70</div>
-          <div class="desc">查看更多 ></div>
-        </div>
-        <div class="activity">
-          <img class="img" src="../static/act3.jpg" alt="">
-          <div class="name">JACK PURCELL</div>
-          <div class="desc">查看更多 ></div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-box">
-      <img class="footer" src="../static/logo.png" alt="">
-    </div>
+      </el-submenu>
+    </el-menu>
     <!-- dialog for login and register -->
     <el-dialog class="dialog" :title="dialogTitle" :visible.sync="registerVisible" center width="35%">
       <el-form :mode="loginForm" label-width="120px" label-position="right" v-if="dialogStatus === 1">
@@ -91,10 +65,8 @@
 import {getCategoryGender, getCategorySeries, getBanner, getGoods, getHotGoods, getNewGoods} from '../api/goods'
 import {register,login} from '../api/user.js'
 import util from '../util/util'
-import navBar from '../components/nav'
 export default {
-  name: "Home",
-  components:{navBar},
+  name: "navBar",
   data() {
     return {
       navGender: [], // 性别分类
@@ -112,9 +84,8 @@ export default {
     };
   },
   created() {
-    this.getBanner_()
-    this.getHotGoods_()
-    this.getNewGoods_()
+    this.getCategoryGender_()
+    this.getCategorySeries_()
     if(localStorage.getItem('userInfo')) {
       this.hasLogin = true
       this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -123,28 +94,99 @@ export default {
   methods: {
     navSelect(inx, indP){
     },
-    // 前往商品详情页
-    goodsDetail(goodsId){
-      this.$router.push({path:'./goodsDetail', query:{goodsId: goodsId}})
-    },
-    // 获取轮播图
-    getBanner_(){
-      getBanner().then(res=>{
-        this.banner = res.data.data
+    // 获取商品分类: 性别
+    getCategoryGender_() {
+      getCategoryGender().then(res => {
+        this.navGender = res.data.data
       })
     },
-    // 获取热门商品
-    getHotGoods_(){
-      getHotGoods().then(res=>{
-        this.hotGoods = res.data.data
+    // 获取商品分类: 系列
+    getCategorySeries_() {
+      getCategorySeries().then(res=>{
+        this.navSeries = res.data.data
       })
     },
-    // 获取最新商品
-    getNewGoods_() {
-      getNewGoods().then(res=>{
-        this.newGoods = res.data.data
-      })
+    // 展示弹出框
+    login(type) {
+      type == 0 ? this.dialogTitle = '注册' : this.dialogTitle = '登录'
+      this.dialogStatus = type
+      this.registerVisible = true
     },
+    // Dialog确认
+    dialogConfirm() {
+      if (this.dialogStatus == 0) {
+        for (const key in this.registerFrom) {
+          if(util.trim(this.registerFrom[key]) == ''){
+            this.$message.error('请检查输入是否完整')
+            return
+          }
+        }
+        if (!util.isTel(this.registerFrom.phone)){
+          this.$message.error('请输出正确手机号')
+          return
+        }
+        if (!util.isEmail(this.registerFrom.email)){
+          this.$message.error('请输出正确邮箱')
+          return
+        }
+        register(this.registerFrom).then(res=>{
+          if (res.data.code == 0 ) {
+            this.$message.success('注册成功, 请登录')
+            this.registerFrom = {name: '', phone: '', gender: '0', password: '', email: ''}
+            this.dialogStatus = 1
+          } else if (res.data.code == 2) {
+            this.$confirm('该手机号已被注册, 是否跳转登录?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.registerFrom = {name: '', phone: '', gender: '0', password: '', email: ''}
+              this.dialogStatus = 1
+            })
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        })
+        
+      } else {
+        if(util.trim(this.loginForm.name)=='') {
+          this.$message.error('请输入用户名')
+          return
+        }
+        if(util.trim(this.loginForm.password)=='') {
+          this.$message.error('请输入密码')
+          return
+        }
+        login(this.loginForm).then(res=>{
+          console.log(res);
+          if(res.data.code == 2){
+            this.$confirm('用户不存在, 是否跳转注册?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.loginForm = {name: '', password: ''}
+              this.dialogStatus = 0
+            })
+          } else if (res.data.code == 0) {
+            this.loginForm = {name: '', password: ''}
+            this.$message.success('登陆成功')
+            this.hasLogin = true
+            this.userInfo = res.data.data
+            this.registerVisible = false
+            localStorage.setItem('userInfo', JSON.stringify(res.data.data))
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        })
+      }
+    },
+    // 退出登录
+    loginout(){
+      this.hasLogin = false
+      this.userInfo = {}
+      localStorage.removeItem('userInfo')
+    }
   },
 };
 </script>

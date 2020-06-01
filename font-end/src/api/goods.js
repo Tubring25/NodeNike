@@ -40,3 +40,7 @@ export function getNewGoods() {
 export function getSingleGood(data) {
   return Axios.get(baseUrl + 'singleGood', {params: data});
 }
+// 获取随即商品
+export function getRandomGoods() {
+  return Axios.get(baseUrl + "randomGoods");
+}

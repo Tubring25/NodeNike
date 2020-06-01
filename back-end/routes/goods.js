@@ -114,13 +114,18 @@ router.get('/newGoods', function (req, res) {
   })
 })
 // 随机推荐
-router.get('/randomGood', function (req, res) {
+router.get('/randomGoods', function (req, res) {
   let sql = 'select * from goods'
   conn.query(sql, (err, result) => {
     if(err) {
       res.json({code:1, err})
     } else {
-      
+      let randomArr = util.randomCode(4);
+      let resultArr = []
+      for (const i of randomArr){
+        resultArr.push(result[i])
+      }
+      res.json({ code: 0, data: resultArr });
     }
   })
 })

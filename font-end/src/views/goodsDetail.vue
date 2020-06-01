@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <navBar></navBar>
     <div class="content">
       <img class="img" :src="goodsInfo.imgurl">
       <div class="info">
@@ -14,30 +15,52 @@
         </div>
       </div>
     </div>
-    
+    <h3>推荐商品</h3>
+    <hr>
+    <div class="more">
+      <div class="item" v-for="(item,index) in randomGoods" :key="index" @click="getSingleGood_(item.id)">
+        <img :src="item.imgurl" alt="">
+        <el-tooltip class="item" effect="dark" :content="item.name" placement="top" style="width:100%">
+          <p class="name">{{item.name}}</p>
+        </el-tooltip>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
-import {getSingleGood} from '../api/goods'
+import {getSingleGood,getRandomGoods} from '../api/goods'
+import navBar from '../components/nav'
 export default {
+  components:{navBar},
   data(){
     return {
       goodsId: '', // 商品id
       goodsInfo: {}, // 商品信息
       num: '', // 数量
+      randomGoods: [], // 随机商品
     }
   },
   created() {
     // console.log(this.$route.query)
     this.goodsId = this.$route.query.goodsId
-    this.getSingleGood_()
+    this.getSingleGood_(this.goodsId)
+    this.getRandomGoods_()
   },
   methods: {
-    getSingleGood_() {
-      getSingleGood({id: this.goodsId}).then(res=>{
+    // 获取商品详情
+    getSingleGood_(goodsId) {
+      getSingleGood({id: goodsId}).then(res=>{
         this.goodsInfo = res.data.data
+        this.getRandomGoods_()
       })      
-    }
+    }, 
+    // 获取随即商品
+    getRandomGoods_(){
+      getRandomGoods().then(res=>{
+        this.randomGoods = res.data.data
+      })
+    },
   },
 }
 </script>
@@ -111,6 +134,40 @@ export default {
         background: #fff;
         color: rgb(240, 38, 38);
       }
+    }
+  }
+}
+h3 {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 40px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+  top: 20px;
+}
+hr {
+  width: 90%;
+  margin: 0 auto;
+}
+.more {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .item {
+    width: 20%;
+    img {
+      width: 100%;
+    }
+    .name {
+      padding: 30px 0;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+      font-size: 18px;
     }
   }
 }
