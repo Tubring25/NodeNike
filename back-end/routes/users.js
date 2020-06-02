@@ -82,5 +82,18 @@ router.post('/register', (req, res) => {
 		}
 	})
 })
+// 更改个人信息
+router.post('/updateUser', function(req, res){
+	let id = req.body.id
+	let sql = `UPDATE user SET name = ?, gender = ?, email = ? WHERE id = ` + id;
+	`UPDATE user SET name = ? WHERE id = ?`;
+	conn.query(sql, (err, result) => {
+		if(err) {
+			res.json({code:1, msg:err})
+		} else {
+			res.json({code:0, data: '更新成功'})
+		}
+	})
+})
 
 module.exports = router;

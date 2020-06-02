@@ -55,9 +55,23 @@ export default {
   methods: {
     edit(){
       if(this.ifEdit) {
+        for (const key in this.userInfo) {
+          if(util.trim(this.userInfo[key]) == '') {
+            this.$message.error('请检查输入是否完整')
+            return
+          }
+        }
+        if (!util.isTel(this.userInfo.phone)){
+          this.$message.error('请输出正确手机号')
+          return
+        }
+        if (!util.isEmail(this.userInfo.email)){
+          this.$message.error('请输出正确邮箱')
+          return
+        }
+
         this.ifEdit = false
         this.editName = '编辑'
-
       } else {
         this.ifEdit = true
         this.editName = '保存'
