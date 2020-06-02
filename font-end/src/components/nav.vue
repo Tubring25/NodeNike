@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="4">
         <i class="el-icon-user"></i>
-        <span v-if="hasLogin">{{userInfo.name}}</span>
+        <span v-if="hasLogin" @click="goUser">{{userInfo.name}}</span>
         <span v-show="!hasLogin" @click="login(1)">登录</span>/<span v-if="!hasLogin" @click="login(0)">注册</span>
         <span v-if="hasLogin" @click="loginout">退出</span>
       </el-col>
@@ -106,6 +106,10 @@ export default {
         this.navSeries = res.data.data
       })
     },
+    // 前往个人中心
+    goUser(){
+      this.$router.push('/user')
+    },
     // 展示弹出框
     login(type) {
       type == 0 ? this.dialogTitle = '注册' : this.dialogTitle = '登录'
@@ -186,6 +190,7 @@ export default {
       this.hasLogin = false
       this.userInfo = {}
       localStorage.removeItem('userInfo')
+      this.$router.push('/')
     }
   },
 };

@@ -159,6 +159,7 @@ hr {
   justify-content: space-between;
   .item {
     width: 20%;
+    cursor: pointer;
     img {
       width: 100%;
     }

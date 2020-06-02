@@ -1,5 +1,103 @@
 <template>
   <div class="container">
-    个人中心
+    <navBar></navBar>
+    <div class="content">
+      <div class="item info">
+        <h2 class="title">个人信息
+          <el-button type="primary" @click="edit">{{editName}}</el-button>
+        </h2>
+        <div class="detail">
+          <p class="name">用户名:<span v-show="!ifEdit">{{userInfo.name}}</span>
+            <el-input v-show="ifEdit" v-model="userInfo.name" type="text" placeholder="请输入用户名"></el-input>
+          </p>
+          <p class="name">邮箱:<span v-show="!ifEdit">{{userInfo.email}}</span>
+            <el-input v-show="ifEdit" type="text" v-model="userInfo.email" placeholder="请输入邮箱"></el-input>
+          </p>
+          <p class="name">性别:<span v-show="!ifEdit">{{userInfo.gender}}</span>
+            <el-radio-group v-show="ifEdit" v-model="userInfo.gender">
+              <el-radio label="0">女</el-radio>
+              <el-radio label="1">男</el-radio>
+            </el-radio-group>
+          </p>
+          <p class="name">电话号码:<span v-show="!ifEdit">{{userInfo.phone}}</span>
+            <el-input v-show="ifEdit" type="text" v-model="userInfo.phone" placeholder="请输入手机号码"></el-input>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="item pwd">
+        <h2 class="title">更改密码</h2>
+        <p>请输入原密码:<el-input type="password" placeholder="请输入原密码"></el-input> </p>
+        <p>请输入新密码: <el-input type="password" placeholder="请输入新密码"></el-input></p>
+        <el-button type="primary">确&nbsp;&nbsp;&nbsp;&nbsp;认</el-button>
+      </div>
+    </div>
   </div>
 </template>
+<script>
+import navBar from '../components/nav'
+import util from '../util/util'
+export default {
+  name: 'user',
+  components: {navBar},
+  data(){
+    return {
+      userInfo:{}, // 用户信息
+      ifEdit: false, // 是否编辑
+      editName: '编辑'
+    }
+  },
+  created() {
+    if(localStorage.getItem('userInfo')) {
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    }
+  },
+  methods: {
+    edit(){
+      if(this.ifEdit) {
+        this.ifEdit = false
+        this.editName = '编辑'
+
+      } else {
+        this.ifEdit = true
+        this.editName = '保存'
+      }
+    }
+  },
+}
+</script>
+<style lang="scss" scoped>
+.content {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+  border-radius: 10px;
+  border: 1px solid black;
+  .item {
+    margin: 50px 0;
+    text-align: center;
+    h2 {
+      font-size: 35px;
+    }
+    .el-button {
+      vertical-align: middle;
+    }
+    .detail {
+      p{
+        padding: 30px 0;
+        font-weight: bold;
+        font-size: 20px;
+        color: black;
+        .el-input{
+          width: 300px;
+        }
+        span{
+          font-size: 25px;
+          color: #3a8ee6;
+        }
+      }
+    }
+  }
+}
+</style>
