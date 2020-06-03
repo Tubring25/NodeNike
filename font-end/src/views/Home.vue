@@ -50,40 +50,6 @@
       <img class="footer" src="../static/logo.png" alt="">
     </div>
     <!-- dialog for login and register -->
-    <el-dialog class="dialog" :title="dialogTitle" :visible.sync="registerVisible" center width="35%">
-      <el-form :mode="loginForm" label-width="120px" label-position="right" v-if="dialogStatus === 1">
-        <el-form-item label="用户名" prop="name">
-          <el-input class="input" v-model="loginForm.name" placeholder="请输入用户名" maxlength="30"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input class="input" type="password" placeholder="请输入密码" maxlength="30" v-model="loginForm.password"></el-input>
-        </el-form-item>
-      </el-form>
-      <el-form :mode="registerFrom" label-width="120px" label-position="right" v-else>
-        <el-form-item label="用户名" prop="name">
-          <el-input class="input" v-model="registerFrom.name" placeholder="请输入用户名" maxlength="30"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="phone">
-          <el-input class="input" v-model="registerFrom.phone" placeholder="请输入手机号码" maxlength="30"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="gender">
-          <el-radio-group v-model="registerFrom.gender">
-            <el-radio label="0">女</el-radio>
-            <el-radio label="1">男</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input class="input" type="password" placeholder="请输入密码" maxlength="30" v-model="registerFrom.password"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input class="input" v-model="registerFrom.email" placeholder="请输入邮箱" maxlength="30"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="registerVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogConfirm">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -122,6 +88,7 @@ export default {
   },
   methods: {
     navSelect(inx, indP){
+      console.log(inx, indP)
     },
     // 前往商品详情页
     goodsDetail(goodsId){

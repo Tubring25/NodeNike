@@ -13,7 +13,7 @@
           <p class="name">邮箱:<span v-show="!ifEdit">{{userInfo.email}}</span>
             <el-input v-show="ifEdit" type="text" v-model="userInfo.email" placeholder="请输入邮箱"></el-input>
           </p>
-          <p class="name">性别:<span v-show="!ifEdit">{{userInfo.gender}}</span>
+          <p class="name">性别:<span v-show="!ifEdit">{{gender}}</span>
             <el-radio-group v-show="ifEdit" v-model="userInfo.gender">
               <el-radio label="0">女</el-radio>
               <el-radio label="1">男</el-radio>
@@ -27,14 +27,15 @@
       <hr>
       <div class="item pwd">
         <h2 class="title">更改密码</h2>
-        <p>请输入原密码:<el-input type="password" placeholder="请输入原密码"></el-input> </p>
-        <p>请输入新密码: <el-input type="password" placeholder="请输入新密码"></el-input></p>
-        <el-button type="primary">确&nbsp;&nbsp;&nbsp;&nbsp;认</el-button>
+        <p>请输入原密码:<el-input type="password" placeholder="请输入原密码" v-model="pwd.old"></el-input> </p>
+        <p>请输入新密码: <el-input type="password" placeholder="请输入新密码" v-model="pwd.new"></el-input></p>
+        <el-button type="primary" @click="resetPwd_">确&nbsp;&nbsp;&nbsp;&nbsp;认</el-button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {updateUser,resetPwd} from '../api/user'
 import navBar from '../components/nav'
 import util from '../util/util'
 export default {
@@ -44,19 +45,23 @@ export default {
     return {
       userInfo:{}, // 用户信息
       ifEdit: false, // 是否编辑
-      editName: '编辑'
+      editName: '编辑',
+      gender: '', // 性别
+      pwd: {old: '', new: ''}, // 密码
     }
   },
   created() {
     if(localStorage.getItem('userInfo')) {
       this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      this.userInfo.gender == '0' ? this.gender = '女' : this.gender = '男'
     }
   },
   methods: {
+    // 编辑用户信息
     edit(){
       if(this.ifEdit) {
         for (const key in this.userInfo) {
-          if(util.trim(this.userInfo[key]) == '') {
+          if(util.trim(this.userInfo[key].toString()) == '') {
             this.$message.error('请检查输入是否完整')
             return
           }
@@ -69,13 +74,42 @@ export default {
           this.$message.error('请输出正确邮箱')
           return
         }
+        updateUser(this.userInfo).then(res=>{
+          if(res.data.code == 0) {
+            this.$message.success('更新成功')
+            this.ifEdit = false
+            this.editName = '编辑'
+            localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
+            this.userInfo.gender == '0' ? this.gender = '女' : this.gender = '男'
+          } else {
+            this.$message.error('更新失败'+ res.data.msg)
+          }
+        })
 
-        this.ifEdit = false
-        this.editName = '编辑'
+        
       } else {
         this.ifEdit = true
         this.editName = '保存'
       }
+    },
+    // 更改密码
+    resetPwd_(){
+      for (const key in this.pwd) {
+        if (util.trim(this.pwd[key]) == '') {
+          this.$message.error('请输入完整')
+          return
+        }
+      }
+      let postData = {id:this.userInfo.id, oldpwd: this.pwd.old, newpwd: this.pwd.new}
+      resetPwd(postData).then(res=>{
+        if(res.data.code == 0) {
+          this.$message.success("修改成功,,请重新登陆")
+          localStorage.removeItem("userInfo")
+          this.$router.push('/')
+        }else{
+          this.$message.error(res.data.msg)
+        }
+      })
     }
   },
 }
@@ -97,21 +131,19 @@ export default {
     .el-button {
       vertical-align: middle;
     }
-    .detail {
-      p{
-        padding: 30px 0;
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-        .el-input{
-          width: 300px;
-        }
-        span{
-          font-size: 25px;
-          color: #3a8ee6;
-        }
+    p{
+      padding: 30px 0;
+      font-weight: bold;
+      font-size: 20px;
+      color: black;
+      span{
+        font-size: 25px;
+        color: #3a8ee6;
       }
     }
   }
+}
+.el-input{
+  width: 300px;
 }
 </style>

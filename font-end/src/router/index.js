@@ -18,6 +18,11 @@ const routes = [
     path: '/user',
     name: '个人中心',
     component: () => import('../views/user.vue')
+  },
+  {
+    path: '/goodsList',
+    name: '商品列表',
+    component: () => import('../views/goodsList.vue')
   }
 ];
 

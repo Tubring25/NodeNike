@@ -15,11 +15,11 @@
         <span>购物车</span>
       </el-col>
     </el-row>
-    <el-menu class="el-menu-demo" mode="horizontal" @select="navSelect" background-color="#333" text-color="#fff" active-text-color="#ffd04b">
+    <el-menu class="el-menu-demo" mode="horizontal" background-color="#333" text-color="#fff" active-text-color="#ffd04b">
       <el-submenu :index="(index).toString()" v-for="(item, index) in navGender" :key="index" :ref="item.id">
         <template slot="title">{{item.name}}</template>
         <div class="subTitle" v-for="(item2, index2) in navSeries" :key="index2">
-          <el-menu-item :index="index+'-'+index2" :ref="item2.id">{{item2.name}}</el-menu-item>
+          <el-menu-item :index="index+'-'+index2" :ref="item2.id" @click="navSelect(index,index2)">{{item2.name}}</el-menu-item>
         </div>
       </el-submenu>
     </el-menu>
@@ -92,7 +92,9 @@ export default {
     }
   },
   methods: {
-    navSelect(inx, indP){
+    navSelect(ind1, ind2){
+      this.$router.replace({path: '/goodsList', query: {gid: this.navGender[ind1].gid, sid: this.navSeries[ind2].sid}})
+      this.$router.go(0)
     },
     // 获取商品分类: 性别
     getCategoryGender_() {

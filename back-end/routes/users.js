@@ -85,13 +85,63 @@ router.post('/register', (req, res) => {
 // 更改个人信息
 router.post('/updateUser', function(req, res){
 	let id = req.body.id
-	let sql = `UPDATE user SET name = ?, gender = ?, email = ? WHERE id = ` + id;
-	`UPDATE user SET name = ? WHERE id = ?`;
-	conn.query(sql, (err, result) => {
-		if(err) {
-			res.json({code:1, msg:err})
+	let keys = ['id', 'name', 'gender', 'email', 'phone']
+	for (let i in keys){
+		if (req.body[keys[i]] == '' || req.body[keys[i]] == undefined || req.body[keys[i]] == null) {
+			res.json({code: 1, msg: keys[i]+'不能为空'})
+			return
+		}
+	}
+	let searchSql = 'SELECT * from user WHERE id = ?';
+	conn.query(searchSql,[id], (err, result) => {
+		if(err){
+			res.json({code: 1, msg: err})
 		} else {
-			res.json({code:0, data: '更新成功'})
+			if(result.length == 0) {
+				res.json({code: 1, msg: '用户不存在'})
+			} else{
+				let sql = `UPDATE user SET name = '`+req.body.name+`', gender = '`+req.body.gender+`', email = '`+req.body.email+`' WHERE id = '` + id+`'`;
+				conn.query(sql, (err, result) => {
+					if(err) {
+						res.json({code:1, msg:err})
+					} else {
+						res.json({code:0, data: '更新成功'})
+					}
+				})
+			}
+		}
+	})
+})
+// 更改密码
+router.post('/resetPwd', (req, res) =>{
+	let keys = ['id', 'oldpwd', 'newpwd']
+	for (let i in keys){
+		if (req.body[keys[i]] == '' || req.body[keys[i]] == undefined || req.body[keys[i]] == null) {
+			res.json({code: 1, msg: keys[i]+'不能为空'})
+			return
+		}
+	}
+	let searchSql = 'SELECT * FROM user WHERE id = ?'
+	conn.query(searchSql, [req.body.id], (err, result) =>{
+		if(err) {
+			res.json({code: 1, msg: err})
+		} else {
+			if (result.length == 0) {
+				res.json({code: 1, msg: '用户不存在'})
+			} else {
+				if(req.body.oldpwd === result[0].password) {
+					let sql = `UPDATE user SET password = '` + req.body.newpwd + `' WHERE id = ` + req.body.id
+					conn.query(sql,(err2, result2) => {
+						if(err2) {
+							res.json({code:1, msg: data})
+						} else {
+							res.json({code:0, data: '密码修改成功'})
+						}
+					})
+				} else {
+					res.json({code: 1, msg: '密码校验失败'})
+				}
+			}
 		}
 	})
 })

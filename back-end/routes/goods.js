@@ -10,10 +10,13 @@ let util = require('../util/util')
 router.get('/goods', function (req, res) {
   let page
   req.query.page == 0 ? page = 1 : page = req.query.page
+  let queryArr = []
+  queryArr.push(Number(req.query.gid))
+  queryArr.push(Number(req.query.sid))
   let pageSize = req.query.pageSize
   let ind = (page-1) * pageSize
-  let sql = `select * from goods limit ` + ind + `,` + pageSize;
-  conn.query(sql, (err, result) => {
+  let sql = `SELECT * FROM goods WHERE gid = ? AND sid=? limit ` + ind + `,` + pageSize;
+  conn.query(sql,queryArr, (err, result) => {
 		if (err) {
 			res.json({ code: 1, msg: err });
 		} else {

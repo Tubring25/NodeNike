@@ -14,3 +14,11 @@ export function register (data) {
 export function login(data) {
   return Axios.post(baseUrl + 'login', data)
 }
+// 更新用户信息
+export function updateUser(data) {
+  return Axios.post(baseUrl + 'updateUser', data)
+}
+// 更改密码
+export function resetPwd(data) {
+  return Axios.post(baseUrl + 'resetPwd', data)
+}
