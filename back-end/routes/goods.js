@@ -15,7 +15,13 @@ router.get('/goods', function (req, res) {
   queryArr.push(Number(req.query.sid))
   let pageSize = req.query.pageSize
   let ind = (page-1) * pageSize
-  let sql = `SELECT * FROM goods WHERE gid = ? AND sid=? limit ` + ind + `,` + pageSize;
+  let sql
+  if (req.query.gid == 3) {
+    sql = `SELECT * FROM goods WHERE gid = 3 AND sid=? limit ` + ind + `,` + pageSize;
+  } else {
+    sql = `SELECT * FROM goods WHERE gid = ? OR gid = 5 AND sid=? limit ` + ind + `,` + pageSize;
+  }
+  // let sql = `SELECT * FROM goods WHERE gid = ? OR gid = 5 AND sid=? limit ` + ind + `,` + pageSize;
   conn.query(sql,queryArr, (err, result) => {
 		if (err) {
 			res.json({ code: 1, msg: err });
