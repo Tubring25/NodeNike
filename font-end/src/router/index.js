@@ -23,6 +23,11 @@ const routes = [
     path: '/goodsList',
     name: '商品列表',
     component: () => import('../views/goodsList.vue')
+  },
+  {
+    path: '/shoppingCart',
+    name: '购物车',
+    component: () => import('../views/shoppingCart.vue')
   }
 ];
 

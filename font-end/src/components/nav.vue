@@ -2,7 +2,7 @@
   <div class="container">
     <el-row class="header">
       <el-col :span="16" style="height:50px">
-        <img class="logo" src="../static/logo.png" alt="">
+        <img class="logo" src="../static/logo.png" alt="" @click="back" style="cursor: pointer;">
       </el-col>
       <el-col :span="4">
         <i class="el-icon-user"></i>
@@ -12,7 +12,7 @@
       </el-col>
       <el-col :span="4">
         <i class="el-icon-shopping-cart-full"></i>
-        <span>购物车</span>
+        <span @click="goShopCart">购物车</span>
       </el-col>
     </el-row>
     <el-menu class="el-menu-demo" mode="horizontal" background-color="#333" text-color="#fff" active-text-color="#ffd04b">
@@ -92,9 +92,25 @@ export default {
     }
   },
   methods: {
+    // 前往购物车
+    goShopCart(){
+      if(this.userInfo.id) {
+        this.$router.push('/shoppingCart')
+      } else {
+        this.$message.info('请先登录')
+      }
+    },
+    // 回到首页
+    back(){
+      this.$router.push('/')
+    },
+    // 筛选
     navSelect(ind1, ind2){
-      this.$router.replace({path: '/goodsList', query: {gid: this.navGender[ind1].gid, sid: this.navSeries[ind2].sid}})
-      this.$router.go(0)
+      if(this.$route.path == '/goodsList') {
+        this.$emit('changeList', {gid: this.navGender[ind1].gid, sid: this.navSeries[ind2].sid})
+      } else {
+        this.$router.push({path: '/goodsList', query:{gid: this.navGender[ind1].gid, sid: this.navSeries[ind2].sid}})
+      }
     },
     // 获取商品分类: 性别
     getCategoryGender_() {
