@@ -55,8 +55,9 @@ router.post('/login', (req, res) => {
 
 // 注册
 router.post('/register', (req, res) => {
-	let sql2 = 'SELECT * from user WHERE phone = ?';
+	let sql2 = 'SELECT * FROM user WHERE phone=?';
 	let phone = req.body.phone
+	
 	conn.query(sql2, [phone], (err, result) => {
 		if (err){
 			res.json({ code: 1, msg: err });
@@ -144,6 +145,36 @@ router.post('/resetPwd', (req, res) =>{
 			}
 		}
 	})
+})
+// 添加购物车
+router.post('/addCart', (req, res) => {
+	let uid = req.body.uid
+	let gid = req.body.gid
+	let searchSql = 'SELECT * FROM cart WHERE user_id='+ uid +' AND gid='+gid;
+	conn.query(searchSql, (err, result) =>{
+		if (err) {
+			res.json({code:1, msg: err})
+		} else {
+			if(result.length == 0) {
+				console.log(Object.values(req.body));
+				let addSql = 'INSERT INTO cart(gid, user_id, num, goods_title, goods_img) values(?,?,?,?,?)';
+				conn.query(addSql,Object.values(req.body), (err, addRes) => {
+					if (err) {
+						res.json({ code: 1, msg: 'add' + err });
+					} else {
+						res.json({ code: 0 });
+					}
+				});
+			} else {
+				let updateSql = 
+			}
+		}
+	})
+	
+})
+// 购物车减少
+router.post('/subCart', (req, res) => {
+	
 })
 
 module.exports = router;
