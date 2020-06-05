@@ -148,13 +148,15 @@ router.post('/resetPwd', (req, res) =>{
 })
 // 添加购物车
 router.post('/addCart', (req, res) => {
-	let uid = req.body.uid
-	let gid = req.body.gid
-	let searchSql = 'SELECT * FROM cart WHERE user_id='+ uid +' AND gid='+gid;
+	let uid = Number(req.body.uid)
+	let gid = Number(req.body.gid)
+	let searchSql = 'SELECT * FROM cart WHERE gid=' + gid + ' AND user_id=' + uid;
 	conn.query(searchSql, (err, result) =>{
 		if (err) {
 			res.json({code:1, msg: err})
 		} else {
+			console.log(result)
+			return
 			if(result.length == 0) {
 				console.log(Object.values(req.body));
 				let addSql = 'INSERT INTO cart(gid, user_id, num, goods_title, goods_img) values(?,?,?,?,?)';
@@ -166,7 +168,7 @@ router.post('/addCart', (req, res) => {
 					}
 				});
 			} else {
-				let updateSql = 
+				// let updateSql = 
 			}
 		}
 	})
