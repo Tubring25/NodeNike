@@ -155,10 +155,9 @@ router.post('/addCart', (req, res) => {
 		if (err) {
 			res.json({code:1, msg: err})
 		} else {
-			console.log(result)
-			return
 			if(result.length == 0) {
 				console.log(Object.values(req.body));
+				
 				let addSql = 'INSERT INTO cart(gid, user_id, num, goods_title, goods_img) values(?,?,?,?,?)';
 				conn.query(addSql,Object.values(req.body), (err, addRes) => {
 					if (err) {
@@ -168,7 +167,6 @@ router.post('/addCart', (req, res) => {
 					}
 				});
 			} else {
-				// let updateSql = 
 			}
 		}
 	})
