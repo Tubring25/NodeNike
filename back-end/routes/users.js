@@ -166,7 +166,7 @@ router.post('/addCart', (req, res) => {
 					}
 				});
 			} else {
-				let updateSql = 
+				// let updateSql = 
 			}
 		}
 	})
