@@ -197,7 +197,14 @@ router.get('/getCart', (req,res)=>{
 router.post('/deleteCart', (req, res) => {
 	let uid = req.body.uid
 	let gid = req.body.gid
-	
+	let sql = 'DELETE FROM cart WHERE uid=? AND gid=?'
+	conn.query(sql, [uid,gid],(err,result)=>{
+		if(err) {
+			res.json({code: 1, msg: err})
+		} else {
+			res.json({code: 0, data: '删除成功'})
+		}
+	})
 })
 
 module.exports = router;
