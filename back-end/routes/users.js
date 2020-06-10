@@ -153,15 +153,15 @@ router.post('/addCart', (req, res) => {
 	let num = req.body.num
 	let goods_title = req.body.goods_title
 	let goods_img = req.body.goods_img
+	let price = req.body.price
 	let searchSql = 'SELECT * FROM cart WHERE gid=' + gid + ' AND user_id=' + uid;
 	conn.query(searchSql, (err, result) =>{
 		if (err) {
 			res.json({code:1, msg: err})
 		} else {
-			console.log(result)
 			if(result.length == 0) {
-				let addSql = 'INSERT INTO cart(gid, user_id, num, goods_title, goods_img) values(?,?,?,?,?)';
-				conn.query(addSql,[gid, uid, num, goods_title, goods_img ], (err, addRes) => {
+				let addSql = 'INSERT INTO cart(gid, user_id, num, goods_title, goods_img, price) values(?,?,?,?,?,?)';
+				conn.query(addSql,[gid, uid, num, goods_title, goods_img, price], (err, addRes) => {
 					if (err) {
 						res.json({ code: 1, msg: 'add' + err });
 					} else {
@@ -169,8 +169,8 @@ router.post('/addCart', (req, res) => {
 					}
 				});
 			} else {
-				let updateSql = 'UPDATE cart SET num = ? WHERE gid = ? AND user_id = ?'
-				conn.query(updateSql, [num, gid, uid], (err, updateRes) => {
+				let updateSql = 'UPDATE cart SET num = ?, price = ? WHERE gid = ? AND user_id = ?'
+				conn.query(updateSql, [num, price, gid, uid], (err, updateRes) => {
 					if (err) {
 						res.json({code: 1, msg: err})
 					} else {
@@ -182,8 +182,8 @@ router.post('/addCart', (req, res) => {
 	})
 })
 // 获取购物车
-router.get('/getCart', (req,res)=>{
-	let uid = req.query.uid
+router.post('/getShopCart', (req,res)=>{
+	let uid = req.body.uid
 	let searchSql = 'SELECT * FROM cart WHERE user_id = ?'
 	conn.query(searchSql,[uid], (err, result) => {
 		if(err) {
@@ -197,7 +197,7 @@ router.get('/getCart', (req,res)=>{
 router.post('/deleteCart', (req, res) => {
 	let uid = req.body.uid
 	let gid = req.body.gid
-	let sql = 'DELETE FROM cart WHERE uid=? AND gid=?'
+	let sql = 'DELETE FROM cart WHERE user_id=? AND gid=?'
 	conn.query(sql, [uid,gid],(err,result)=>{
 		if(err) {
 			res.json({code: 1, msg: err})
