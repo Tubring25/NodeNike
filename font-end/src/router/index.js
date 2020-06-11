@@ -5,29 +5,34 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
+    path: "/",
+    name: "Home",
+    component: () => import("../views/Home.vue")
   },
   {
-    path: '/goodsDetail',
-    name: 'GoodsDetail',
-    component: () => import('../views/goodsDetail.vue'),
+    path: "/goodsDetail",
+    name: "GoodsDetail",
+    component: () => import("../views/goodsDetail.vue")
   },
   {
-    path: '/user',
-    name: '个人中心',
-    component: () => import('../views/user.vue')
+    path: "/user",
+    name: "个人中心",
+    component: () => import("../views/user.vue")
   },
   {
-    path: '/goodsList',
-    name: '商品列表',
-    component: () => import('../views/goodsList.vue')
+    path: "/goodsList",
+    name: "商品列表",
+    component: () => import("../views/goodsList.vue")
   },
   {
-    path: '/shoppingCart',
-    name: '购物车',
-    component: () => import('../views/shoppingCart.vue')
+    path: "/shoppingCart",
+    name: "购物车",
+    component: () => import("../views/shoppingCart.vue")
+  },
+  {
+    path: "/buy",
+    name: "下单",
+    component: () => import("../views/buy.vue")
   }
 ];
 

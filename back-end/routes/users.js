@@ -206,5 +206,24 @@ router.post('/deleteCart', (req, res) => {
 		}
 	})
 })
+// 下单
+router.post('/buy', (req, res)=>{
+	let uid = req.body.uid
+	let order_time = new Date()
+	let num = req.body.num
+	let address = req.body.address
+	let phone = req.body.phone
+	let order_name = req.body.order_name
+	let goods = req.body.goods
+	let is_finish = false
+	let sql = 'INSERT INTO order(user_id, order_time, num, address, phone, order_name, is_finish, goods) values(?,?,?,?,?,?,?,?)';
+	conn.query(sql, [uid,order_time, num, address, phone, order_name, is_finish, goods], (err, reslut) =>{
+		if(err) {
+			res.json({code:1, msg:err})
+		} else {
+			res.json({code:0 ,data: '下单成功'})
+		}
+	})
+})
 
 module.exports = router;

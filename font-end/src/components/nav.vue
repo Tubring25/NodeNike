@@ -10,9 +10,13 @@
         <span v-show="!hasLogin" @click="login(1)">登录</span>/<span v-if="!hasLogin" @click="login(0)">注册</span>
         <span v-if="hasLogin" @click="loginout">退出</span>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="2">
         <i class="el-icon-shopping-cart-full"></i>
         <span @click="goShopCart">购物车</span>
+      </el-col>
+      <el-col :span="2">
+        <i class="el-icon-goods"></i>
+        <span @click="goShopCart">订单</span>
       </el-col>
     </el-row>
     <el-menu class="el-menu-demo" mode="horizontal" background-color="#333" text-color="#fff" active-text-color="#ffd04b">

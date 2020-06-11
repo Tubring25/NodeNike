@@ -17,7 +17,7 @@
       </div>
       <div class="total">
         <el-button type="primary">共{{total}}件</el-button>
-        <el-button type="danger">立即下单</el-button>
+        <el-button type="danger" @click="goBuy">立即下单</el-button>
       </div>
     </div>
   </div>
@@ -72,8 +72,13 @@ export default {
           this.$message.error('删除失败，请稍后重试')
         }
       })
+    },
+    // 前往下单页
+    goBuy() {
+      this.$router.push({path: 'buy', query: {origin: 'cart'}})
     }
   },
+  
 }
 </script>
 <style lang="scss" scoped>
