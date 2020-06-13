@@ -10,7 +10,7 @@
           <el-input-number class="number" v-model="num" :min="1" :max="100" size="small" :precision="0"></el-input-number>
         </p>
         <div class="btn-box">
-          <div class="btn cart">加入购物车</div>
+          <div class="btn cart" @click="addCart_">加入购物车</div>
           <div class="btn buy">立即购买</div>
         </div>
       </div>
@@ -30,6 +30,8 @@
 </template>
 <script>
 import {getSingleGood,getRandomGoods} from '../api/goods'
+import {addCart} from '../api/cart'
+
 import navBar from '../components/nav'
 export default {
   components:{navBar},
@@ -61,6 +63,26 @@ export default {
         this.randomGoods = res.data.data
       })
     },
+    // 添加购物车
+    addCart_(){
+      if(!JSON.parse(localStorage.getItem('userInfo'))){
+        this.$message.info('请先登录')
+        return
+      } else {
+        let that = this
+        let postData ={
+          uid: JSON.parse(localStorage.getItem('userInfo')).id,
+          gid: that.goodsInfo.id,
+          num: that.num,
+          goods_title: that.goodsInfo.name,
+          goods_img: that.goodsInfo.imgurl,
+          price: that.num * that.goodsInfo.price
+        }
+        addCart(postData).then(res => {
+          res.data.code == 0 ? this.$message.success("添加成功") : this.$message.success('添加失败')
+        })
+      }
+    }
   },
 }
 </script>
