@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 27/05/2020 15:47:04
+ Date: 14/06/2020 20:29:59
 */
 
 SET NAMES utf8mb4;
@@ -37,6 +37,28 @@ INSERT INTO `banner` VALUES (2, NULL, NULL, 'https://image.converse.com.cn/stati
 INSERT INTO `banner` VALUES (3, NULL, NULL, 'https://image.converse.com.cn/static/kv/pc/tee_campaign_kv_pc_200501.jpg');
 
 -- ----------------------------
+-- Table structure for cart
+-- ----------------------------
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `gid` int(0) NOT NULL COMMENT '商品id',
+  `user_id` int(0) NOT NULL COMMENT '用户',
+  `num` int(0) NULL DEFAULT NULL COMMENT '商品数量',
+  `goods_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品描述',
+  `goods_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品图片',
+  `price` decimal(10, 2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of cart
+-- ----------------------------
+INSERT INTO `cart` VALUES (5, 16, 2, 1, '【男女同款】Chuck 70', 'https://image.converse.com.cn/resources/product/169039C102/169039C102_1M_NEW.png?2020050901', 639.00);
+INSERT INTO `cart` VALUES (6, 6, 2, 1, '【男女同款】Chuck Taylor All Star Core 常青款', 'https://image.converse.com.cn/resources/product/102307401/102307401_1M_NEW.png?2020050901', 439.00);
+INSERT INTO `cart` VALUES (7, 10, 2, 1, '【男女同款】Jack Purcell LP', 'https://image.converse.com.cn/resources/product/165588C001/165588C001_1M_NEW.png?2020050901', 469.00);
+
+-- ----------------------------
 -- Table structure for categorygender
 -- ----------------------------
 DROP TABLE IF EXISTS `categorygender`;
@@ -45,7 +67,7 @@ CREATE TABLE `categorygender`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`gid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of categorygender
@@ -89,7 +111,7 @@ CREATE TABLE `goods`  (
   `isHot` int(0) NULL DEFAULT NULL COMMENT '热门商品',
   `isNew` int(0) NULL DEFAULT NULL COMMENT '新品',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of goods
@@ -168,38 +190,29 @@ INSERT INTO `goods` VALUES (71, '【女的】BIB FRONT SKIRT', 499.00, 'https://
 INSERT INTO `goods` VALUES (72, '【女的】TWISTED VARSITY KNIT JACKET', 599.00, 'https://image.converse.com.cn/resources/product/10018557001/10018557001_1M_NEW.png?2020050901', '【女的】TWISTED VARSITY KNIT JACKET', 2, 2, 4, NULL, NULL);
 
 -- ----------------------------
--- Table structure for order
+-- Table structure for ordertable
 -- ----------------------------
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order`  (
+DROP TABLE IF EXISTS `ordertable`;
+CREATE TABLE `ordertable`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户id',
-  `order_time` datetime(0) NULL DEFAULT NULL COMMENT '下单时间',
+  `order_time` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '下单时间',
   `num` int(0) NULL DEFAULT NULL COMMENT '交易数量',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货地址',
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货电话',
   `order_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收货人',
+  `is_finish` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `goods` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `user_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
--- Records of order
+-- Records of ordertable
 -- ----------------------------
-
--- ----------------------------
--- Table structure for ordergoods
--- ----------------------------
-DROP TABLE IF EXISTS `ordergoods`;
-CREATE TABLE `ordergoods`  (
-  `oid` int(0) NOT NULL COMMENT '交易id',
-  `gid` int(0) NULL DEFAULT NULL COMMENT '商品id',
-  `did` int(0) NOT NULL AUTO_INCREMENT COMMENT '交易码',
-  PRIMARY KEY (`did`, `oid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of ordergoods
--- ----------------------------
+INSERT INTO `ordertable` VALUES (1, '1', NULL, 1, NULL, '13', NULL, NULL, NULL);
+INSERT INTO `ordertable` VALUES (2, '1', NULL, 1, '111122', '13', '222', '0', '1,2,3');
+INSERT INTO `ordertable` VALUES (3, '1', '2020-6-14', 1, '111122', '13', '222', '0', '1,2,3');
+INSERT INTO `ordertable` VALUES (4, '2', '2020-6-14', 1, '111122', '13', '222', '0', '1,2,3');
 
 -- ----------------------------
 -- Table structure for series
@@ -224,23 +237,6 @@ INSERT INTO `series` VALUES (6, 'CONS', NULL);
 INSERT INTO `series` VALUES (7, 'PRO LEATHER', NULL);
 
 -- ----------------------------
--- Table structure for shoppingcart
--- ----------------------------
-DROP TABLE IF EXISTS `shoppingcart`;
-CREATE TABLE `shoppingcart`  (
-  `gid` int(0) NOT NULL COMMENT '商品id',
-  `user_id` int(0) NOT NULL COMMENT '用户',
-  `num` int(0) NULL DEFAULT NULL COMMENT '商品数量',
-  `good_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品描述',
-  `good_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品图片',
-  PRIMARY KEY (`user_id`, `gid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of shoppingcart
--- ----------------------------
-
--- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -252,11 +248,12 @@ CREATE TABLE `user`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'sameen', '18363945111', '0', 'sameen@qq.com', '123456');
+INSERT INTO `user` VALUES (2, 'admin', NULL, NULL, NULL, '123');
 
 SET FOREIGN_KEY_CHECKS = 1;
