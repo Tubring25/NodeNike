@@ -6,10 +6,17 @@
         <div>
           <p>收件人： 
             <span v-if="hasInfo">{{orderUser.name}}</span>
-            <el-input v-else v-model="input" placeholder="请输入内容"></el-input>
+            <el-input v-else v-model="orderUser.name" placeholder="请输入收件人"></el-input>
           </p>
-          <p>电话：{{orderUser.phone}}</p>
-          <p>详细地址：{{orderUser.address}}</p>
+          <p>电话：
+            <span v-if="hasInfo">{{orderUser.phone}}</span>
+            <el-input v-else v-model="orderUser.phone" placeholder="请输入电话"></el-input>
+          </p>
+          <p>详细地址：
+            <span v-if="hasInfo">{{orderUser.address}}</span>
+            <el-input v-else v-model="orderUser.address" placeholder="请输入详细地址"></el-input>
+          </p>
+          <el-button type="primary" @click="btnClick">{{btnName}}</el-button>
         </div>
       </el-card>
       <div class="item" v-for="item in cartList" :key="item.id">
@@ -23,14 +30,15 @@
       </div>
       <div class="total">
         <el-button type="primary">共{{total}}件</el-button>
-        <el-button type="danger" @click="buy">确认订单</el-button>
+        <el-button type="danger" @click="buy_">确认订单</el-button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import navBar from "../components/nav";
-import {getCart} from '../api/cart'
+import {getCart} from '../api/cart';
+import {buy} from '../api/order'
 export default {
   components: { navBar },
   data() {
@@ -40,7 +48,7 @@ export default {
       cartList: [], // 购物车列表
       total: "", // 总数
       hasInfo: false, // 是否有收件信息
-
+      btnName: '确定'
     };
   },
   created() {
@@ -61,8 +69,34 @@ export default {
         this.total = this.cartList.length
       })
     },
-    buy(){
-
+    buy_(){
+      let postData = {}
+      postData.uid = JSON.parse(localStorage.getItem('userInfo')).id
+      postData.num = this.total
+      postData.address = this.orderUser.address
+      postData.phone = this.orderUser.phone
+      postData.order_name = this.orderUser.name
+      postData.goods = this.cartList.map(a=>a.gid).join(',')
+      buy(postData).then(res=>{
+        if(res.data.code == 0) {
+          this.$message.success('下单成功')
+          this.$router.push('/')
+        }else {
+          this.$message.error(res.data.msg)
+        }
+      })
+    },
+    btnClick(){
+      if (this.btnName == '确定') {
+        for (let key in this.orderUser){
+          if(this.orderUser[key] == '') {
+            this.$message.info('请输入完整')
+            return
+          }
+        }
+      }
+      this.hasInfo==true ? this.hasInfo = false : this.hasInfo=true
+      this.btnName == '编辑' ? this.btnName = '确定' : this.btnName = '编辑'
     }
   },
 };
@@ -121,8 +155,17 @@ export default {
 }
 .box-card{
   margin-top: 15px;
+  position: relative;
   p{
     padding: 10px 0;
+  }
+  .el-input {
+    width: 300px;
+  }
+  .el-button {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
   }
 }
 </style>

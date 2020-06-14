@@ -16,7 +16,7 @@
       </el-col>
       <el-col :span="2">
         <i class="el-icon-goods"></i>
-        <span @click="goShopCart">订单</span>
+        <span @click="goMyOrder">订单</span>
       </el-col>
     </el-row>
     <el-menu class="el-menu-demo" mode="horizontal" background-color="#333" text-color="#fff" active-text-color="#ffd04b">
@@ -100,6 +100,14 @@ export default {
     goShopCart(){
       if(this.userInfo.id) {
         this.$router.push('/shoppingCart')
+      } else {
+        this.$message.info('请先登录')
+      }
+    },
+    // 前往订单
+    goMyOrder(){
+      if(this.userInfo.id) {
+        this.$router.push('/myOrder')
       } else {
         this.$message.info('请先登录')
       }
