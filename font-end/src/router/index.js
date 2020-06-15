@@ -38,6 +38,16 @@ const routes = [
     path: "/myOrder",
     name: "我的订单",
     component: () => import("../views/myOrder.vue")
+  },
+  {
+    path: "/adminLogin",
+    name: "后台登录",
+    component: () => import("../views/adminLogin.vue")
+  },
+  {
+    path: "/admin",
+    name: "后台首页",
+    component: () => import("../views/admin.vue")
   }
 ];
 

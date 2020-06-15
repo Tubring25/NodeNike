@@ -250,16 +250,14 @@ router.post('/getOrder', (req, res) => {
 			res.json({ code: 1, msg: err });
 		} else {
 			// for (const i in result) {
-			// 	// console.log(result[i].goods.split(','))
-			// 	// return
 			// 	let goods = result[i].goods.split(',');
 			// 	for (const j in goods) {
-			// 		let searchSql = 'SELECE * FROM orderTable a, goods b WHERE b.id = ?';
+			// 		let searchSql = 'SELECT * FROM goods WHERE id=?'
 			// 		conn.query(searchSql, [Number(goods[j])], (err2, result2) => {
 			// 			if (err2) {
 			// 				res.json({ code: 1, msg: '获取关联商品失败' });
 			// 			} else {
-			// 				result[i].goods = result2;
+			// 				result[i].goods.push(result2);
 			// 			}
 			// 		});
 			// 	}

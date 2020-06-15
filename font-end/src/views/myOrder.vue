@@ -2,16 +2,18 @@
   <div class="container">
     <navBar></navBar>
     <div class="content">
-      <el-table :data="tableData" style="width: 100%">
+      <el-table class="table" :data="orderList" style="width: 80%">
         <el-table-column prop="id" label="ID" width="180"></el-table-column>
-        <el-table-column prop="order_time" label="下单时间" width="180"></el-table-column>
-        <el-table-column prop="order_name" label="收件人姓名" width="180"></el-table-column>
-        <el-table-column prop="phone" label="收件人电话" width="180"></el-table-column>
-        <el-table-column prop="address" label="收件人地址" width="180"></el-table-column>
-        <el-table-column prop="is_finish" label="订单状态" width="180">
-          <el-tag>进行中</el-tag>
-          <el-tag type="success">已完成</el-tag>
-          <el-tag type="danger">已取消</el-tag>
+        <el-table-column prop="order_time" label="下单时间" ></el-table-column>
+        <el-table-column prop="order_name" label="收件人姓名" ></el-table-column>
+        <el-table-column prop="phone" label="收件人电话" ></el-table-column>
+        <el-table-column prop="address" label="收件人地址"></el-table-column>
+        <el-table-column prop="is_finish" label="订单状态">
+          <template slot-scope="{row}">
+            <el-tag v-show="row.is_finish==0">进行中</el-tag>
+            <el-tag v-show="row.is_finish==1" type="success">已完成</el-tag>
+            <el-tag v-show="row.is_finish==2" type="danger">已取消</el-tag>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -35,6 +37,9 @@ export default {
     this.getOrder_();
   },
   methods: {
+    aaa(data) {
+      console.log(data);
+    },
     getOrder_() {
       getOrder({ uid: JSON.parse(localStorage.getItem("userInfo")).id }).then(
         res => {
@@ -49,3 +54,11 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.table {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid lightgray;
+  margin-top: 50px;
+}
+</style>
