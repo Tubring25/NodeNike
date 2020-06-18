@@ -4,14 +4,14 @@
     <div class="loginForm">
       <div class="div">
         <span>UserName</span>
-        <el-input v-model="loginForm.name"></el-input>
+        <input type="text" v-model="loginForm.name">
       </div>
       <div class="div">
         <span>Password</span>
-        <el-input type="password" v-model="loginForm.password"></el-input>
+        <input type="password" v-model="loginForm.password">
       </div>
       <div class="div">
-        <el-button type="primary" @click="login_">Confirm</el-button>
+        <el-button type="primary" @click="login_" style="background: #111;color:#fff;border:1px solid #111">Confirm</el-button>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  background: #2d3a4b;
+  background: #fff;
   h1 {
     margin: 0;
     text-align: center;
@@ -67,7 +67,7 @@ export default {
     display: block;
     width: 500px;
     margin: 0 auto;
-    color: #eee !important;
+    color: #333 !important;
     position: relative;
     top: 250px;
     .div{
@@ -80,6 +80,16 @@ export default {
       .el-button {
         display: block;
         margin: 0 auto;
+      }
+      input {
+        width: 300px;
+        display: inline-block;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        background: rgba(129, 129, 129, 0.5);
+        color: #fff;
       }
     }
     .el-input {

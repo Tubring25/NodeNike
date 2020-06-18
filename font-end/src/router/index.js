@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -48,11 +48,26 @@ const routes = [
     path: "/admin",
     name: "后台首页",
     component: () => import("../views/admin.vue")
+  },
+  {
+    path: "/adminGoods",
+    name: "后台商品",
+    component: () => import("../views/adminGoods.vue")
+  },
+  {
+    path: "/adminOrder",
+    name: "后台",
+    component: () => import("../views/adminOrder.vue")
+  },
+  {
+    path: "/adminUser",
+    name: "后台",
+    component: () => import("../views/adminUser.vue")
   }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 export default router;

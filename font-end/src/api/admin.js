@@ -14,3 +14,19 @@ export function login(data) {
 export function getUser(data) {
   return Axios.get(baseUrl + 'userList')
 }
+// 删除商品
+export function deleteGoods(data) {
+  return Axios.post(baseUrl + "deleteGoods", data);
+}
+// 删除订单
+export function deleteOrder(data) {
+  return Axios.post(baseUrl + "deleteOrder", data);
+}
+// 更新订单
+export function updateOrder(data) {
+  return Axios.post(baseUrl + "updateOrder", data);
+}
+// 删除用户
+export function deleteUser(data) {
+  return Axios.post(baseUrl + "deleteUser", data);
+}
