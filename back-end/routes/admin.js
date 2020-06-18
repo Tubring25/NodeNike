@@ -51,5 +51,54 @@ router.get('/userList', (req, res) =>{
 		}
 	})
 })
+// 删除商品
+router.post('/deleteGoods', (req, res)=>{
+  let id = req.body.id
+  let sql = 'DELETE FROM goods WHERE id=?';
+  conn.query(sql,[id], (err, result)=> {
+    if(err) {
+      res.json({code: 1, msg: err})
+    } else {
+      res.json({code: 0, data: '删除成功'})
+    }
+  })
+})
+// 订单删除
+router.post('/deleteOrder', (req, res) => {
+	let id = req.body.id;
+	let sql = 'DELETE FROM ordertable WHERE id=?';
+	conn.query(sql, [id], (err, result) => {
+		if (err) {
+			res.json({ code: 1, msg: err });
+		} else {
+			res.json({ code: 0, data: '删除成功' });
+		}
+	});
+});
+// 订单更新
+router.post('/updateOrder', (req, res) => {
+	let id = req.body.id;
+	let status = req.body.status;
+	let sql = 'UPDATE ordertable SET is_finish=? WHERE id=?';
+	conn.query(sql, [status, id], (err, result) => {
+		if (err) {
+			res.json({ code: 1, msg: err });
+		} else {
+			res.json({ code: 0, data: '成功' });
+		}
+	});
+});
 
+// 删除用户
+router.post('/deleteUser', (req, res) => {
+	let id = req.body.id;
+	let sql = 'DELETE FROM user WHERE id=?';
+	conn.query(sql, [id], (err, result) => {
+		if (err) {
+			res.json({ code: 1, msg: err });
+		} else {
+			res.json({ code: 0, data: '删除成功' });
+		}
+	});
+});
 module.exports = router;
