@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import db from '../config/db';
+var Sequelize = require('sequelize');
+var db = require('../config/db');
 
 // 模糊查询
 const Op = Sequelize.Op
