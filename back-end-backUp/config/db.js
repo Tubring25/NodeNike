@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 const config = {
-	database: 'nikesql',
+	database: 'testSql',
 	user: 'root',
 	password: '123456'
 };
