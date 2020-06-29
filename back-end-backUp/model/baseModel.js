@@ -17,3 +17,4 @@ class baseModel {
     return attributes ? this.model.findAll({attributes: attributes, where: where}) : this.model.findAll({where: where});
   }
 }
+module.exports = baseModel;
