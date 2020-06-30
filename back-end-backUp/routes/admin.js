@@ -4,7 +4,7 @@ const router = express.Router()
 class adminCtroller {
   static initRouter(){
     router.get('/all', async (req, res, next) =>{
-      try{res.json(await adminService.baseFindAll())}catch(err){next(err)}
+      try{res.json(await adminService.baseFindAll(req.query))}catch(err){next(err)}
     })
     return router
   }

@@ -3,11 +3,13 @@ const Sequelize = require('sequelize');
 
 class adminModel extends BaseModel {
 	constructor() {
-		super('user', {
+		super('admins', {
 			username: { type: Sequelize.STRING },
-			password: { type: Sequelize.STRING },
+			passwd: { type: Sequelize.STRING },
 			email: { type: Sequelize.STRING },
 			phone: { type: Sequelize.STRING }
+		}, {
+			timestamps: false
 		});
 	}
 }
