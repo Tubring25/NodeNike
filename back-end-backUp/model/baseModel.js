@@ -13,14 +13,9 @@ class baseModel {
   findAll(config) {
     return this.model.findAll(config);
   }
-  // 有过滤条件的查询
-  findByFilter(attributes, where) {
-    return attributes ? this.model.findAll({ attributes: attributes, where: where }) : this.model.findAll({ where: where });
-  }
-  // 带过滤条件的排序精确查询
-  findByFilterOrder(attributes, where, order) {
-    let orderOps = [[order, 'DESC']]
-    return attributes ? this.model.findAll({ attributes: attributes, where: where, order: orderOps }) : this.model.findAll({ where: where, order: orderOps })
+  // 精确查询某一条数据
+  findOne(where) {
+    return this.model.findOne({where: where})
   }
   // 带过滤条件的模糊查询
   findLikeByFilter(attributes, where) {
