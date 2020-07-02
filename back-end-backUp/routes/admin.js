@@ -6,6 +6,9 @@ class adminCtroller {
     router.get('/all', async (req, res, next) =>{
       try{res.json(await adminService.baseFindAll(req.query))}catch(err){next(err)}
     })
+    router.get('/one', async (req, res, next) => {
+      try{res.json(await adminService.baseFindOne(req.query))}catch(err){next(err)}
+    })
     return router
   }
 }
