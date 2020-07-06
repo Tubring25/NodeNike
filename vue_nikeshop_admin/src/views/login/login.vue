@@ -10,7 +10,9 @@
         <i class="el-icon-lock"></i>
         <el-input class="input" v-model="loginFrom.password" placeholder="password" tabindex="1" type="password" />
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
+        <el-button type="primary" class="login-in" @click="Login">Login in</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -18,19 +20,16 @@
 export default {
   data(){
     const validateUserName = (rule, username, callback) => {
-      if (!username) {
-        callback(new Error('请输入密码'))
-      } else {
-        callback()
-      }
+      username ? callback() : callback(new Error('请输入用户名'))
     }
     const validatePassword = (rule, password, callback) => {
-      // if(!password) {
-      //   callback(new Error('请输入密码'))
-      // } else {
-      //   callback()
-      // }
-      password ? callback() : callback(new Error('请输入密码'))
+      if(!password) {
+        callback(new Error('请输入密码'))
+      } else if (password.length < 6) {
+        callback(new Error('密码长度不小于6位'))
+      } else{
+        callback()
+      }
     }
     return {
       loginFrom: {username: '', password: ''},
@@ -39,6 +38,13 @@ export default {
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       }
     }
-  }
+  },
+  methods: {
+    Login() {
+      if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
+        this.$message.info('inde')
+      }
+    }
+  },
 }
 </script>
