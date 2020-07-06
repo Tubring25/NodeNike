@@ -12,7 +12,11 @@ const routes = [
   },
   {
     path: "/login",
+<<<<<<< HEAD
     name: "About",
+=======
+    name: "Login",
+>>>>>>> 50db25e701be055d8e70672684f2e43c6ea3b717
     component: () =>
       import("../views/login/login.vue")
   }
