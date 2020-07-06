@@ -57,7 +57,14 @@ export default {
         ]
       }
     };
-  }
+  },
+  methods: {
+    Login() {
+      if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
+        this.$message.info('inde')
+      }
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -89,13 +96,6 @@ export default {
       vertical-align: bottom;
       padding-left: 15px;
     }
-  },
-  methods: {
-    Login() {
-      if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
-        this.$message.info('inde')
-      }
-    }
-  },
+  }
 }
 </style>
