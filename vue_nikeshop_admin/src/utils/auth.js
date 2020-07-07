@@ -1,5 +1,3 @@
-const { from } = require("core-js/fn/array")
-
 import Cookies from 'js-cookie';
 const keyName = 'admin-key'
 

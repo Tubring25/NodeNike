@@ -61,7 +61,7 @@ export default {
   methods: {
     Login() {
       if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
-        this.$message.info('inde')
+        this.$store.dispatch('user/login', this.loginFrom)
       }
     }
   },

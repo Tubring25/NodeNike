@@ -8,12 +8,21 @@ class adminService {
 	findAll() {
 		return this.instance.findAll();
 	}
-	login(body) {
+	async login(body) {
+		let that = this
 		try {
 			if (!body.username) {
 				return {code: 0, data: '用户名错误'}
 			} else if (!body.password) {
 				return { code: 0, data: '密码错误' };
+			} else {
+				let res = await that.instance.findAll({ where: { username: body.username } });
+				if(res.length == 0) {
+					return { code: 0, data: '查无此用户' };
+				} else {
+					delete res[0].passwd
+					return { code: 1, data: res };
+				}
 			}
 		} catch (err) {
 			console.log(err.message, err);
