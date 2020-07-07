@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div ref="login-container" class="login-container">
     <el-form ref="login-form" :model="loginFrom" :rules="loginRules">
       <h3 class="title">Login</h3>
       <el-form-item prop="username">
@@ -21,9 +21,6 @@
           tabindex="1"
           type="password"
         />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary">Login in</el-button>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" class="login-in" @click="Login">Login in</el-button>
@@ -58,6 +55,9 @@ export default {
       }
     };
   },
+  mounted() {
+    this.$refs['login-container'].style.height = document.documentElement.clientHeight + 'px'
+  },
   methods: {
     Login() {
       if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
@@ -71,22 +71,22 @@ export default {
 @import "../../style/theme.scss";
 
 .login-container {
+  background-color: $deepBg;
   width: 100%;
   height: 100%;
   position: relative;
-  color: $fontColor;
+  color: #BDBDBD;
   text-align: center;
-  .el-form >>> .el-form-item__content {
-      height: 40px;
-      line-height: 40px;
-    }
   .el-form {
     display: block;
-    width: 500px;
+    width: 600px;
     height: 400px;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 25%);
+    transform: translate(-50%, 30%);
+    .title {
+      font-size: 35px;
+    }
     i {
       font-size: 25px;
       color: #BDBDBD;
@@ -95,6 +95,10 @@ export default {
       width: 70%;
       vertical-align: bottom;
       padding-left: 15px;
+    }
+    .el-button--primary {
+      background-color: $bg;
+      border: #fff;
     }
   }
 }

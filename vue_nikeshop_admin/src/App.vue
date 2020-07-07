@@ -7,7 +7,7 @@
 <style lang="scss">
 body {
   margin: 0;
-  background-color: #303F9F;
+  height: 100%;
 }
 #app {
   margin: 0
