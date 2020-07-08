@@ -23,7 +23,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="login-in" @click="Login">Login in</el-button>
+        <el-button type="primary" class="login-in" @click="Login" :disabled="btnDisable">Login in</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -52,7 +52,8 @@ export default {
         password: [
           { required: true, trigger: "blur", validator: validatePassword }
         ]
-      }
+      },
+      btnDisable: false
     };
   },
   mounted() {
@@ -60,8 +61,14 @@ export default {
   },
   methods: {
     Login() {
+      this.btnDisable = true
       if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
-        this.$store.dispatch('user/login', this.loginFrom)
+        this.$store.dispatch('user/login', this.loginFrom).then(res=>{
+          this.btnDisable = false
+          if(res.code == 1) {
+            this.$router.push('/')
+          }
+        })
       }
     }
   },

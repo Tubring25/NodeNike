@@ -1,0 +1,43 @@
+<template>
+  <div class="app-wrapper">
+    <slidebar class="slide-bar"></slidebar>
+    <div class="main-container">
+      <navbar class="nav-bar"></navbar>
+      <app-main class="app-container"></app-main>
+    </div>
+  </div>
+</template>
+<script>
+import Navbar from './components/navBar';
+import Slidebar from './components/slideBar';
+import AppMain from './components/appMain';
+
+export default {
+  components: { Navbar, Slidebar, AppMain }
+}
+</script>
+<style lang="scss" scoped>
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.slide-bar {
+  width: 200px;
+  height: 100%;
+  background-color: lightblue;
+}
+.main-container {
+  width: 100%;
+  height: 100%;
+  .nav-bar {
+    width: 100%;
+    height: 50px;
+    background-color: lightcoral;
+  }
+  .app-container {
+    width: 100%;
+    height: 100%;
+    background-color: lightgreen;
+  }
+}
+</style>

@@ -1,4 +1,5 @@
 import { login } from '../../api/user';
+import { Message } from 'element-ui'
 // import { getToken, setToken, removeToken } from '../../utils/auth'
 
 const state = {
@@ -26,10 +27,16 @@ const actions = {
     const { username, password } = userInfo
     return new Promise ((resolve, reject) => {
       login({username: username.trim(), password: password}).then(res=>{
-        const { data } = res.data
-        commit('SET_NAME', data.name)
-        commit('SET_AVATAT', data.avatar)
-        resolve()
+        console.log(res.data)
+        if (res.data.code ==1) {
+          const { data } = res.data
+          commit('SET_NAME', data.name)
+          commit('SET_AVATAT', data.avatar)
+          resolve({code: res.data.code})
+        } else {
+          Message.error(res.data.data)
+          resolve({code: res.data.code})
+        }
       }).catch(err=>{
         reject(err)
       })
