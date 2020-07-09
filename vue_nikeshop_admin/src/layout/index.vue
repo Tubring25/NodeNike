@@ -22,9 +22,9 @@ export default {
   flex-direction: row;
 }
 .slide-bar {
-  width: 200px;
-  height: 100%;
-  background-color: lightblue;
+  min-width: 200px;
+  height: 100vh;
+  background-color: #264348;
 }
 .main-container {
   width: 100%;

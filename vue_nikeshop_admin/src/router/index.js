@@ -15,13 +15,34 @@ const routes = [
   },
   {
     path: "/",
+    redirect: '/dashboard',
+    component: Layout,
+    meta: {title: '首页', icon: 'el-icon-user'},
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/dashboard/dashboard'),
+        meta: { title: '面板1', icon: 'el-icon-menu' }
+      },
+      {
+        path: 'about',
+        name: 'About', 
+        component: () => import('../views/About'),
+        meta: {title: '关于1', icon: 'el-icon-menu'}
+      }
+    ]
+  },
+  {
+    path: "/index",
+    redirect: '/index/about',
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'Dashboard',
-        component: () => import('../views/dashboard/dashboard'),
-        meta: { title: '', icon: 'el-icon-menu' }
+        path: 'about',
+        name: 'About', 
+        component: () => import('../views/About'),
+        meta: {title: '关于2', icon: 'el-icon-menu'}
       }
     ]
   },
