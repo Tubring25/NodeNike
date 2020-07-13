@@ -15,6 +15,7 @@ const routes = [
   },
   {
     path: "/",
+    name: 'dashboard',
     redirect: '/dashboard',
     component: Layout,
     meta: {title: '首页', icon: 'el-icon-user'},
@@ -29,6 +30,7 @@ const routes = [
   },
   {
     path: "/index",
+    name: 'page2',
     redirect: '/index/about',
     component: Layout,
     meta: {title: '第二列', icon: 'el-icon-user'},
