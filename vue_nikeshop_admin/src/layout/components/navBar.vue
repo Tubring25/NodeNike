@@ -7,9 +7,17 @@
         </el-breadcrumb-item>
       </transition-group>
     </el-breadcrumb>
+    
+    <div class="app-avatar">
+      <el-avatar :src="avatar"></el-avatar>
+      <!-- <el-dropdwn>
+        
+      </el-dropdwn> -->
+    </div>
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 export default {
   data() {
     return {
@@ -18,6 +26,12 @@ export default {
   },
   created() {
     this.getBread();
+    console.log(this.avatar)
+  },
+  computed: {
+    ...mapGetters([
+      'avatar',
+    ])
   },
   watch: {
     $route: {
@@ -60,6 +74,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .app-breadcrumb {
+  width: 300px;
   height: 50px;
   line-height: 50px;
   padding-left: 15px;

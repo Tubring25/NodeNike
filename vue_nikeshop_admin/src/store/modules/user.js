@@ -30,8 +30,8 @@ const actions = {
         console.log(res.data)
         if (res.data.code ==1) {
           const { data } = res.data
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAT', data.avatar)
+          commit('SET_NAME', data[0].name)
+          commit('SET_AVATAT', data[0].avatar)
           resolve({code: res.data.code})
         } else {
           Message.error(res.data.data)
