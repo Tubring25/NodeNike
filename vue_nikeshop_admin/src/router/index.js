@@ -24,12 +24,6 @@ const routes = [
         name: 'Dashboard',
         component: () => import('../views/dashboard/dashboard'),
         meta: { title: '面板1', icon: 'el-icon-menu' }
-      },
-      {
-        path: 'about',
-        name: 'About', 
-        component: () => import('../views/About'),
-        meta: {title: '关于1', icon: 'el-icon-menu'}
       }
     ]
   },
@@ -37,12 +31,19 @@ const routes = [
     path: "/index",
     redirect: '/index/about',
     component: Layout,
+    meta: {title: '第二列', icon: 'el-icon-user'},
     children: [
       {
         path: 'about',
         name: 'About', 
         component: () => import('../views/About'),
         meta: {title: '关于2', icon: 'el-icon-menu'}
+      },
+      {
+        path: 'about1',
+        name: 'About1', 
+        component: () => import('../views/About'),
+        meta: {title: '关于1', icon: 'el-icon-menu'}
       }
     ]
   },

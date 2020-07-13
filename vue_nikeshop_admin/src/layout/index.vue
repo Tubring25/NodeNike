@@ -32,7 +32,7 @@ export default {
   .nav-bar {
     width: 100%;
     height: 50px;
-    background-color: lightcoral;
+    border-bottom: 1px solid #C0C4CC;
   }
   .app-container {
     width: 100%;

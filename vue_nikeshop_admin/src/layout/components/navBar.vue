@@ -1,26 +1,67 @@
 <template>
   <div class="nav">
-    顶部导航
+    <el-breadcrumb class="app-breadcrumb" separator="/">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item v-for="item in levelList" :key="item.path">
+          <a @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
   </div>
 </template>
 <script>
 export default {
-  data(){
+  data() {
     return {
-
-    }
+      levelList: []
+    };
   },
   created() {
-    this.getBread()
-    console.log(1111)
+    this.getBread();
   },
-  methods: {
-    getBread(){
-      debugger
-      // let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-      // const first = matched[0]
-
+  watch: {
+    $route: {
+      handler: function() {
+        this.getBread()
+      },
+      // 深度观察监听
+      deep: true
     }
   },
-}
+  methods: {
+    getBread() {
+      console.log(111)
+      let matched = this.$route.matched.filter(
+        item => item.meta && item.meta.title
+      );
+      const first = matched[0];
+      if (!this.isFirstPage(first)) {
+        matched = [{ path: "/dashboard", meta: { title: "首页" } }].concat(
+          matched
+        );
+      }
+      this.levelList = matched;
+      console.log(this.levelList);
+    },
+    isFirstPage(route) {
+      let name = route && route.meta.title;
+      if (!name) return false;
+      return name.trim() == "首页";
+    },
+    handleLink(item) {
+      if(item.path== '/dashborard') return
+      if(this.$route.path==item.redirect) return
+      console.log(this.$route.path)
+      this.$router.push({path: item.path})
+      console.log(item);
+    }
+  }
+};
 </script>
+<style lang="scss" scoped>
+.app-breadcrumb {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+}
+</style>

@@ -6,6 +6,7 @@
       background-color="#264348"
       text-color="#CCC"
       active-text-color="#22A7F0"
+      :default-active="$route.path"
       @select="go"
     >
       <div v-for="item in routes" :key="item.path">
@@ -32,7 +33,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      routes: []
+      routes: [],
     };
   },
   created() {
