@@ -8,4 +8,7 @@ router.get('/all', async (req, res, next) => {
 router.post('/login', async(req, res, next) => {
   res.json(await Admin.login(req.body))
 })
+router.post('/getUserInfo', async(req, res, next) => {
+  res.json(await Admin.getUserInfo(req.headers['x-token']))
+})
 module.exports = router;

@@ -1,6 +1,6 @@
 const adminModel = require('../../model/adminModel');
 const cryptp = require('crypto');
-const jwt = require('jsonwebtoken');
+const Utils = require('../../utils/index');
 
 class adminService {
 	constructor() {
@@ -23,7 +23,7 @@ class adminService {
 				} else {
 					if (res[0].passwd == body.password) {
 						delete res[0].passwd
-						return { code: 1, data: res };
+						return { code: 1, data: {token: Utils.createToken(res)} };
 					} else {
 						return { code: 0, data: '密码错误'};
 					}
@@ -34,13 +34,13 @@ class adminService {
 			return { code: 0, type: 'GET_ERROR_PARAM', data: err.message };
 		}
 	}
-	encryption(password) {
-		const newpassword = this.Md5(this.Md5(password).substr(2, 7) + this.Md5(password));
-		return newpassword;
-	}
-	Md5(password) {
-		const md5 = crypto.createHash('md5');
-		return md5.update(password).digest('base64');
+	getUserInfo(token){
+		let res = Utils.verifyToken(token)
+		if (res.data){
+			return {code: 1, data: res.data}
+		} else {
+			return {code: 0, data: res}
+		}
 	}
 }
 module.exports = new adminService();
