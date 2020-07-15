@@ -1,5 +1,6 @@
 const adminModel = require('../../model/adminModel');
 const cryptp = require('crypto');
+const jwt = require('jsonwebtoken');
 
 class adminService {
 	constructor() {

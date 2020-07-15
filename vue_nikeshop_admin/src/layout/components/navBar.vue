@@ -25,12 +25,11 @@ export default {
     };
   },
   created() {
-    this.getBread();
-    console.log(this.avatar)
+    this.getBread()
   },
   computed: {
     ...mapGetters([
-      'avatar',
+      "avatar"
     ])
   },
   watch: {
