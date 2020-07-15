@@ -67,6 +67,7 @@ export default {
           this.btnDisable = false
           if(res.code == 1) {
             this.$router.push('/')
+            this.$store.dispatch('user/getUserInfo')
           }
         })
       }

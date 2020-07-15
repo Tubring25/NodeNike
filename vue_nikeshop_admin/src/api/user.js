@@ -1,6 +1,15 @@
-import Axios from 'axios'
-const baseUrl = 'http://localhost:6741';
+import request from '../utils/request';
 
 export function login(data) {
-  return Axios.post(baseUrl+'/admin/login', data)  
+  return request({
+    url: '/admin/login',
+    method: 'post',
+    data
+  });
+}
+export function getUserInfo() {
+  return request({
+    url: '/admin/getUserInfo',
+    method: 'post'
+  })
 }

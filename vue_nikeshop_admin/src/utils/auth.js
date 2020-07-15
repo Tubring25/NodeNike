@@ -1,15 +1,15 @@
 import Cookies from 'js-cookie';
 const keyName = 'admin-key'
 
-export function getCookie () {
+export function getToken () {
   return Cookies.get(keyName);
 }
 
-export function setCookie(token){
+export function setToken(token){
   return Cookies.set(keyName, token)
 }
 
-export function removeCookie() {
+export function removeToken() {
   return Cookies.remove(keyName)
 }
 

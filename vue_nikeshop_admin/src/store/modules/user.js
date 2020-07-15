@@ -1,12 +1,12 @@
-import { login } from '../../api/user';
+import { login, getUserInfo } from '../../api/user';
 import { Message } from 'element-ui'
-// import { getToken, setToken, removeToken } from '../../utils/auth'
+import { getToken, setToken, removeToken } from '../../utils/auth'
 
 const state = {
-  // token: getToken(),
+  token: getToken(),
   name: '',
   avatar: '',
-  roles: ''
+  role: ''
 }
 
 const mutations = {
@@ -18,21 +18,22 @@ const mutations = {
   },
   SET_AVATAT: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLE: (state, role) => {
+    state.role = role
   }
 }
 
 const actions = {
   login({commit}, userInfo) {
-    console.log(userInfo)
     const { username, password } = userInfo
     return new Promise ((resolve, reject) => {
       login({username: username.trim(), password: password}).then(res=>{
         console.log(res.data)
         if (res.data.code ==1) {
           const { data } = res.data
-          commit('SET_NAME', data[0].name)
-          commit('SET_AVATAT', data[0].avatar)
-
+          commit('SET_TOKEN', data.token);
+          setToken(data.token)
           resolve({code: res.data.code})
         } else {
           Message.error(res.data.data)
@@ -42,6 +43,12 @@ const actions = {
         reject(err)
       })
     })
+  },
+  getUserInfo({commit}){
+    getUserInfo()
+  },
+  loginOut() {
+    removeToken()
   }
 }
 
