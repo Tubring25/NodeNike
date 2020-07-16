@@ -66,7 +66,7 @@ export default {
         this.$store.dispatch('user/login', this.loginFrom).then(res=>{
           this.btnDisable = false
           if(res.code == 1) {
-            this.$router.push('/')
+            this.$router.replace('/')
             this.$store.dispatch('user/getUserInfo')
           }
         })

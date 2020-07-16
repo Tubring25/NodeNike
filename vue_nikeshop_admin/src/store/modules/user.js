@@ -16,7 +16,7 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
-  SET_AVATAT: (state, avatar) => {
+  SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
   SET_ROLE: (state, role) => {
@@ -45,7 +45,22 @@ const actions = {
     })
   },
   getUserInfo({commit}){
-    getUserInfo()
+    return new Promise((resolve, reject) => {
+      getUserInfo().then(res=>{
+        console.log(res)
+        if(res.code == 0) {
+          resolve({code: 0, data: res.data.data})
+        } else {
+          const { username, avatar, authority } = res.data.data[0]
+          commit('SET_NAME', username)
+          commit('SET_ROLE', authority)
+          commit('SET_AVATAR', avatar)
+          resolve()
+        }
+      }).catch(err=>{
+        reject(err)
+      })
+    })
   },
   loginOut() {
     removeToken()

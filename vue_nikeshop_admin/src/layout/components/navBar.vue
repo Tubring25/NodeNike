@@ -9,10 +9,13 @@
     </el-breadcrumb>
     
     <div class="app-avatar">
-      <el-avatar :src="avatar"></el-avatar>
-      <!-- <el-dropdwn>
-        
-      </el-dropdwn> -->
+      <el-dropdown>
+          <el-avatar class="el-dropdown-link" :src="avatar"></el-avatar>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>GitHub</el-dropdown-item>
+          <el-dropdown-item divided>退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -31,6 +34,11 @@ export default {
     ...mapGetters([
       "avatar"
     ])
+  },
+  mounted() {
+    if (this.avatar=='' || this.avatar == undefined || this.avatar == null) {
+      this.$store.dispatch('user/getUserInfo')
+    }
   },
   watch: {
     $route: {
@@ -82,6 +90,19 @@ export default {
     line-height: 50px;
     padding-left: 15px;
   }
+  .app-avatar {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    padding-right: 20px;
+    .el-dropdown {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 }
-
 </style>
