@@ -2,6 +2,7 @@ import store from '../store';
 import router from '../router'
 // import { Message } from 'element-ui';
 import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'
 import { getToken } from '../utils/auth';
 
 const whiteList = ['/login'];
@@ -18,7 +19,8 @@ router.beforeEach((to, from, next) => {
       if (name) {
         next()
       } else {
-        this.$store.dispatch('user/getUserInfo')
+        store.dispatch('user/getUserInfo')
+        next()
         NProgress.done()
       }
     }
