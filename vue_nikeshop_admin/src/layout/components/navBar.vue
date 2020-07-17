@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     getBread() {
-      console.log(111)
       let matched = this.$route.matched.filter(
         item => item.meta && item.meta.title
       );
@@ -62,7 +61,6 @@ export default {
         );
       }
       this.levelList = matched;
-      console.log(this.levelList);
     },
     isFirstPage(route) {
       let name = route && route.meta.title;
@@ -72,9 +70,7 @@ export default {
     handleLink(item) {
       if(item.path== '/dashborard') return
       if(this.$route.path==item.redirect) return
-      console.log(this.$route.path)
       this.$router.push({path: item.path})
-      console.log(item);
     }
   }
 };

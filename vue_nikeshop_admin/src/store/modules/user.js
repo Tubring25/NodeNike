@@ -29,15 +29,14 @@ const actions = {
     const { username, password } = userInfo
     return new Promise ((resolve, reject) => {
       login({username: username.trim(), password: password}).then(res=>{
-        console.log(res.data)
-        if (res.data.code ==1) {
+        if (res.code ==1) {
           const { data } = res.data
           commit('SET_TOKEN', data.token);
           setToken(data.token)
-          resolve({code: res.data.code})
+          resolve({code: res.code})
         } else {
-          Message.error(res.data.data)
-          resolve({code: res.data.code})
+          Message.error(res.data)
+          resolve({code: res.code})
         }
       }).catch(err=>{
         reject(err)
@@ -47,11 +46,10 @@ const actions = {
   getUserInfo({commit}){
     return new Promise((resolve, reject) => {
       getUserInfo().then(res=>{
-        console.log(res)
         if(res.code == 0) {
-          resolve({code: 0, data: res.data.data})
+          resolve({code: 0, data: res.data})
         } else {
-          const { username, avatar, authority } = res.data.data[0]
+          const { username, avatar, authority } = res.data[0]
           commit('SET_NAME', username)
           commit('SET_ROLE', authority)
           commit('SET_AVATAR', avatar)
@@ -62,7 +60,9 @@ const actions = {
       })
     })
   },
-  loginOut() {
+  logout({commit}) {
+    commit('SET_TOKEN', '')
+    commit('SET_ROLES', [])
     removeToken()
   }
 }

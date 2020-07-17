@@ -29,17 +29,17 @@ const routes = [
     ]
   },
   {
-    path: "/index",
-    name: 'page2',
-    redirect: '/index/about',
+    path: "/goods",
+    name: 'goods',
+    redirect: '/goods/goodsCategory',
     component: Layout,
-    meta: {title: '第二列', icon: 'el-icon-user'},
+    meta: {title: '商品管理', icon: 'el-icon-goods'},
     children: [
       {
-        path: 'about',
-        name: 'About', 
-        component: () => import('../views/About'),
-        meta: {title: '关于2', icon: 'el-icon-menu'}
+        path: 'goodsCategory',
+        name: 'GoodsCategory', 
+        component: () => import('../views/goodsCategory/goodsCategory'),
+        meta: {title: "商品分类", icon: 'el-icon-menu'}
       },
       {
         path: 'about1',

@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { MessageBox, Message } from 'element-ui';
+import { MessageBox, Message } from 'element-ui';
 import store from '@/store';
 import { getToken } from '@/utils/auth';
 
@@ -11,5 +11,26 @@ axios.interceptors.request.use((config) => {
 	}
 	return config;
 });
+
+axios.interceptors.response.use( response=>{
+	const res = response.data
+	if (res.code != 1) {
+		Message({
+			message: res.data || "Error",
+			type: 'error'
+		})
+		if(res.code ==3) {
+			MessageBox.confirm(res.data, '重新登录', {
+				confirmButtonText: '确定',
+				type: 'warning'
+			}).then(() => {
+				store.dispatch('/user/logout')
+				this.$router.replace('/login')
+			})
+		}
+	} else {
+		return res
+	}
+})
 
 export default axios;
