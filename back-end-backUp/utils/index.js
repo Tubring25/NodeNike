@@ -12,7 +12,8 @@ const Utils = {
     catch {
       return 'token已失效'
     }
-  }
+  },
+  
 }
 
 module.exports = Utils

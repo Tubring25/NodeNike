@@ -1,15 +1,15 @@
 const Sequelize = require('sequelize');
-const baseModule = require('./baseModel');
+const baseModule = require('../baseModel');
 
-class goodsCategory extends baseModule {
+class goodsCategoryGender extends baseModule {
   constructor(){
-    super('goods_category_gender', {
+    super('goods_type_gender', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,
         autoIncrement: true
       },
-      cate_name: Sequelize.STRING,
+      type_name: Sequelize.STRING,
       is_delete: Sequelize.BOOLEAN,
     },
 		{
@@ -26,3 +26,5 @@ class goodsCategory extends baseModule {
     return this.model.create(data)
   }
 }
+
+module.exports = new goodsCategoryGender()

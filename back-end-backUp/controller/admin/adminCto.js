@@ -1,10 +1,9 @@
-const adminModel = require('../../model/adminModel');
-const cryptp = require('crypto');
+const adminModel = require('../../model/admin/goodsGenderType');
 const Utils = require('../../utils/index');
 
 class adminService {
 	constructor() {
-		this.instance = require('../../model/adminModel');
+		this.instance = adminModel;
 	}
 	findAll() {
 		return this.instance.findAll();
@@ -36,11 +35,15 @@ class adminService {
 	}
 	getUserInfo(token){
 		let res = Utils.verifyToken(token)
+		delete res.data[0].passwd
 		if (res.data){
 			return {code: 1, data: res.data}
 		} else {
-			return {code: 0, data: res}
+			return {code: 3, data: res}
 		}
+	}
+	testToken() {
+		return {code: 1, data: '测试token'}
 	}
 }
 module.exports = new adminService();

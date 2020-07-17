@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+var Utils = require('./utils/index');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin');
+var adminRouter = require('./routes/admin/admin');
+var loginRouter = require('./routes/fontend/login');
 
 var app = express();
 app.use(cors());
@@ -22,10 +22,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/admin', adminRouter);
+app.use('/login', loginRouter);
 
+app.all('*', (req, res, next) => {
+  if (req.headers['x-token']) {
+    let token = req.headers['x-token']
+    if(Utils.verifyToken(token).data) {
+      next();
+    } else {
+      res.json({code: 0, data: Utils.verifyToken(token) })
+    }
+  } else {
+    res.json({code: 3, data: '缺少token'});
+  }
+})
+
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

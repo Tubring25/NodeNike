@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const baseModel = require('./baseModel');
+const baseModel = require('../baseModel');
 
 class adminModel extends baseModel {
 	constructor() {
