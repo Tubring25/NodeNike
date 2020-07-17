@@ -10,6 +10,7 @@ class goodsCategoryGender extends baseModule {
         autoIncrement: true
       },
       type_name: Sequelize.STRING,
+      type_desc: Sequelize.STRING,
       is_delete: Sequelize.BOOLEAN,
     },
 		{

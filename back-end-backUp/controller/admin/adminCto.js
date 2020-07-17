@@ -42,8 +42,5 @@ class adminService {
 			return {code: 3, data: res}
 		}
 	}
-	testToken() {
-		return {code: 1, data: '测试token'}
-	}
 }
 module.exports = new adminService();

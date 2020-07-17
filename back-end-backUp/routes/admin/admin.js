@@ -12,7 +12,13 @@ router.post('/login', async(req, res, next) => {
 router.post('/getUserInfo', async(req, res, next) => {
   res.json(await Admin.getUserInfo(req.headers['x-token']))
 })
+
+
+// 商品
 router.post('/goods/addType', async(req, res, next) => {
   res.json(await goodsType.createType(req.body))
+})
+router.post('/goods/getGoodsGenderType', async(req, res, next)=>{
+  res.json(await goodsType.getAll())
 })
 module.exports = router;
