@@ -30,7 +30,11 @@ app.all('*', (req, res, next) => {
     if(Utils.verifyToken(token).data) {
       next();
     } else {
-      res.json({code: 0, data: Utils.verifyToken(token) })
+      let uncodeToken = Utils.verifyToken(token)
+      if (uncodeToken=='token已失效') {
+        res.json({code: 3, data: 'token已失效'});
+      }
+      res.json({code: 0, data: uncodeToken })
     }
   } else {
     res.json({code: 3, data: '缺少token'});

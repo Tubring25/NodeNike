@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const baseModule = require('../baseModel');
 
-class goodsCategoryGender extends baseModule {
-  constructor(){
-    super('goods_type_gender', {
+class goodsBaseType extends baseModule {
+  constructor() {
+    super('goods_base_type', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,
@@ -13,7 +13,7 @@ class goodsCategoryGender extends baseModule {
       type_desc: Sequelize.STRING,
       is_delete: Sequelize.BOOLEAN,
     },
-		{
+    {
 			timestamps: false, // 禁止默认添加时间戳
 			freezeTableName: true, // 禁止修改表名
     })
@@ -21,5 +21,3 @@ class goodsCategoryGender extends baseModule {
     this.model.sync()
   }
 }
-
-module.exports = new goodsCategoryGender()

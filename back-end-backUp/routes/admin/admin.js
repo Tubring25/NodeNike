@@ -21,4 +21,10 @@ router.post('/goods/addType', async(req, res, next) => {
 router.post('/goods/getGoodsGenderType', async(req, res, next)=>{
   res.json(await goodsType.getAll())
 })
+router.post('/goods/editType', async(req, res, next) => {
+  res.json(await goodsType.updateType(req.body))
+})
+router.post('/goods/deleteType', async(req, res, next) => {
+  res.json(await goodsType.deleteType(req.body))
+})
 module.exports = router;

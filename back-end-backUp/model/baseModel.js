@@ -7,6 +7,15 @@ class BaseModel {
   getModel(){
 		return this.model
   }
+  findAll (config) {
+    return this.model.findAll(config)
+  }
+  create (data) {
+    return this.model.create(data)
+  }
+  update(data, where) {
+    return this.model.update(data, where)
+  }
 }
 
 module.exports = BaseModel

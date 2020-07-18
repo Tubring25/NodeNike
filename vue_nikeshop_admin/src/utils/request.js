@@ -3,6 +3,8 @@ import { MessageBox, Message } from 'element-ui';
 import store from '@/store';
 import { getToken } from '@/utils/auth';
 
+let that = this
+
 axios.defaults.baseURL = 'http://localhost:6741'
 
 axios.interceptors.request.use((config) => {
@@ -25,7 +27,7 @@ axios.interceptors.response.use( response=>{
 				type: 'warning'
 			}).then(() => {
 				store.dispatch('/user/logout')
-				this.$router.replace('/login')
+				that.$router.replace('/login')
 			})
 		}
 	} else {
