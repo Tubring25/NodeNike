@@ -1,4 +1,4 @@
-const adminModel = require('../../model/admin/goodsGenderType');
+const adminModel = require('../../model/admin/adminModel');
 const Utils = require('../../utils/index');
 
 class adminService {
@@ -29,8 +29,7 @@ class adminService {
 				}
 			}
 		} catch (err) {
-			console.log(err.message, err);
-			return { code: 0, type: 'GET_ERROR_PARAM', data: err.message };
+			return { code: 0, type: 'GET_ERROR_PARAM', data: err };
 		}
 	}
 	getUserInfo(token){

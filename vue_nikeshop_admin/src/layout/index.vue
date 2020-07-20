@@ -28,13 +28,21 @@ export default {
 }
 .main-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  overflow: auto;
+  position: relative;
   .nav-bar {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #C0C4CC;
   }
   .app-container {
+    position: absolute;
+    top: 50px;
     width: 100%;
     height: 100%;
   }

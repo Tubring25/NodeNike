@@ -14,7 +14,7 @@
           <i :class="item.children[0].meta.icon"></i>
           <span slot="title">{{item.children[0].meta.title}}</span>
         </el-menu-item>
-        <el-submenu v-else>
+        <el-submenu v-else :index="item.path">
           <template slot="title">
             <i :class="item.meta.icon"></i>
             <span slot="title">{{item.meta.title}}</span>

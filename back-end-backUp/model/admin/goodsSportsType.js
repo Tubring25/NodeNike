@@ -1,16 +1,17 @@
 const Sequelize = require('sequelize');
 const baseModule = require('../baseModel');
 
-class goodsCategoryGender extends baseModule {
+class goodsSportsType extends baseModule {
   constructor(){
-    super('goods_type_gender', {
+    super('goods_sports_type', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,
         autoIncrement: true
       },
-      type_name: Sequelize.STRING,
-      type_desc: Sequelize.STRING,
+      name: Sequelize.STRING,
+      desc: Sequelize.STRING,
+      gender: Sequelize.INTEGER,
       is_delete: Sequelize.BOOLEAN,
     },
 		{
@@ -22,4 +23,4 @@ class goodsCategoryGender extends baseModule {
   }
 }
 
-module.exports = new goodsCategoryGender()
+module.exports = new goodsSportsType()

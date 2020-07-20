@@ -7,7 +7,7 @@ const cors = require('cors');
 var Utils = require('./utils/index');
 
 var adminRouter = require('./routes/admin/admin');
-var loginRouter = require('./routes/fontend/login');
+var loginRouter = require('./routes/admin/login');
 
 var app = express();
 app.use(cors());

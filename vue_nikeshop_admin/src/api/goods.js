@@ -1,8 +1,8 @@
 import request from '../utils/request';
 
-export function getGoodsGenderType(data) {
+export function getGoodsType(data) {
   return request({
-    url: '/admin/goods/getGoodsGenderType',
+    url: '/admin/goods/getGoodsType',
     method: 'POST',
     data
   })

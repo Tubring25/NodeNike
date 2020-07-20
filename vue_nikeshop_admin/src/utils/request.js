@@ -26,10 +26,11 @@ axios.interceptors.response.use( response=>{
 				confirmButtonText: '确定',
 				type: 'warning'
 			}).then(() => {
-				store.dispatch('/user/logout')
-				that.$router.replace('/login')
+				store.dispatch('user/logout')
+				window.location.replace('/login')
 			})
 		}
+		return res
 	} else {
 		return res
 	}

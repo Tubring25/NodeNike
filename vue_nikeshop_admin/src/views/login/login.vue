@@ -64,13 +64,13 @@ export default {
       this.btnDisable = true
       if(this.loginFrom.password && this.loginFrom.username && this.loginFrom.password.length>=6) {
         this.$store.dispatch('user/login', this.loginFrom).then(res=>{
-          this.btnDisable = false
           if(res.code == 1) {
             this.$router.replace('/')
             this.$store.dispatch('user/getUserInfo')
           }
         })
       }
+      this.btnDisable = false
     }
   },
 };

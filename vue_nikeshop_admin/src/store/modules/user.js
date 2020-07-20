@@ -30,12 +30,9 @@ const actions = {
     return new Promise ((resolve, reject) => {
       login({username: username.trim(), password: password}).then(res=>{
         if (res.code ==1) {
-          const { data } = res.data
+          const data = res.data
           commit('SET_TOKEN', data.token);
           setToken(data.token)
-          resolve({code: res.code})
-        } else {
-          Message.error(res.data)
           resolve({code: res.code})
         }
       }).catch(err=>{
@@ -61,9 +58,12 @@ const actions = {
     })
   },
   logout({commit}) {
+    console.log('logout')
+    removeToken()
+    console.log(getToken())
     commit('SET_TOKEN', '')
     commit('SET_ROLES', [])
-    removeToken()
+    
   }
 }
 
