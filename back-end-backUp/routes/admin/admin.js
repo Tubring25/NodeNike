@@ -2,6 +2,7 @@ const express =  require('express');
 const Admin = require('../../controller/admin/adminCto');
 const goodsSportsType = require('../../controller/admin/goodsSportsTypeCto');
 const goodsBaseType = require('../../controller/admin/goodsBaseTypeCto');
+const goodsBrandsType = require('../../controller/admin/goodsBrandsTypeCto');
 const router = express.Router();
 
 router.get('/all', async (req, res, next) => {
@@ -12,33 +13,60 @@ router.post('/getUserInfo', async(req, res, next) => {
 })
 
 
-// 商品
+/**
+ * 商品
+ */
+// 商品类别
 router.post('/goods/addType', async(req, res, next) => {
-  if(req.body.type ==1) {
-    res.json(await goodsSportsType.createType(req.body))
-  } else {
-    res.json(await goodsBaseType.createType(req.body))
+  switch (Number(req.body.type)) {
+    case 1:
+      res.json(await goodsSportsType.createType(req.body));
+      break;
+    case 2:
+      res.json(await goodsBaseType.createType(req.body));
+      break;
+    case 3:
+      res.json(await goodsBrandsType.createType(req.body))
+      break
   }
 })
 router.post('/goods/getGoodsType', async(req, res, next)=>{
-  if(req.body.type==1) {
-    res.json(await goodsSportsType.getAll(req.body))
-  } else {
-    res.json(await goodsBaseType.getAll(req.body))
+  switch (Number(req.body.type)){
+    case 1:
+      res.json(await goodsSportsType.getAll(req.body));
+      break;
+    case 2:
+      res.json(await goodsBaseType.getAll(req.body));
+      break;
+    case 3:
+      res.json(await goodsBrandsType.getAll(req.body))
+      break
   }
 })
 router.post('/goods/editType', async(req, res, next) => {
-  if(req.body.type==1) {
-    res.json(await goodsSportsType.updateType(req.body))
-  } else {
-    res.json(await goodsBaseType.updateType(req.body))
+  switch (Number(req.body.type)){
+    case 1:
+      res.json(await goodsSportsType.updateType(req.body));
+      break;
+    case 2:
+      res.json(await goodsBaseType.updateType(req.body));
+      break;
+    case 3:
+      res.json(await goodsBrandsType.updateType(req.body))
+      break
   }
 })
 router.post('/goods/deleteType', async(req, res, next) => {
-  if(req.body.type==1) {
-    res.json(await goodsSportsType.deleteType(req.body))
-  } else {
-    res.json(await goodsBaseType.deleteType(req.body))
+  switch (Number(req.body.type)){
+    case 1:
+      res.json(await goodsSportsType.deleteType(req.body));
+      break;
+    case 2:
+      res.json(await goodsBaseType.deleteType(req.body));
+      break;
+    case 3:
+      res.json(await goodsBrandsType.deleteType(req.body))
+      break
   }
 })
 module.exports = router;

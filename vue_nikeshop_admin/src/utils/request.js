@@ -3,8 +3,6 @@ import { MessageBox, Message } from 'element-ui';
 import store from '@/store';
 import { getToken } from '@/utils/auth';
 
-let that = this
-
 axios.defaults.baseURL = 'http://localhost:6741'
 
 axios.interceptors.request.use((config) => {

@@ -1,29 +1,35 @@
 <template>
   <div class="category-container">
-    <h1>顶部分类</h1>
-    <el-table :data="genderList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="name" label="类别名称"></el-table-column>
-      <el-table-column prop="desc" label="类别描述"></el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row,'1')">编辑</el-button>
-          <el-button type="danger" size="mini" @click="deleteItem(scope.row,'1')">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <h1>通用分类</h1>
-    <el-table :data="baseList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="name" label="类别名称"></el-table-column>
-      <el-table-column prop="desc" label="类别描述"></el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row,'2')">编辑</el-button>
-          <el-button type="danger" size="mini" @click="deleteItem(scope.row,'2')">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-tabs v-model="tabActive" @tab-click="handleClick" :stretch="true">
+      <el-tab-pane label="鞋类/服装" name="base">
+        <el-table :data="baseList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
+          <el-table-column prop="id" label="ID"></el-table-column>
+          <el-table-column prop="name" label="类别名称"></el-table-column>
+          <el-table-column prop="desc" label="类别描述"></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row,'2')">编辑</el-button>
+              <el-button type="danger" size="mini" @click="deleteItem(scope.row,'2')">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="运动" name="sports">
+        <el-table :data="genderList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
+          <el-table-column prop="id" label="ID"></el-table-column>
+          <el-table-column prop="name" label="类别名称"></el-table-column>
+          <el-table-column prop="desc" label="类别描述"></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row,'1')">编辑</el-button>
+              <el-button type="danger" size="mini" @click="deleteItem(scope.row,'1')">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="品牌" name="brands">品牌</el-tab-pane>
+    </el-tabs>
+
 
     <el-dialog title="编辑" :visible.sync="editDialog" width="30%" center :close-on-click-modal="false">
       <p class="item">
@@ -51,6 +57,7 @@ export default {
       editDialog: false,
       editItem: {},
       cellStyle: {textAlign: 'center'},
+      tabActive: 'base'
     }
   },
   created() {
@@ -84,6 +91,9 @@ export default {
       deleteGoodsType({id: row.id, type: type}).then(res=>{
         res.code == 1 ? this.getGoodsType_() : this.$message.error(res.data)
       })
+    },
+    handleClick(tab, event){
+      console.log(tab, event)
     }
   },
 }
@@ -95,6 +105,11 @@ export default {
 }
 h1{
   text-align: center;
+}
+.el-tabs__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 </style>
