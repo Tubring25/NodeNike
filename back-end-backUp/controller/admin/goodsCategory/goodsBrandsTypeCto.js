@@ -1,4 +1,4 @@
-const goodsBrandsTypeModule = require('../../model/admin/goodsBrandsType');
+const goodsBrandsTypeModule = require('../../../model/admin/goodsCategory/goodsBrandsType');
 
 class goodsBrandsTypeService {
   constructor() {

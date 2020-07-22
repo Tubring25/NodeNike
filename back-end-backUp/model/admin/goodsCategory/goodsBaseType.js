@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
-const baseModule = require('../baseModel');
+const baseModule = require('../../baseModel');
 
-class goodsSportsType extends baseModule {
-  constructor(){
-    super('goods_sports_type', {
+class goodsBaseType extends baseModule {
+  constructor() {
+    super('goods_base_type', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,
@@ -11,10 +11,11 @@ class goodsSportsType extends baseModule {
       },
       name: Sequelize.STRING,
       desc: Sequelize.STRING,
-      gender: Sequelize.INTEGER,
+      gender: Sequelize.INTEGER, // 性别: 0.男女同款 1.女款 2.男款 3.儿童
+      type: Sequelize.INTEGER, // 品类: 0.鞋类 1.服装
       is_delete: Sequelize.BOOLEAN,
     },
-		{
+    {
 			timestamps: false, // 禁止默认添加时间戳
 			freezeTableName: true, // 禁止修改表名
     })
@@ -23,4 +24,4 @@ class goodsSportsType extends baseModule {
   }
 }
 
-module.exports = new goodsSportsType()
+module.exports = new goodsBaseType()

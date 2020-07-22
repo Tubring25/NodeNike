@@ -1,8 +1,8 @@
 const express =  require('express');
 const Admin = require('../../controller/admin/adminCto');
-const goodsSportsType = require('../../controller/admin/goodsSportsTypeCto');
-const goodsBaseType = require('../../controller/admin/goodsBaseTypeCto');
-const goodsBrandsType = require('../../controller/admin/goodsBrandsTypeCto');
+const goodsSportsType = require('../../controller/admin/goodsCategory/goodsSportsTypeCto');
+const goodsBaseType = require('../../controller/admin/goodsCategory/goodsBaseTypeCto');
+const goodsBrandsType = require('../../controller/admin/goodsCategory/goodsBrandsTypeCto');
 const router = express.Router();
 
 router.get('/all', async (req, res, next) => {
