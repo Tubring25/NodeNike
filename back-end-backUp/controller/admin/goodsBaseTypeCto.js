@@ -16,10 +16,12 @@ class goodsBaseTypeService {
       return { code: 0, data: err } 
     }
   }
-  async getAll() {
+  async getAll(data) {
+    const {page, pageSize} = data
     try {
-      let res = await goodsBaseTypeModule.findAll().filter(a => a.is_delete == false)
-      return { code: 1, data: res }
+      let res = await goodsBaseTypeModule.findAndCount({limit: Number(pageSize), offset: Number(page-1)*Number(pageSize), where: {is_delete: 0}})
+      // let res = await goodsBaseTypeModule.findAll().filter(a => a.is_delete == false)
+      return { code: 1, data: res.rows, total: res.count }
     }
     catch (err) {
       return { code: 0, data: err }

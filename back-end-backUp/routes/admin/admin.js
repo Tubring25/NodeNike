@@ -20,10 +20,10 @@ router.post('/getUserInfo', async(req, res, next) => {
 router.post('/goods/addType', async(req, res, next) => {
   switch (Number(req.body.type)) {
     case 1:
-      res.json(await goodsSportsType.createType(req.body));
+      res.json(await goodsBaseType.createType(req.body));
       break;
     case 2:
-      res.json(await goodsBaseType.createType(req.body));
+      res.json(await goodsSportsType.createType(req.body));
       break;
     case 3:
       res.json(await goodsBrandsType.createType(req.body))
@@ -33,10 +33,10 @@ router.post('/goods/addType', async(req, res, next) => {
 router.post('/goods/getGoodsType', async(req, res, next)=>{
   switch (Number(req.body.type)){
     case 1:
-      res.json(await goodsSportsType.getAll(req.body));
+      res.json(await goodsBaseType.getAll(req.body));
       break;
     case 2:
-      res.json(await goodsBaseType.getAll(req.body));
+      res.json(await goodsSportsType.getAll(req.body));
       break;
     case 3:
       res.json(await goodsBrandsType.getAll(req.body))
@@ -46,10 +46,10 @@ router.post('/goods/getGoodsType', async(req, res, next)=>{
 router.post('/goods/editType', async(req, res, next) => {
   switch (Number(req.body.type)){
     case 1:
-      res.json(await goodsSportsType.updateType(req.body));
+      res.json(await goodsBaseType.updateType(req.body));
       break;
     case 2:
-      res.json(await goodsBaseType.updateType(req.body));
+      res.json(await goodsSportsType.updateType(req.body));
       break;
     case 3:
       res.json(await goodsBrandsType.updateType(req.body))
@@ -59,10 +59,10 @@ router.post('/goods/editType', async(req, res, next) => {
 router.post('/goods/deleteType', async(req, res, next) => {
   switch (Number(req.body.type)){
     case 1:
-      res.json(await goodsSportsType.deleteType(req.body));
+      res.json(await goodsBaseType.deleteType(req.body));
       break;
     case 2:
-      res.json(await goodsBaseType.deleteType(req.body));
+      res.json(await goodsSportsType.deleteType(req.body));
       break;
     case 3:
       res.json(await goodsBrandsType.deleteType(req.body))

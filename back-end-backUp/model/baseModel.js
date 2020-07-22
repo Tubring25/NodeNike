@@ -16,6 +16,9 @@ class BaseModel {
   update(data, where) {
     return this.model.update(data, where)
   }
+  findAndCount(config) {
+    return this.model.findAndCountAll(config)
+  }
 }
 
 module.exports = BaseModel
