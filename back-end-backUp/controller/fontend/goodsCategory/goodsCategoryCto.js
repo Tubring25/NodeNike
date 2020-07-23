@@ -3,14 +3,15 @@ const goodsBaseTypeModule = require('../../../model/admin/goodsCategory/goodsBas
 const goodsBrandsTypeModule = require('../../../model/admin/goodsCategory/goodsBrandsType');
 
 class goodsCategoryService {
-  getCategory(type, config) {
-    if (type){
+  async getCategory(config) {
+    console.log(config)
+    if (config.type){
       
     } else {
-      const BaseRes = await goodsBaseTypeModule.findAll({where: {id_delete: 0}});
-      const SportsRes = await goodsSportsTypeModule.findAll({where: {id_delete: 0}});
-      const BrandsRes = await goodsBrandsTypeModule.findAll({where: {id_delete: 0}});
-      return {code: 0, data: [BaseRes, SportsRes, BrandsRes]}
+      const BaseRes = await goodsBaseTypeModule.findAll({id_delete: 0});
+      const SportsRes = await goodsSportsTypeModule.findAll({id_delete: 0});
+      const BrandsRes = await goodsBrandsTypeModule.findAll({id_delete: 0});
+      return {code: 1, data: [BaseRes, SportsRes, BrandsRes]}
     }
   }
 }

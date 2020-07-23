@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { MessageBox, Message } from 'element-ui';
 
 axios.defaults.baseURL = 'http://localhost:6741';
 
-axios.interceptors.request.use((private,config) => {
-  if(private) {
+axios.interceptors.request.use((config) => {
+  if(config.private) {
     // if (store.getters.token) {
     //   config.headers['n-token'] = getToken();
     // }
@@ -23,7 +24,7 @@ axios.interceptors.response.use( response=>{
 				confirmButtonText: '确定',
 				type: 'warning'
 			}).then(() => {
-				store.dispatch('user/logout')
+				// store.dispatch('user/logout')
 				window.location.replace('/login')
 			})
 		}

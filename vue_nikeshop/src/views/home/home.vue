@@ -1,14 +1,13 @@
 <template>
   <div class="container">
-    首页
+    <navbar></navbar>
   </div>
 </template>
 <script>
+import navbar from '@/components/navbar/navbar'
 export default {
+  components : {navbar},
   methods: {
-    go() {
-      this.$router.push('/about')
-    }
   }
 }
 </script>

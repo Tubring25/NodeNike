@@ -8,6 +8,7 @@ var Utils = require('./utils/index');
 
 var adminRouter = require('./routes/admin/admin');
 var loginRouter = require('./routes/admin/login');
+var shopNoPoivateRouter = require('./routes/fontend/noPrivate');
 
 var app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', loginRouter);
+app.use('/shop', shopNoPoivateRouter);
 
 app.all('*', (req, res, next) => {
   if (req.headers['x-token']) {
