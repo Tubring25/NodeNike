@@ -5,7 +5,8 @@ const formiable = require('formidable');
 class commonService {
   uploadImg(req, res){
     // console.log(req)
-    let resp = {}
+    
+    console.log(req)
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
     form.uploadDir = path.join(__dirname, '../../../public');
@@ -39,7 +40,7 @@ class commonService {
         if(err) {
           return res.json({code: 0, data: '图片上传失败'})
         } else {
-          return res.json({code: 1, data: {url: '/public' + newPath}})
+          return res.json({code: 1, data: {url: '/public/' + imageName}})
         }
       })
     })

@@ -25,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', loginRouter);
 app.use('/shop', shopNoPoivateRouter);
+app.get('/img',function (req, res, next) {
+  console.log(req)
+  res.sendFile(path.join(__dirname, 'public/'+req.query.id));
+})
 
 app.all('*', (req, res, next) => {
   if (req.headers['x-token']) {
