@@ -14,7 +14,7 @@
       <div class="left">
         <img src="../../assets/logo.png" alt="" srcset="">
       </div>
-      <div class="center">
+      <div class="center" @mouseenter="showDrop=true">
         <span>男子</span>
         <span>女子</span>
         <span>儿童</span>
@@ -25,46 +25,48 @@
         </el-input>
       </div>
     </div>
-    <div class="drop">
-      <div class="left">
-        <ul>
-          <li>人气热销</li>
-          <li>最新上市</li>
-          <li>SNKRS新品预览</li>
-          <li>会员限定</li>
-          <li>折扣优惠</li>
-          <li>篮球街头穿搭</li>
-        </ul>
-      </div>
-      <div class="center">
-        <div>
-          <p class="title">所有鞋类</p>
+    <transition name="fade">
+      <div v-show="showDrop" class="drop" @mouseleave="showDrop=false">
+        <div class="left">
           <ul>
-            <li v-for="item in shoesList" :key="item.id">{{item.name}}</li>
+            <li>人气热销</li>
+            <li>最新上市</li>
+            <li>SNKRS新品预览</li>
+            <li>会员限定</li>
+            <li>折扣优惠</li>
+            <li>篮球街头穿搭</li>
           </ul>
         </div>
-        <div>
-          <p class="title">所有服装</p>
-          <ul>
-            <li v-for="item in clothesList" :key="item.id">{{item.name}}</li>
-          </ul>
+        <div class="center">
+          <div>
+            <p class="title">所有鞋类</p>
+            <ul>
+              <li v-for="item in shoesList" :key="item.id">{{item.name}}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="title">所有服装</p>
+            <ul>
+              <li v-for="item in clothesList" :key="item.id">{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="right">
+          <div>
+            <p class="title">运动</p>
+            <ul>
+              <li v-for="item in sportsList" :key="item.id">{{item.name}}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="title">品牌</p>
+            <ul v-for="item in brandsList" :key="item.id">
+              <li>{{item.name}}</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="right">
-        <div>
-          <p class="title">运动</p>
-          <ul>
-            <li v-for="item in sportsList" :key="item.id">{{item.name}}</li>
-          </ul>
-        </div>
-        <div>
-          <p class="title">品牌</p>
-          <ul v-for="item in brandsList" :key="item.id">
-            <li>{{item.name}}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -78,7 +80,8 @@ export default {
       shoesList: [],
       brandsList: [],
       sportsList: [],
-      search: ''
+      search: '',
+      showDrop: false,
     }
   },
   created() {
@@ -221,14 +224,36 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     border-right: 1px solid rgba($color: #999, $alpha: 0.3);
-
+    li {
+      padding: 5px 0;
+    }
+    .title {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: lighter;
+    }
   }
   .right{
     width: 400px;
     display: flex;
     flex-direction: row;
+    li {
+      padding: 5px 0;
+    }
+    .title {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: lighter;
+    }
   }
 }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 </style>
 <style>
 .el-input-group__prepend {
