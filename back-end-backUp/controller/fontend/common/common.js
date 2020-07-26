@@ -4,8 +4,6 @@ const formiable = require('formidable');
 
 class commonService {
   uploadImg(req, res){
-    // console.log(req)
-    
     console.log(req)
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';

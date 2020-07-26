@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
-const baseModule = require('../../baseModel');
+const baseModule = require('../baseModel');
 
 class bannerModule extends baseModule {
   constructor () {
-    super('id', {
+    super('banner', {
       id: {
 				type: Sequelize.INTEGER(50),
 				primaryKey: true,
@@ -24,4 +24,4 @@ class bannerModule extends baseModule {
   }
 };
 
-module.exports = bannerModule;
+module.exports = new bannerModule();
