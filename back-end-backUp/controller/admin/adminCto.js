@@ -1,4 +1,4 @@
-const adminModel = require('../../model/admin/adminModel');
+const adminModel = require('../../model/baseModel');
 const Utils = require('../../utils/index');
 
 class adminService {

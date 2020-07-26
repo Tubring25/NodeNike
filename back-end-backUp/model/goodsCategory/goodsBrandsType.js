@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const baseModule = require('../../baseModel');
+const baseModule = require('../baseModel');
 
 class goodsBrandsType extends baseModule {
   constructor(){

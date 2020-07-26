@@ -1,4 +1,4 @@
-const goodsBaseTypeModule = require('../../../model/admin/goodsCategory/goodsBaseType');
+const goodsBaseTypeModule = require('../../../model/goodsCategory/goodsBaseType');
 
 class goodsBaseTypeService {
   constructor() {

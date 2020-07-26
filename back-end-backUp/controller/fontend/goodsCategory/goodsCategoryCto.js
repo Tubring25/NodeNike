@@ -1,6 +1,6 @@
-const goodsSportsTypeModule = require('../../../model/admin/goodsCategory/goodsSportsType');
-const goodsBaseTypeModule = require('../../../model/admin/goodsCategory/goodsBaseType');
-const goodsBrandsTypeModule = require('../../../model/admin/goodsCategory/goodsBrandsType');
+const goodsSportsTypeModule = require('../../../model/goodsCategory/goodsSportsType');
+const goodsBaseTypeModule = require('../../../model/goodsCategory/goodsBaseType');
+const goodsBrandsTypeModule = require('../../../model/goodsCategory/goodsBrandsType');
 
 class goodsCategoryService {
   async getCategory(config) {
