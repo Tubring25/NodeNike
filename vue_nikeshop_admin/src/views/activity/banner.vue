@@ -18,7 +18,8 @@
         </el-form-item>
         <el-form-item lable="图片上传">
           <el-upload class="upload-box" action="http://localhost:6741/admin/upload"
-            :on-preview="imgPreview"
+            :on-success="uploadSuccess"
+            :on-error="uploadError"
             :file-list="fileList"
             list-type="picture"
             :limit="1"
@@ -30,13 +31,14 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="confirmDialog">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth';
+import { addBanner } from '@/api/banner';
 export default {
   data() {
     return {
@@ -59,7 +61,25 @@ export default {
     this.uploadHeader = {'x-token': getToken()}
   },
   methods: {
-    imgPreview() {
+    uploadSuccess(res) {
+      if(res.code ==1) this.bannerFrom.imgUrl = res.data.url
+    },
+    uploadError(err) {
+      this.$message.error(err)
+    },
+    confirmDialog(){
+      for (let key in this.bannerFrom) {
+        if (this.bannerFrom[key].toString().trim() == '') {
+          this.$message.info('请填写完整')
+          return
+        }
+      }
+      addBanner(this.bannerFrom).then(res=>{
+        if(res.code==1) {
+          this.$message.success(this.dialogTitle+'成功')
+          this.dialogVisible = false
+        }
+      })
 
     }
   },
@@ -68,10 +88,10 @@ export default {
 <style lang="scss" scoped>
 .bannerDialog {
   .el-input {
-    width: 400px;
+    width: 70%;
   }
   .upload-box {
-    width: 400px;
+    width: 70%;
   }
 }
 </style>

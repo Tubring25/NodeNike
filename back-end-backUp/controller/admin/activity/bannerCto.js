@@ -6,7 +6,7 @@ class BannerService {
 	}
 	async addBanner(data) {
 		const { title, desc, imgUrl, is_top } = data;
-		if (!title || !desc || !imgUrl || !is_top) {
+		if (!title || !desc || !imgUrl) {
 			return { code: 0, data: '缺少字段' };
 		}
 		try {
