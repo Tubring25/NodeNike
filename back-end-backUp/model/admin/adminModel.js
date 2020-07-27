@@ -29,12 +29,6 @@ class adminModel extends baseModel {
 		this.model = super.getModel()
 		this.model.sync()
 	}
-	findAll (config) {
-		return this.model.findAll(config)
-	}
-	create (data) {
-		return this.model.create(data)
-	}
 }
 
 module.exports = new adminModel()

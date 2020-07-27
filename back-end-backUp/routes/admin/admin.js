@@ -4,6 +4,7 @@ const goodsSportsType = require('../../controller/admin/goodsCategory/goodsSport
 const goodsBaseType = require('../../controller/admin/goodsCategory/goodsBaseTypeCto');
 const goodsBrandsType = require('../../controller/admin/goodsCategory/goodsBrandsTypeCto');
 const banner = require('../../controller/admin/activity/bannerCto');
+const commonCto = require('../../controller/admin/common/common');
 const router = express.Router();
 
 router.get('/all', async (req, res, next) => {
@@ -72,9 +73,17 @@ router.post('/goods/deleteType', async(req, res, next) => {
 })
 
 /**
+ * 图片上传
+ */
+router.post('/upload', async (req, res, next) => {
+  commonCto.uploadImg(req, res)
+})
+
+/**
  * banner
  */
 router.post('/addBanner', async (req, res, next) => {
   res.json(await banner.addBanner(req.body))
 })
+
 module.exports = router;
