@@ -85,5 +85,8 @@ router.post('/upload', async (req, res, next) => {
 router.post('/addBanner', async (req, res, next) => {
   res.json(await banner.addBanner(req.body))
 })
+router.get('/bannerList', async(req, res, next) => {
+  res.json(await banner.getBanner(req.query))
+})
 
 module.exports = router;

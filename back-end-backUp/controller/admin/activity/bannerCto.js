@@ -1,4 +1,6 @@
 const bannerModule = require('../../../model/banner/banner');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 
 class BannerService {
 	constructor() {
@@ -17,8 +19,18 @@ class BannerService {
 		}
   }
   async getBanner(data) {
-    let {key} = data
-
+		let { key, page, pageSize} = data;
+		try {
+			if (key == null) {
+				let res = await bannerModule.findAll({limit: Number(pageSize), offset: Number(page-1)*Number(pageSize)});
+				return { code: 1, data: res };
+			} else {
+				let res = await bannerModule.findAll({limit: Number(pageSize), offset: Number(page-1)*Number(pageSize), where: { title: { [Op.like]: key } } });
+				return { code: 1, data: res };
+			}
+		} catch(err) {
+			return { code: 0, data: err }
+		}
   }
 }
 

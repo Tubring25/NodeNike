@@ -3,7 +3,27 @@
     <div class="header">
       <el-button type="primary" icon="el-icon-plus" @click="dialogVisible=true">添加Banner</el-button>
     </div>
-    
+    <el-table :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
+      <el-table-column prop="id" label="ID" width="60"></el-table-column>
+      <el-table-column prop="title" label="标题" width="200"></el-table-column>
+      <el-table-column prop="desc" label="描述"></el-table-column>
+      <el-table-column prop="imgUrl" label="图片" width="200">
+        <template slot-scope="{row}">
+          <img :src="'http://localhost:6741'+row.imgUrl" alt="">
+        </template>
+      </el-table-column>
+      <el-table-column prop="imgUrl" label="是否展示" width="100">
+        <template slot-scope="{row}">
+          <el-switch style="display: block" v-model="row.is_top"></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column lable="操作" width="200">
+        <template>
+          <el-button type="primary" size="mini">修改</el-button>
+          <el-button type="danger" size="mini">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="40%" :close-on-click-modal="false" class="bannerDialog">
       <el-form :model="bannerFrom" :rules="rules" ref="ruleForm" label-width="100px">
@@ -38,7 +58,7 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { addBanner } from '@/api/banner';
+import { addBanner, getBanerList } from '@/api/banner';
 export default {
   data() {
     return {
@@ -55,12 +75,24 @@ export default {
       },
       fileList: [],
       uploadHeader: {},
+      bannerList: [],
+      cellStyle: {textAlign: 'center'},
+      page:1,
+      pageSize: 10
     }
   },
   created() {
     this.uploadHeader = {'x-token': getToken()}
+    this.getBanerList_()
   },
   methods: {
+    getBanerList_(){
+      getBanerList({page:1,pageSize: 10}).then(res=>{
+        if(res.code == 1) {
+          this.bannerList = res.data
+        }
+      })
+    },
     uploadSuccess(res) {
       if(res.code ==1) this.bannerFrom.imgUrl = res.data.url
     },
@@ -93,5 +125,8 @@ export default {
   .upload-box {
     width: 70%;
   }
+}
+.activity-container {
+  margin: 20px 0 0 20px;
 }
 </style>

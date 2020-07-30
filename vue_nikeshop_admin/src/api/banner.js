@@ -5,9 +5,16 @@
 import reuqest from '@/utils/request.js';
 
 export function addBanner(data) {
-  return reuqest({
-    url: '/admin/addBanner',
-    method: 'post',
-    data
-  });
+	return reuqest({
+		url: '/admin/addBanner',
+		method: 'post',
+		data
+	});
+}
+export function getBanerList(params) {
+	return reuqest({
+		url: '/admin/bannerList',
+		method: 'get',
+		params
+	});
 }
