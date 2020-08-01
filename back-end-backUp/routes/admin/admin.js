@@ -88,5 +88,8 @@ router.post('/addBanner', async (req, res, next) => {
 router.get('/bannerList', async(req, res, next) => {
   res.json(await banner.getBanner(req.query))
 })
+router.post('/deleteBanner', async(req, res, next) => {
+  res.json(await banner.deleteBanner(req.body))
+})
 
 module.exports = router;

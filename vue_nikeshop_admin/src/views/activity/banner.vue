@@ -18,9 +18,9 @@
         </template>
       </el-table-column>
       <el-table-column lable="操作" width="200">
-        <template>
+        <template slot-scope="{row}">
           <el-button type="primary" size="mini">修改</el-button>
-          <el-button type="danger" size="mini">删除</el-button>
+          <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -58,7 +58,7 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { addBanner, getBanerList } from '@/api/banner';
+import { addBanner, getBanerList, deleteBanner } from '@/api/banner';
 export default {
   data() {
     return {
@@ -110,9 +110,17 @@ export default {
         if(res.code==1) {
           this.$message.success(this.dialogTitle+'成功')
           this.dialogVisible = false
+          this.getBanerList_()
         }
       })
-
+    },
+    deleteBanner_(id) {
+      deleteBanner({id: id}).then(res=> {
+        if(res.code ==1) {
+          this.$message.success('删除成功')
+          this.getBanerList_()
+        }
+      })
     }
   },
 }

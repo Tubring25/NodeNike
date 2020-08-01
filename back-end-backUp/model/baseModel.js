@@ -19,6 +19,9 @@ class BaseModel {
   findAndCount(config) {
     return this.model.findAndCountAll(config)
   }
+  deleteItem(config) {
+    return this.model.destroy(config)
+  }
 }
 
 module.exports = BaseModel
