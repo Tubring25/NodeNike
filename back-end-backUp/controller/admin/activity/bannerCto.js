@@ -31,7 +31,19 @@ class BannerService {
 		} catch(err) {
 			return { code: 0, data: err }
 		}
-  }
+	}
+	async editBanner(data) {
+		let { id, title, desc, imgUrl, is_top } = data;
+		if (!id) {
+			return {code: 0, data: '缺少id'}
+		}
+		try {
+			bannerModule.update({ title: title, imgUrl: imgUrl, desc: desc, is_top: is_top }, { where: { id: id } });
+			return { code: 1, data: '更新成功' };
+		} catch (err) {
+			return { code: 0, data: err };
+		}
+	}
 }
 
 module.exports = new BannerService();
