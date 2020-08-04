@@ -44,6 +44,18 @@ class BannerService {
 			return { code: 0, data: err };
 		}
 	}
+	async deleteBanner(data) {
+		let {id} = data
+		if(!id){
+			return {code: 0, data: '缺少id'}
+		}
+		try {
+			bannerModule.deleteItem({where: {id: id}})	
+			return {code: 1,data: '删除成功'}
+		} catch(err) {
+			return { code: 0, data: err }
+		}
+	}
 }
 
 module.exports = new BannerService();

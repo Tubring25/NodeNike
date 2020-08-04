@@ -91,5 +91,8 @@ router.get('/bannerList', async(req, res, next) => {
 router.post('/editBanner', async(req, res, next) => {
   res.json(await banner.editBanner(req.body))
 })
+router.post('/deleteBanner', async(req, res, next) => {
+  res.json(await banner.deleteBanner(req.body))
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@
     <div class="header">
       <el-button type="primary" icon="el-icon-plus" @click="dialogVisible=true">添加Banner</el-button>
     </div>
-    <el-table :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
+    <el-table class="banner-table" :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
       <el-table-column prop="title" label="标题" width="200"></el-table-column>
       <el-table-column prop="desc" label="描述"></el-table-column>
@@ -18,9 +18,9 @@
         </template>
       </el-table-column>
       <el-table-column lable="操作" width="200">
-        <template>
-          <el-button type="primary" size="mini">修改</el-button>
-          <el-button type="danger" size="mini">删除</el-button>
+        <template slot-scope="{row}">
+          <el-button type="primary" size="mini" @click="editBanner_(row)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -58,7 +58,7 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { addBanner, getBanerList } from '@/api/banner';
+import { addBanner, getBanerList, deleteBanner, editBanner } from '@/api/banner';
 export default {
   data() {
     return {
@@ -78,7 +78,7 @@ export default {
       bannerList: [],
       cellStyle: {textAlign: 'center'},
       page:1,
-      pageSize: 10
+      pageSize: 10,
     }
   },
   created() {
@@ -110,9 +110,24 @@ export default {
         if(res.code==1) {
           this.$message.success(this.dialogTitle+'成功')
           this.dialogVisible = false
+          this.getBanerList_()
         }
       })
-
+    },
+    deleteBanner_(id) {
+      deleteBanner({id: id}).then(res=> {
+        if(res.code ==1) {
+          this.$message.success('删除成功')
+          this.getBanerList_()
+        }
+      })
+    },
+    editBanner_(row){
+      if(row == null) {
+        editBanner()
+      }
+      this.dialogVisible = true
+      this.bannerFrom = row
     }
   },
 }
@@ -128,5 +143,11 @@ export default {
 }
 .activity-container {
   margin: 20px 0 0 20px;
+}
+.banner-table {
+  img{
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

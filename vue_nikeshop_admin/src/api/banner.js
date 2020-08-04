@@ -18,3 +18,18 @@ export function getBanerList(params) {
 		params
 	});
 }
+export function deleteBanner (data) {
+	return reuqest({
+		url: '/admin/deleteBanner',
+		method: 'post',
+		data: data
+	});
+}
+
+export function editBanner(data) {
+  return reuqest({
+		url: '/admin/editBanner',
+		method: 'post',
+		data: data
+  });
+}
