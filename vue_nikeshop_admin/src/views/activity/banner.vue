@@ -1,7 +1,7 @@
 <template>
   <div class="activity-container">
     <div class="header">
-      <el-button type="primary" icon="el-icon-plus" @click="dialogVisible=true">添加Banner</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="dialogVisible=true" size="medium">添加Banner</el-button>
     </div>
     <el-table class="banner-table" :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
@@ -127,7 +127,7 @@ export default {
         editBanner()
       }
       this.dialogVisible = true
-      this.bannerFrom = row
+      this.bannerFrom = Object.assign({},row)
     }
   },
 }
@@ -145,6 +145,7 @@ export default {
   margin: 20px 0 0 20px;
 }
 .banner-table {
+  margin-top: 15px;
   img{
     width: 100%;
     height: 100%;
