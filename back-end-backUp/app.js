@@ -30,7 +30,6 @@ app.get('/img',function (req, res, next) {
 })
 
 app.all('*', (req, res, next) => {
-  console.log(req)
   if (req.headers['x-token']) {
     let token = req.headers['x-token']
     if(Utils.verifyToken(token).data) {

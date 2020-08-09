@@ -12,6 +12,11 @@ class BannerService {
 			return { code: 0, data: '缺少字段' };
 		}
 		try {
+			let findRes = bannerModule.findAll({where: {title: title}})
+			return { code: 0, data: findRes };
+			if(findRes.length>0) {
+				
+			}
       bannerModule.create({ title: title, desc: desc, imgUrl: imgUrl, is_top: is_top });
       return { code: 1, data: '添加成功' }
 		} catch (err) {

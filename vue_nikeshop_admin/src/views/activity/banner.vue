@@ -1,7 +1,7 @@
 <template>
   <div class="activity-container">
     <div class="header">
-      <el-button type="primary" icon="el-icon-plus" @click="dialogVisible=true" size="medium">添加Banner</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="openDialog('add')" size="medium">添加Banner</el-button>
     </div>
     <el-table class="banner-table" :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column lable="操作" width="200">
         <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="editBanner_(row)">修改</el-button>
+          <el-button type="primary" size="mini" @click="openDialog('edit',row)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -101,18 +101,33 @@ export default {
     },
     confirmDialog(){
       for (let key in this.bannerFrom) {
-        if (this.bannerFrom[key].toString().trim() == '') {
-          this.$message.info('请填写完整')
-          return
+        console.log(this.bannerFrom[key])
+        if(this.bannerFrom[key] == null) {
+          console.log(111)
+        } else {
+          if (this.bannerFrom[key].toString().trim() == '') {
+            this.$message.info('请填写完整')
+            return
+          }
         }
       }
-      addBanner(this.bannerFrom).then(res=>{
-        if(res.code==1) {
-          this.$message.success(this.dialogTitle+'成功')
-          this.dialogVisible = false
-          this.getBanerList_()
-        }
-      })
+      if(this.dialogTitle == '添加') {
+        addBanner(this.bannerFrom).then(res=>{
+          if(res.code==1) {
+            this.$message.success(this.dialogTitle+'成功')
+            this.dialogVisible = false
+            this.getBanerList_()
+          }
+        })
+      } else {
+        editBanner(this.bannerFrom).then(res=>{
+          if(res.code==1) {
+            this.$message.success(this.dialogTitle+'成功')
+            this.dialogVisible = false
+            this.getBanerList_()
+          }
+        })
+      }
     },
     deleteBanner_(id) {
       deleteBanner({id: id}).then(res=> {
@@ -122,12 +137,15 @@ export default {
         }
       })
     },
-    editBanner_(row){
-      if(row == null) {
-        editBanner()
+    openDialog(type, row) {
+      if (type=='add') {
+        this.dialogTitle = '添加'
+        this.bannerFrom = {title: '', desc: '', imgUrl: '', is_top: false}
+      } else {
+        this.dialogTitle = '编辑'
+        this.bannerFrom = Object.assign({},row)
       }
-      this.dialogVisible = true
-      this.bannerFrom = Object.assign({},row)
+      this.dialogVisible=true
     }
   },
 }
