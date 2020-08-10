@@ -1,6 +1,7 @@
 const bannerModule = require('../../../model/banner/banner');
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
+const Utils = require('../../../utils/index');
 
 class BannerService {
 	constructor() {
@@ -12,10 +13,9 @@ class BannerService {
 			return { code: 0, data: '缺少字段' };
 		}
 		try {
-			let findRes = bannerModule.findAll({where: {title: title}})
-			return { code: 0, data: findRes };
+			let findRes = await bannerModule.findAll({where: {title: title}})
 			if(findRes.length>0) {
-				
+				return { code: 0, data: '不可重复添加' };
 			}
       bannerModule.create({ title: title, desc: desc, imgUrl: imgUrl, is_top: is_top });
       return { code: 1, data: '添加成功' }
@@ -55,8 +55,15 @@ class BannerService {
 			return {code: 0, data: '缺少id'}
 		}
 		try {
-			bannerModule.deleteItem({where: {id: id}})	
-			return {code: 1,data: '删除成功'}
+			let findRes = await bannerModule.findAll({where: {id: id}})
+			let matchReg = /.*?(?=(.png|.jpg))/;
+			bannerModule.deleteItem({where: {id: id}})
+			let deleteFile = await Utils.deleteFile('/NodeNike/back-end-backUp/public/', findRes[0].imgUrl.match(matchReg)[0])
+			if(deleteFile == '删除成功') {
+				return {code: 1,data: '删除成功'}
+			} else{
+				return {code: 0, data: '图片删除失败'}
+			}
 		} catch(err) {
 			return { code: 0, data: err }
 		}

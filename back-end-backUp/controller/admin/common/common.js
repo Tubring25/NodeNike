@@ -37,7 +37,7 @@ class commonService {
         if(err) {
           return res.json({code: 0, data: '图片上传失败'})
         } else {
-          return res.json({code: 1, data: {url: '/' + imageName}})
+          return res.json({code: 1, data: {url:  imageName}})
         }
       })
     })
