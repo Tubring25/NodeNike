@@ -9,7 +9,7 @@
       <el-table-column prop="desc" label="描述"></el-table-column>
       <el-table-column prop="imgUrl" label="图片" width="200">
         <template slot-scope="{row}">
-          <img :src="'http://localhost:6741'+row.imgUrl" alt="">
+          <img :src="'http://localhost:6741/'+row.imgUrl" alt="">
         </template>
       </el-table-column>
       <el-table-column prop="imgUrl" label="是否展示" width="100">
@@ -28,16 +28,16 @@
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="40%" :close-on-click-modal="false" class="bannerDialog">
       <el-form :model="bannerFrom" :rules="rules" ref="ruleForm" label-width="100px">
         <el-form-item label="活动名称" prop="title">
-          <el-input v-model="bannerFrom.title"></el-input>
+          <el-input v-model="bannerFrom.title" maxlength="50" minlength="2"></el-input>
         </el-form-item>
         <el-form-item label="活动介绍" prop="desc">
-          <el-input v-model="bannerFrom.desc"></el-input>
+          <el-input v-model="bannerFrom.desc" maxlength="50" minlength="2"></el-input>
         </el-form-item>
         <el-form-item label="首页展示">
           <el-switch v-model="bannerFrom.is_top"></el-switch>
         </el-form-item>
         <el-form-item lable="图片上传">
-          <el-upload class="upload-box" action="http://localhost:6741/admin/upload"
+          <el-upload v-show="!bannerFrom.imgUrl" class="upload-box" action="http://localhost:6741/admin/upload"
             :on-success="uploadSuccess"
             :on-error="uploadError"
             :file-list="fileList"
@@ -47,6 +47,12 @@
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过3M</div>
           </el-upload>
+          <div v-show="bannerFrom.imgUrl" class="img-box">
+            <img :src="'http://localhost:6741/'+bannerFrom.imgUrl" alt="">
+            <el-tooltip class="item" effect="dark" content="删除" placement="top">
+              <i class="icon el-icon-close" @click="removeImg"></i>
+            </el-tooltip>
+          </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -146,6 +152,9 @@ export default {
         this.bannerFrom = Object.assign({},row)
       }
       this.dialogVisible=true
+    },
+    removeImg() {
+      this.bannerFrom.imgUrl = ''
     }
   },
 }
@@ -166,7 +175,26 @@ export default {
   margin-top: 15px;
   img{
     width: 100%;
+    max-width: 200px;
     height: 100%;
+    max-height: 50px;
+  }
+}
+.img-box {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  img {
+    width: 100%;
+    height: 100%;  
+  }
+  .icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+  .icon:hover{
+    color: #fff;
   }
 }
 </style>

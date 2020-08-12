@@ -7,8 +7,8 @@ router.post('/goods/getGoodsType', async(req, res, next) => {
   res.json(await goodsCategory.getCategory(req.body))
 })
 
-router.get('/shop/banner', async (req, res, next) => {
-  res.json(await banner.getBanner())
+router.get('/banner', async (req, res, next) => {
+  res.json(await banner.getFontBanner())
 })
 
 module.exports = router;
