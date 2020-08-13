@@ -186,6 +186,11 @@ export default {
   }
 }
 .drop {
+  position: absolute;
+  top: 102px;
+  z-index: 10;
+  width: 100%;
+  background: #fff;
   display: flex;
   flex-direction: row;
   justify-content: center;

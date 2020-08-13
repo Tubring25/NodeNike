@@ -1,4 +1,5 @@
-'use strict'
 module.exports = {
-  publicPath: "./",
+  devServer: {
+    port: 7043, // 端口
+  },
 }

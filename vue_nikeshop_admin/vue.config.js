@@ -1,4 +1,4 @@
 'use strict'
-module.exports = {
-  publicPath: "./",
-}
+// module.exports = {
+//   publicPath: "./",
+// }

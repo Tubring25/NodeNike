@@ -14,7 +14,7 @@
       </el-table-column>
       <el-table-column prop="imgUrl" label="是否展示" width="100">
         <template slot-scope="{row}">
-          <el-switch style="display: block;height:24px" v-model="row.is_top"></el-switch>
+          <el-switch style="display: block;height:24px" @change="setTop(row)" v-model="row.is_top"></el-switch>
         </template>
       </el-table-column>
       <el-table-column lable="操作" width="200">
@@ -155,6 +155,12 @@ export default {
     },
     removeImg() {
       this.bannerFrom.imgUrl = ''
+    },
+    setTop(row) {
+      this.bannerFrom = row
+      editBanner(this.bannerFrom).then(res=>{
+        console.log(res)
+      })
     }
   },
 }
