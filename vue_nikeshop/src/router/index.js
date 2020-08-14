@@ -11,6 +11,18 @@ const routes = [
     meta: {private: false}
   },
   {
+    path: '/men',
+    name: "Home-Men",
+    component: () => import('@/views/home/home'),
+    meta: {private: false}
+  },
+  {
+    path: '/women',
+    name: "Home-Women",
+    component: () => import('@/views/home/home'),
+    meta: {private: false}
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('@/views/About'),

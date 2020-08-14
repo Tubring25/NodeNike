@@ -1,30 +1,26 @@
 <template>
   <div class="container">
     <navbar></navbar>
-    <swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="item in bannerList" :key="item.id" class="slide-1">
+    <el-carousel class="swiper">
+      <el-carousel-item v-for="item in bannerList" :key="item.imgUrl">
         <img :src="'http://localhost:6741/'+item.imgUrl" alt="">
-      </swiper-slide>
-    </swiper>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 <script>
 import navbar from "@/components/navbar/navbar";
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/swiper.scss";
 import { getBanner } from "@/api/common";
 export default {
-  components: { navbar, Swiper, SwiperSlide},
+  components: {navbar},
   data() {
     return {
       bannerList: [],
-      swiperOption: {
-        autoplay: true
-      }
     };
   },
   created() {
     this.getBanner_();
+    console.log(this.$route.path)
   },
   methods: {
     getBanner_() {
@@ -40,11 +36,14 @@ export default {
 <style lang="scss" scoped>
 .swiper {
   width: 100%;
-  max-height: 500px;
+  height: 500px;
   img{
     width: 100%;
     height: 100%;
-    max-height: 500px;
+    height: 500px;
   }
+}
+.el-carousel /deep/.el-carousel__container{
+  height: 100% !important;
 }
 </style>

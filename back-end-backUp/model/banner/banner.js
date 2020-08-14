@@ -11,6 +11,7 @@ class bannerModule extends baseModule {
       },
       title: Sequelize.STRING(50),
       desc: Sequelize.STRING(50),
+      gender: Sequelize.INTEGER, // 10:首页, 0: 女子, 1:男子, 2:儿童
       imgUrl: Sequelize.STRING(100),
       relate_type: Sequelize.STRING(50),
       relate_goods: Sequelize.STRING,

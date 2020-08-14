@@ -7,6 +7,14 @@
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
       <el-table-column prop="title" label="标题" width="200"></el-table-column>
       <el-table-column prop="desc" label="描述"></el-table-column>
+      <el-table-column prop="desc" label="描述">
+        <template slot-scope="{row}">
+          <span v-if="row.gender==10">首页</span>
+          <span v-else-if="row.gender==1">男子</span>
+          <span v-else-if="row.gender==0">女子</span>
+          <span v-else>儿童</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="imgUrl" label="图片" width="200">
         <template slot-scope="{row}">
           <img :src="'http://localhost:6741/'+row.imgUrl" alt="">
@@ -32,6 +40,14 @@
         </el-form-item>
         <el-form-item label="活动介绍" prop="desc">
           <el-input v-model="bannerFrom.desc" maxlength="50" minlength="2"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="desc">
+          <el-radio-group v-model="bannerFrom.gender" size="medium">
+            <el-radio-button label="10">首页</el-radio-button>
+            <el-radio-button label="0">女子</el-radio-button>
+            <el-radio-button label="1">男子</el-radio-button>
+            <el-radio-button label="2">儿童</el-radio-button>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="首页展示">
           <el-switch v-model="bannerFrom.is_top"></el-switch>
@@ -70,7 +86,7 @@ export default {
     return {
       dialogTitle: '添加',
       dialogVisible: false,
-      bannerFrom: {title: '', desc: '', imgUrl: '', is_top: false},
+      bannerFrom: {title: '', desc: '', imgUrl: '', gender:0, is_top: false},
       rules: {
         title: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -146,7 +162,7 @@ export default {
     openDialog(type, row) {
       if (type=='add') {
         this.dialogTitle = '添加'
-        this.bannerFrom = {title: '', desc: '', imgUrl: '', is_top: false}
+        this.bannerFrom = {title: '', desc: '', imgUrl: '',gender: 0, is_top: false}
       } else {
         this.dialogTitle = '编辑'
         this.bannerFrom = Object.assign({},row)

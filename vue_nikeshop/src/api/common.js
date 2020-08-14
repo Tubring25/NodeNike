@@ -5,10 +5,11 @@
 import request from '@/utils/request';
 
 // 获取商品分类列表
-export function getBanner() {
+export function getBanner(gender) {
   return request({
     url: '/shop/banner',
     method: "get",
+    gender,
     private: false
   })
 }

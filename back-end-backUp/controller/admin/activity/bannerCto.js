@@ -8,9 +8,9 @@ class BannerService {
 		this.instance = bannerModule;
 	}
 	async addBanner(data) {
-		const { title, desc, imgUrl, is_top } = data;
+		const { title, desc, imgUrl, is_top, gender } = data;
 		if (!title || !desc || !imgUrl) {
-			return { code: 0, data: '缺少字段' };
+			return { code: 0, data: '缺少字段' }; 
 		}
 		try {
 			let findRes = await bannerModule.findAll({where: {title: title}})
@@ -19,7 +19,7 @@ class BannerService {
 				return { code: 0, data: '不可重复添加' };
 			}
 			if(topRes.length>=6) return {code: 0, data: '前台最多支持显示6张Banner'}
-      bannerModule.create({ title: title, desc: desc, imgUrl: imgUrl, is_top: is_top });
+      bannerModule.create({ title: title, desc: desc, imgUrl: imgUrl, is_top: is_top, gender: gender });
       return { code: 1, data: '添加成功' }
 		} catch (err) {
 			return { code: 0, data: err };
@@ -39,23 +39,25 @@ class BannerService {
 			return { code: 0, data: err }
 		}
 	}
-	async getFontBanner() {
+	async getFontBanner(query) {
+		let where
+		query.gender ? where = {is_top: 1, gender: query.gender} : where = {is_top: 1}
 		try {
-			let res = await bannerModule.findAll({where: {is_top: 1}})
+			let res = await bannerModule.findAll({where: where})
 			return {code:1, data: res}
 		}catch(err) {
 			return {code: 0, data: err}
 		}
 	}
 	async editBanner(data) {
-		let { id, title, desc, imgUrl, is_top } = data;
+		let { id, title, desc, imgUrl, is_top, gender } = data;
 		if (!id) {
 			return {code: 0, data: '缺少id'}
 		}
 		try {
 			let topRes = await bannerModule.findAll({where: {is_top: 1}})
 			if(topRes.length>=6) return {code: 0, data: '前台最多支持显示6张Banner'}
-			bannerModule.update({ title: title, imgUrl: imgUrl, desc: desc, is_top: is_top }, { where: { id: id } });
+			bannerModule.update({ title: title, imgUrl: imgUrl, desc: desc, is_top: is_top, gender: gender}, { where: { id: id } });
 			return { code: 1, data: '更新成功' };
 		} catch (err) {
 			return { code: 0, data: err };
