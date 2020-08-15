@@ -23,6 +23,12 @@ const routes = [
     meta: {private: false}
   },
   {
+    path: '/child',
+    name: "Home-Child",
+    component: () => import('@/views/home/home'),
+    meta: {private: false}
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('@/views/About'),

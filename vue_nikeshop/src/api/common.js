@@ -9,7 +9,7 @@ export function getBanner(gender) {
   return request({
     url: '/shop/banner',
     method: "get",
-    gender,
+    params: gender,
     private: false
   })
 }

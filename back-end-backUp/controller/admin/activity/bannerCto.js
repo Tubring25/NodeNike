@@ -41,7 +41,7 @@ class BannerService {
 	}
 	async getFontBanner(query) {
 		let where
-		query.gender ? where = {is_top: 1, gender: query.gender} : where = {is_top: 1}
+		query.gender ? where = {is_top: 1, gender: query.gender} : where = {is_top: 1, gender: 10}
 		try {
 			let res = await bannerModule.findAll({where: where})
 			return {code:1, data: res}

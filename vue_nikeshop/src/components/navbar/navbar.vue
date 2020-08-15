@@ -12,12 +12,12 @@
     </div>
     <div class="guide">
       <div class="left">
-        <img src="../../assets/logo.png" alt="" srcset="">
+        <img src="../../assets/logo.png" alt="" @click="go(10)">
       </div>
       <div class="center" @mouseenter="showDrop=true">
-        <span>男子</span>
-        <span>女子</span>
-        <span>儿童</span>
+        <span @click="go(1)">男子</span>
+        <span @click="go(0)">女子</span>
+        <span @click="go(2)">儿童</span>
       </div>
       <div class="right">
         <el-input placeholder="" v-model="search">
@@ -96,9 +96,27 @@ export default {
           this.clothesList = res.data[0].filter(a=>a.type==1)
           this.sportsList = res.data[1] 
           this.brandsList = res.data[2]
-          console.log(this.shoesList)
         }
       })
+    },
+    go(type) {
+      switch(type) {
+        case 0:
+          if (this.$route.path == '/women') return
+          this.$router.replace({path: '/women'})
+          break;
+        case 1:
+          if (this.$route.path == '/men') return
+          this.$router.replace({path: '/men'})
+          break
+        case 2:
+          if (this.$route.path == '/child') return
+          this.$router.replace({path: '/child'})
+          break
+        default:
+          if (this.$route.path == '/') return
+          this.$router.replace({path: '/'})
+      }
     }
   },
 }
@@ -164,6 +182,7 @@ export default {
     img{
       width: 80px;
       height: 30px;
+      cursor: pointer;
     }
   }
   .center {
@@ -175,6 +194,7 @@ export default {
       padding: 0 15px;
       margin: 0 20px;
       font-weight: lighter;
+      cursor: pointer;
     }
     span:hover {
       border-bottom: 2px solid #111;

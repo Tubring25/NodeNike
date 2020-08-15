@@ -5,9 +5,9 @@
     </div>
     <el-table class="banner-table" :data="bannerList" border size="medium" :cell-style="cellStyle" :header-cell-style="cellStyle">
       <el-table-column prop="id" label="ID" width="60"></el-table-column>
-      <el-table-column prop="title" label="标题" width="200"></el-table-column>
+      <el-table-column prop="title" label="标题" width="150"></el-table-column>
       <el-table-column prop="desc" label="描述"></el-table-column>
-      <el-table-column prop="desc" label="描述">
+      <el-table-column prop="desc" label="类别">
         <template slot-scope="{row}">
           <span v-if="row.gender==10">首页</span>
           <span v-else-if="row.gender==1">男子</span>
@@ -25,7 +25,9 @@
           <el-switch style="display: block;height:24px" @change="setTop(row)" v-model="row.is_top"></el-switch>
         </template>
       </el-table-column>
-      <el-table-column lable="操作" width="200">
+      <el-table-column label="创建时间" width="200"></el-table-column>
+      <el-table-column label="修改时间" width="200"></el-table-column>
+      <el-table-column prop="" label="操作" width="200">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="openDialog('edit',row)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>
