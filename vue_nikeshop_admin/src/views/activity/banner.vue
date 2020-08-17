@@ -25,9 +25,17 @@
           <el-switch style="display: block;height:24px" @change="setTop(row)" v-model="row.is_top"></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" width="200"></el-table-column>
-      <el-table-column label="修改时间" width="200"></el-table-column>
-      <el-table-column prop="" label="操作" width="200">
+      <el-table-column label="创建时间" width="120">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createdAt | parseTime('{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="修改时间" width="120">
+        <template slot-scope="scope">
+          <span>{{ scope.row.updatedAt | parseTime('{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="" label="操作" width="160">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="openDialog('edit',row)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>

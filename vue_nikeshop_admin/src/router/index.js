@@ -60,6 +60,12 @@ const routes = [
 				name: 'Banner',
 				component: () => import('@/views/activity/banner'),
 				meta: { title: 'Banner管理', icon: 'el-icon-box' }
+			},
+			{
+				path: 'story',
+				name: 'Story',
+				component: () => import('@/views/activity/story'),
+				meta: { title: "主推故事", icon: 'el-icon-box' }
 			}
 		]
 	}

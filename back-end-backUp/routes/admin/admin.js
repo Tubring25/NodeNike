@@ -4,6 +4,7 @@ const goodsSportsType = require('../../controller/admin/goodsCategory/goodsSport
 const goodsBaseType = require('../../controller/admin/goodsCategory/goodsBaseTypeCto');
 const goodsBrandsType = require('../../controller/admin/goodsCategory/goodsBrandsTypeCto');
 const banner = require('../../controller/admin/activity/bannerCto');
+const story = require('../../controller/admin/activity/storyCto');
 const commonCto = require('../../controller/admin/common/common');
 const router = express.Router();
 
@@ -95,4 +96,11 @@ router.post('/deleteBanner', async(req, res, next) => {
   res.json(await banner.deleteBanner(req.body))
 })
 
+/**
+ * story
+ */
+router.post('/addStory', async(req, res, next) => {
+  console.log(await story.addStory(req.body))
+  res.json(await story.addStory(req.body))
+})
 module.exports = router;

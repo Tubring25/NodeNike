@@ -69,12 +69,15 @@ export default {
 <style lang="scss" scoped>
 .swiper {
   width: 100%;
-  height: 500px;
+  height: 600px;
   img{
     width: 100%;
     height: 100%;
-    height: 500px;
   }
+}
+.banner-box {
+  width: 90%;
+  margin: 0 auto;
 }
 .el-carousel /deep/.el-carousel__container{
   height: 100% !important;
