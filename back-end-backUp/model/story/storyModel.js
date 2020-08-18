@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const baseModule = require('../baseModel');
-const sequelize = require('../../config/db');
+const moment = require('moment');
 
 class storyModel extends baseModule {
   constructor () {

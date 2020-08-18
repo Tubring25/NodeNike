@@ -100,7 +100,15 @@ router.post('/deleteBanner', async(req, res, next) => {
  * story
  */
 router.post('/addStory', async(req, res, next) => {
-  console.log(await story.addStory(req.body))
   res.json(await story.addStory(req.body))
+})
+router.get('/storyList', async(req, res, next) => {
+  res.json(await story.getStory(req.query))
+})
+router.post('/editStory', async(req,res,next) => {
+  res.json(await story.editStory(req.body))
+})
+router.post('/deleteStory', async(req, res, next) => {
+  res.json(await story.deleteStory(req.body))
 })
 module.exports = router;

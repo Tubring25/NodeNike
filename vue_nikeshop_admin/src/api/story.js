@@ -5,7 +5,7 @@ import request from '../utils/request';
 
 export function addStory (data) {
   return request({
-    url: "/addStory",
+    url: "/admin/addStory",
     method: 'post',
     data
   })
