@@ -38,21 +38,21 @@
       <el-table-column prop="" label="操作" width="160">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="openDialog('edit',row)">修改</el-button>
-          <el-button type="danger" size="mini" @click="deleteBanner_(row.id)">删除</el-button>
+          <el-button type="danger" size="mini" @click="deleteStory_(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="40%" :close-on-click-modal="false" class="bannerDialog">
-      <el-form :model="bannerFrom" :rules="rules" ref="ruleForm" label-width="100px">
+      <el-form :model="storyFrom" :rules="rules" ref="ruleForm" label-width="100px">
         <el-form-item label="活动名称" prop="title">
-          <el-input v-model="bannerFrom.title" maxlength="50" minlength="2"></el-input>
+          <el-input v-model="storyFrom.title" maxlength="50" minlength="2"></el-input>
         </el-form-item>
         <el-form-item label="活动介绍" prop="desc">
-          <el-input v-model="bannerFrom.desc" maxlength="50" minlength="2"></el-input>
+          <el-input v-model="storyFrom.desc" maxlength="50" minlength="2"></el-input>
         </el-form-item>
         <el-form-item label="类别" prop="desc">
-          <el-radio-group v-model="bannerFrom.type" size="medium">
+          <el-radio-group v-model="storyFrom.type" size="medium">
             <el-radio-button label="10">首页</el-radio-button>
             <el-radio-button label="0">女子</el-radio-button>
             <el-radio-button label="1">男子</el-radio-button>
@@ -60,10 +60,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="首页展示">
-          <el-switch v-model="bannerFrom.is_top"></el-switch>
+          <el-switch v-model="storyFrom.is_top"></el-switch>
         </el-form-item>
         <el-form-item lable="图片上传">
-          <el-upload v-show="!bannerFrom.imgUrl" class="upload-box" action="http://localhost:6741/admin/upload"
+          <el-upload v-show="!storyFrom.imgUrl" class="upload-box" action="http://localhost:6741/admin/upload"
             :on-success="uploadSuccess"
             :on-error="uploadError"
             :file-list="fileList"
@@ -73,8 +73,8 @@
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过3M</div>
           </el-upload>
-          <div v-show="bannerFrom.imgUrl" class="img-box">
-            <img :src="'http://localhost:6741/'+bannerFrom.imgUrl" alt="">
+          <div v-show="storyFrom.imgUrl" class="img-box">
+            <img :src="'http://localhost:6741/'+storyFrom.imgUrl" alt="">
             <el-tooltip class="item" effect="dark" content="删除" placement="top">
               <i class="icon el-icon-close" @click="removeImg"></i>
             </el-tooltip>
@@ -90,13 +90,13 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { addStory } from '@/api/story';
+import { addStory, getStory, editStory, deleteStory } from '@/api/story';
 export default {
   data() {
     return {
       dialogTitle: '添加',
       dialogVisible: false,
-      bannerFrom: {title: '', desc: '', imgUrl: '', type:0, is_top: false},
+      storyFrom: {title: '', desc: '', imgUrl: '', type:0, is_top: false},
       rules: {
         title: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -115,79 +115,79 @@ export default {
   },
   created() {
     this.uploadHeader = {'x-token': getToken()}
-    this.getBanerList_()
+    this.getStoryList_()
   },
   methods: {
-    getBanerList_(){
-      // getBanerList({page:1,pageSize: 10}).then(res=>{
-      //   if(res.code == 1) {
-      //     this.bannerList = res.data
-      //   }
-      // })
+    getStoryList_(){
+      getStory({page:1,pageSize: 10}).then(res=>{
+        if(res.code == 1) {
+          this.bannerList = res.data
+        }
+      })
     },
     uploadSuccess(res) {
-      if(res.code ==1) this.bannerFrom.imgUrl = res.data.url
+      if(res.code ==1) this.storyFrom.imgUrl = res.data.url
     },
     uploadError(err) {
       this.$message.error(err)
     },
     confirmDialog(){
-      for (let key in this.bannerFrom) {
-        console.log(this.bannerFrom[key])
-        if(this.bannerFrom[key] == null) {
+      for (let key in this.storyFrom) {
+        console.log(this.storyFrom[key])
+        if(this.storyFrom[key] == null) {
           console.log(111)
         } else {
-          if (this.bannerFrom[key].toString().trim() == '') {
+          if (this.storyFrom[key].toString().trim() == '') {
             this.$message.info('请填写完整')
             return
           }
         }
       }
       if(this.dialogTitle == '添加') {
-        addStory(this.bannerFrom).then(res=>{
+        addStory(this.storyFrom).then(res=>{
           if(res.code==1) {
             this.$message.success(this.dialogTitle+'成功')
             this.dialogVisible = false
-            this.getBanerList_()
+            this.getStoryList_()
           }
         })
       } else {
-        // editBanner(this.bannerFrom).then(res=>{
-        //   if(res.code==1) {
-        //     this.$message.success(this.dialogTitle+'成功')
-        //     this.dialogVisible = false
-        //     this.getBanerList_()
-        //   }
-        // })
+        editStory(this.storyFrom).then(res=>{
+          if(res.code==1) {
+            this.$message.success(this.dialogTitle+'成功')
+            this.dialogVisible = false
+            this.getStoryList_()
+          }
+        })
       }
     },
-    // deleteBanner_(id) {
-    //   deleteBanner({id: id}).then(res=> {
-    //     if(res.code ==1) {
-    //       this.$message.success('删除成功')
-    //       this.getBanerList_()
-    //     }
-    //   })
-    // },
+    deleteStory_(id) {
+      deleteStory({id: id}).then(res=> {
+        if(res.code ==1) {
+          this.$message.success('删除成功')
+          this.getStoryList_()
+        }
+      })
+    },
     openDialog(type, row) {
       if (type=='add') {
         this.dialogTitle = '添加'
-        this.bannerFrom = {title: '', desc: '', imgUrl: '',type: 0, is_top: false}
+        this.storyFrom = {title: '', desc: '', imgUrl: '',type: 0, is_top: false}
       } else {
         this.dialogTitle = '编辑'
-        this.bannerFrom = Object.assign({},row)
+        this.storyFrom = Object.assign({},row)
       }
       this.dialogVisible=true
     },
     removeImg() {
-      this.bannerFrom.imgUrl = ''
+      this.storyFrom.imgUrl = ''
     },
-    // setTop(row) {
-    //   this.bannerFrom = row
-    //   editBanner(this.bannerFrom).then(res=>{
-    //     console.log(res)
-    //   })
-    // }
+    setTop(row) {
+      this.storyFrom = row
+      editStory(this.storyFrom).then(res=>{
+        console.log(res)
+      })
+    }
   },
 }
 </script>
