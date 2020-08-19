@@ -20,7 +20,7 @@
             <span slot="title">{{item.meta.title}}</span>
           </template>
           <div v-for="child in item.children" :key="child.path">
-            <el-menu-item :index="item.path+'/'+child.path">{{child.meta.title}}</el-menu-item>
+            <el-menu-item v-show="child.hidden==false" :index="item.path+'/'+child.path">{{child.meta.title}}</el-menu-item>
           </div>
         </el-submenu>
       </div>

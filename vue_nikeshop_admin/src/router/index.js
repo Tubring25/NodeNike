@@ -22,6 +22,7 @@ const routes = [
 			{
 				path: 'dashboard',
 				name: 'Dashboard',
+				hidden: false,
 				component: () => import('../views/dashboard/dashboard'),
 				meta: { title: '面板1', icon: 'el-icon-menu' }
 			}
@@ -37,12 +38,28 @@ const routes = [
 			{
 				path: 'goodsCategory',
 				name: 'GoodsCategory',
+				hidden: false,
 				component: () => import('../views/goodsCategory/goodsCategory'),
 				meta: { title: '商品分类', icon: 'el-icon-menu' }
 			},
 			{
+				path: 'goodsList',
+				name: 'GoodsList',
+				hidden: false,
+				component: () => import('@/views/goods/goodsList'),
+				meta: { title: '商品列表' }
+			},
+			{
+				path: 'goodsDetail',
+				name: 'GoodsDetail',
+				hidden: true,
+				component: () => import('@/views/goods/goodsDetail'),
+				meta: { title: '商品详情' }
+			},
+			{
 				path: 'about1',
 				name: 'About1',
+				hidden: true,
 				component: () => import('../views/About'),
 				meta: { title: '关于1', icon: 'el-icon-menu' }
 			}
@@ -58,12 +75,14 @@ const routes = [
 			{
 				path: 'banner',
 				name: 'Banner',
+				hidden: false,
 				component: () => import('@/views/activity/banner'),
 				meta: { title: 'Banner管理', icon: 'el-icon-box' }
 			},
 			{
 				path: 'story',
 				name: 'Story',
+				hidden: false,
 				component: () => import('@/views/activity/story'),
 				meta: { title: "主推故事", icon: 'el-icon-box' }
 			}
