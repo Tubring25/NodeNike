@@ -1,8 +1,8 @@
 <template>
-  <div class="app-wrapper">
-    <slidebar class="slide-bar"></slidebar>
-    <div class="main-container">
-      <navbar class="nav-bar"></navbar>
+  <div class="app-wrapper" ref="app">
+    <slidebar class="slide-bar" ref="slide"></slidebar>
+    <div class="main-container" ref="main">
+      <navbar class="nav-bar" ref="nav"></navbar>
       <app-main class="app-container"></app-main>
     </div>
   </div>
@@ -11,9 +11,13 @@
 import Navbar from './components/navBar';
 import Slidebar from './components/slideBar';
 import AppMain from './components/appMain';
-
+ 
 export default {
-  components: { Navbar, Slidebar, AppMain }
+  components: { Navbar, Slidebar, AppMain },
+  mounted() {
+    this.$refs.main.style.width = window.outerWidth - this.$refs.slide.$el.offsetWidth + 'px'
+    this.$refs.nav.$el.style.width = window.outerWidth - this.$refs.slide.$el.offsetWidth + 'px'
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -23,6 +27,7 @@ export default {
 }
 .slide-bar {
   min-width: 200px;
+  width: 15%;
   height: 100vh;
   background-color: #264348;
 }

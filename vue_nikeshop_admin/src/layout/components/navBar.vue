@@ -77,6 +77,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .nav {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
