@@ -37,7 +37,7 @@
       </el-form>
       <div class="handle-box">
         <el-button type="primary" >搜索</el-button>
-        <el-button >重置</el-button>
+        <el-button @click="resetSearch">重置</el-button>
         <span class="showall" @click="showAllQueryCon">{{searchStatus.status}}<i :class="searchStatus.icon"></i></span>
       </div>
     </div>
@@ -81,6 +81,9 @@ export default {
     },
     showAllQueryCon(){
       this.searchStatus.status == '展开' ? this.searchStatus = {status: '收起', icon: 'el-icon-arrow-up'} : this.searchStatus = {status: '展开', icon: 'el-icon-arrow-down'}
+    },
+    resetSearch() {
+      this.search = {title: '', gender: null, baseType: '', brand: '', sport:'', isOnSale: null, inventory: null, sales: null}
     }
   },
 }
