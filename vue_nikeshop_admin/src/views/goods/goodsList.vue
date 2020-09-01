@@ -99,10 +99,10 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   .search-form {
-    width: 1000px;
+    // width: 1000px;
   }
   .handle-box {
-    width: 300px;
+    min-width: 300px;
     .el-button{
       margin-right: 20px;
     }
