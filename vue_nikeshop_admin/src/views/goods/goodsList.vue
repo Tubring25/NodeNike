@@ -1,5 +1,6 @@
 <template>
   <div class="goods-list-container">
+    <el-button type="primary" class="add-goods" @click="addGoods" icon="el-icon-plus">添加商品</el-button>
     <div class="search-box">
       <el-form :inline="true" :model="search" class="search-form">
         <el-form-item label="商品名称">
@@ -84,6 +85,9 @@ export default {
     },
     resetSearch() {
       this.search = {title: '', gender: null, baseType: '', brand: '', sport:'', isOnSale: null, inventory: null, sales: null}
+    },
+    addGoods() {
+      this.$router.push('/goods/addGood')
     }
   },
 }
@@ -91,6 +95,9 @@ export default {
 <style lang="scss" scoped>
 .goods-list-container {
   width: 100%;
+}
+.add-goods {
+  margin: 30px 0 0 30px;
 }
 .search-box {
   width: 95%;

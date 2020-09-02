@@ -57,11 +57,11 @@ const routes = [
 				meta: { title: '商品详情' }
 			},
 			{
-				path: 'about1',
-				name: 'About1',
+				path: 'addGood',
+				name: 'AddGood',
 				hidden: true,
-				component: () => import('../views/About'),
-				meta: { title: '关于1', icon: 'el-icon-menu' }
+				component: () => import('../views/goods/addGoods'),
+				meta: { title: '添加商品', icon: 'el-icon-menu' }
 			}
 		]
 	},
