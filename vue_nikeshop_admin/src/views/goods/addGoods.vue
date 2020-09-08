@@ -1,7 +1,7 @@
 <template>
   <div class="add-goods-container">
     <!-- 商品名称 -->
-    <el-form :model="goodsInfo" :rules="rules"  label-width="100px">
+    <el-form class="add-form" :model="goodsInfo" :rules="rules"  label-width="100px">
       <el-form-item label="商品名称" prop="title">
         <el-input v-model="goodsInfo.title" maxlength="50"></el-input>
       </el-form-item>
@@ -115,3 +115,13 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.add-goods-container{
+  width: 100%;
+  height: 100%;
+  .add-form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+</style>
