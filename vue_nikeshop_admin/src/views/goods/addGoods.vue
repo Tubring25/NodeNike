@@ -66,13 +66,6 @@
     <!-- 是否上架 -->
     <!-- 商品图片上传 -->
     <!-- 商品介绍 -->
-    <el-dialog title="设置商品属性" :visible.sync="dialogVisible" width="50%">
-      <el-button v-if="attribultList.length <= 5" type="primary" @click="addOneGroup" size="mini" >添加新属性</el-button>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -96,9 +89,6 @@ export default {
       goodsBaseType: [],
       goodsSportsType: [],
       goodsBrandsType: [],
-      dialogVisible: false,
-      attribultList: [],
-
     }
   },
   created() {
@@ -124,12 +114,8 @@ export default {
     },
 
     addAttribute() {
-      this.dialogVisible = true
       console.log(12313123)
     },
-    addOneGroup() {
-      console.log('增加属性')
-    }
   },
 }
 </script>
