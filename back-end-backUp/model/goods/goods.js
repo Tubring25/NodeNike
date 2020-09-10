@@ -1,7 +1,7 @@
 const baseModule = require('../baseModel');
 const Sequelize = require('sequelize');
 
-class Goods extends baseModule {
+class ShoesGoods extends baseModule {
   constructor() {
     super('goods', {
       goodsId: {
@@ -11,7 +11,7 @@ class Goods extends baseModule {
       },
       title: Sequelize.STRING(50), // 名称
       desc: Sequelize.STRING(100), // 描述
-      imgList: Sequelize.TEXT, // 图片地址
+      imgList: Sequelize.ARRAY, // 图片地址
       gender_id: Sequelize.INTEGER, // 性别ID 0:女,1:男,2:儿童,10:男女同款
       base_type_id: Sequelize.INTEGER, // 基础分类ID
       brand_id: Sequelize.INTEGER, // 品牌ID
@@ -20,10 +20,14 @@ class Goods extends baseModule {
       is_onsale: Sequelize.BOOLEAN, // 是否打折
       discounted_price: Sequelize.FLOAT, // 折扣价
       attribute_list: Sequelize.TEXT, // 商品属性: 以json字符串格式存放
-      inventory: Sequelize.BIGINT, // 库存
       sales: Sequelize.BIGINT, // 销量
       is_shelf: Sequelize.BOOLEAN, // 是否上架
+      evaluation: Sequelize.STRING, // 评价
+      evaluate_imgs: Sequelize.ARRAY, // 评价图片
+      evaluate_user: Sequelize.STRING, // 评价人
+      evaluate_star: Sequelize.NUMBER, // 打分
+      sports_star: Sequelize.STRING, // 运动员
     })
   }
 }
-module.exports = new Goods()
+module.exports = new ShoesGoods()
