@@ -4,7 +4,7 @@ const moment = require('moment');
 
 class bannerModule extends baseModule {
   constructor() {
-    super('banner', {
+    super('nk_banner', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,

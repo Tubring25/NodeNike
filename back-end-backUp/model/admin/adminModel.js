@@ -3,7 +3,7 @@ const baseModel = require('../baseModel');
 
 class adminModel extends baseModel {
 	constructor() {
-		super('admins', {
+		super('nk_admins', {
 			id: {
 				type: Sequelize.INTEGER(50),
 				primaryKey: true,

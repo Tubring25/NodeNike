@@ -4,7 +4,7 @@ const moment = require('moment');
 
 class storyModel extends baseModule {
   constructor () {
-    super('story', {
+    super('nk_story', {
       storyId: {
 				type: Sequelize.INTEGER(50),
 				primaryKey: true,

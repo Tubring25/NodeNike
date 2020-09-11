@@ -3,7 +3,7 @@ const baseModule = require('../baseModel');
 
 class goodsBrandsType extends baseModule {
   constructor(){
-    super('goods_brands_type', {
+    super('nk_brands_type', {
       id: {
         type: Sequelize.INTEGER(50),
         primaryKey: true,
