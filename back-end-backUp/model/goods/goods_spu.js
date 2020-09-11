@@ -10,7 +10,9 @@ class goodsSkuModel extends baseModule {
 				primaryKey: true,
 				autoIncrement: true
       },
-      title
+      title: Sequelize.STRING(50), // 商品标题
+      base_type: Sequelize.INTEGER, // 基础分类
+      sports_type: Sequelize.INTEGER, // 运动分类
     })
   }
 }
