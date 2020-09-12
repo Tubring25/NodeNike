@@ -11,7 +11,12 @@ class colorModule extends baseModule {
       },
       name: Sequelize.STRING, // 颜色名称
       code: Sequelize.STRING, // 颜色值
+    },
+    {
+      freezeTableName: true, // 禁止修改表名
     })
+    this.model = super.getModel()
+    this.model.sync()
   }
 }
 

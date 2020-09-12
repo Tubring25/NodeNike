@@ -1,4 +1,5 @@
 const express =  require('express');
+const router = express.Router();
 const Admin = require('../../controller/admin/adminCto');
 const goodsSportsType = require('../../controller/admin/goodsCategory/goodsSportsTypeCto');
 const goodsBaseType = require('../../controller/admin/goodsCategory/goodsBaseTypeCto');
@@ -6,7 +7,8 @@ const goodsBrandsType = require('../../controller/admin/goodsCategory/goodsBrand
 const banner = require('../../controller/admin/activity/bannerCto');
 const story = require('../../controller/admin/activity/storyCto');
 const commonCto = require('../../controller/admin/common/common');
-const router = express.Router();
+const colorCto = require('../../controller/admin/attributes/colorCto');
+
 
 router.get('/all', async (req, res, next) => {
   res.json(await Admin.findAll())
@@ -72,6 +74,19 @@ router.post('/goods/deleteType', async(req, res, next) => {
       break
   }
 })
+router.post('/goods/getColor', async (req, res, next) => {
+  res.json(await colorCto.getColorList())
+})
+router.post('/goods/addColr', async (req, res, next) => {
+  res.json(await colorCto.addColor(req.body))
+})
+router.post('/goods/editColor', async(req, res, next) => {
+  res.json(await colorCto.editColor(req.body))
+})
+router.post('/godos/deleteColor', async(req, res, next) => {
+  res.json(await colorCto.deleteColor(req.body))
+})
+
 
 /**
  * 图片上传
@@ -111,4 +126,5 @@ router.post('/editStory', async(req,res,next) => {
 router.post('/deleteStory', async(req, res, next) => {
   res.json(await story.deleteStory(req.body))
 })
+
 module.exports = router;
