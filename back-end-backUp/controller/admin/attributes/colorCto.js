@@ -1,4 +1,6 @@
 const colorModule = require('../../../model/attributes/color');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 class colorService {
   // 获取颜色列表
@@ -15,12 +17,13 @@ class colorService {
       return {code: 0, msg: '缺少字段'}
     }
     try {
-      let hasOne = colorModule.findAll({where: $or[{name: name}, {code: code}]})
+      let hasOne = colorModule.findAll({where: Op.or[{name: name}, {code: code}]})
+      console.log(hasOne)
       if (hasOne.length > 0 ) {
         return { code: 0, msg: '不可重复添加'}
       }
       colorModule.create({name: name, code: code})
-      return {code:1 , data: '添加成功'}
+      return {code: 1 , data: '添加成功'}
     } catch(err) { return {code: 0, msg: err}}
   }
   // 修改颜色值

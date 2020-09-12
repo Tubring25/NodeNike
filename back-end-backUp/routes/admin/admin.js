@@ -77,7 +77,7 @@ router.post('/goods/deleteType', async(req, res, next) => {
 router.post('/goods/getColor', async (req, res, next) => {
   res.json(await colorCto.getColorList())
 })
-router.post('/goods/addColr', async (req, res, next) => {
+router.post('/goods/addColor', async (req, res, next) => {
   res.json(await colorCto.addColor(req.body))
 })
 router.post('/goods/editColor', async(req, res, next) => {
