@@ -21,3 +21,31 @@ export function deleteGoodsType (data) {
     data
   })
 }
+export function getColorList(data) {
+  return request({
+    url: '/admin/goods/attribute/getColor',
+    method: 'post',
+    data
+  })
+}
+export function addColor(data) {
+  return request({
+    url: '/goods/attribute/addColor',
+    method: 'post',
+    data
+  })
+}
+export function editColor(data) {
+  return request({
+    url: '/goods/attribute/editColor',
+    method: 'post',
+    data
+  })
+}
+export function deleteColor (data) {
+  return request({
+    url: '/godos/attribute/deleteColor',
+    method: 'post',
+    data
+  })
+}

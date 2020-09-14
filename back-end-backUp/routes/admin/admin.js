@@ -74,16 +74,16 @@ router.post('/goods/deleteType', async(req, res, next) => {
       break
   }
 })
-router.post('/goods/getColor', async (req, res, next) => {
+router.post('/goods/attribute/getColor', async (req, res, next) => {
   res.json(await colorCto.getColorList())
 })
-router.post('/goods/addColor', async (req, res, next) => {
+router.post('/goods/attribute/addColor', async (req, res, next) => {
   res.json(await colorCto.addColor(req.body))
 })
-router.post('/goods/editColor', async(req, res, next) => {
+router.post('/goods/attribute/editColor', async(req, res, next) => {
   res.json(await colorCto.editColor(req.body))
 })
-router.post('/godos/deleteColor', async(req, res, next) => {
+router.post('/godos/attribute/deleteColor', async(req, res, next) => {
   res.json(await colorCto.deleteColor(req.body))
 })
 

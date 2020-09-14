@@ -53,18 +53,8 @@ const routes = [
 				path: 'goodsAttribute',
 				name: 'GoodsAttribute',
 				hidden: false,
-				redirect: '/goods/goodsAttribute/colorAttribute',
-				component: () => import('@/views/goods/goodsAttribute/colorAttribute'),
+				component: () => import('@/views/goods/goodsAttribute/index'),
 				meta: { title: '商品属性' },
-				children: [
-					{
-						path: 'colorAttribute',
-						name: 'ColorAttribute',
-						hidden: false,
-						component: () => import('@/views/goods/goodsAttribute/colorAttribute'),
-						meta: { title: '颜色属性' }
-					}
-				]
 			},
 			{
 				path: 'goodsDetail',
