@@ -24,7 +24,7 @@ const routes = [
 				name: 'Dashboard',
 				hidden: false,
 				component: () => import('../views/dashboard/dashboard'),
-				meta: { title: '面板1', icon: 'el-icon-menu' }
+				meta: { title: '面板1', icon: 'el-icon-menu' },
 			}
 		]
 	},
@@ -40,7 +40,7 @@ const routes = [
 				name: 'GoodsCategory',
 				hidden: false,
 				component: () => import('../views/goodsCategory/goodsCategory'),
-				meta: { title: '商品分类', icon: 'el-icon-menu' }
+				meta: { title: '商品分类', icon: 'el-icon-menu' },
 			},
 			{
 				path: 'goodsList',
@@ -48,6 +48,23 @@ const routes = [
 				hidden: false,
 				component: () => import('@/views/goods/goodsList'),
 				meta: { title: '商品列表' }
+			},
+			{
+				path: 'goodsAttribute',
+				name: 'GoodsAttribute',
+				hidden: false,
+				redirect: '/goods/goodsAttribute/colorAttribute',
+				component: () => import('@/views/goods/goodsAttribute/colorAttribute'),
+				meta: { title: '商品属性' },
+				children: [
+					{
+						path: 'colorAttribute',
+						name: 'ColorAttribute',
+						hidden: false,
+						component: () => import('@/views/goods/goodsAttribute/colorAttribute'),
+						meta: { title: '颜色属性' }
+					}
+				]
 			},
 			{
 				path: 'goodsDetail',

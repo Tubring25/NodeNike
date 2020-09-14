@@ -20,7 +20,16 @@
             <span slot="title">{{item.meta.title}}</span>
           </template>
           <div v-for="child in item.children" :key="child.path">
-            <el-menu-item v-show="child.hidden==false" :index="item.path+'/'+child.path">{{child.meta.title}}</el-menu-item>
+            <el-menu-item v-if="child.hidden==false && !child.children" :index="item.path+'/'+child.path">{{child.meta.title}}</el-menu-item>
+            <el-submenu v-if="child.hidden == false && child.children && child.children.length>0" :index="child.redirect">
+              <template slot="title">
+                <i :class="child.meta.icon"></i>
+                <span slot="title">{{child.meta.title}}</span>
+              </template>
+              <div v-for="subChild in child.children" :key="subChild.children">
+                <el-menu-item v-show="!subChild.hidden" :index="item.path+'/' + child.path+ '/'+subChild.path">{{subChild.meta.title}}</el-menu-item>
+              </div>
+            </el-submenu>
           </div>
         </el-submenu>
       </div>
@@ -41,6 +50,7 @@ export default {
   },
   methods: {
     go(e){
+      console.log(e)
       if(this.$route.path != e.split('').slice(1).join('') && this.$route.path != e) {
         if(e.split('')[0] =='/' && e.split('')[1]=='/'){
           this.$router.push(e.split('').slice(1).join(''))
