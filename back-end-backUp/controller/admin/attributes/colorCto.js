@@ -6,7 +6,7 @@ class colorService {
   // 获取颜色列表
   async getColorList () {
     try {
-      let res = colorModule.findAll()
+     let res = await colorModule.findAll()
       return {code:1, data: res}
     }catch(err) {return {code: 0, msg: err}}
   }
@@ -17,7 +17,7 @@ class colorService {
       return {code: 0, msg: '缺少字段'}
     }
     try {
-      let hasOne = colorModule.findAll({where: Op.or[{name: name}, {code: code}]})
+      let hasOne = await colorModule.findAll({where: Op.or[{name: name}, {code: code}]})
       console.log(hasOne)
       if (hasOne.length > 0 ) {
         return { code: 0, msg: '不可重复添加'}
@@ -33,7 +33,7 @@ class colorService {
       return {code: 0, msg: '缺少字段'}
     }
     try {
-      let hasOne = colorModule.findOne({where: {id:id}})
+      let hasOne = await colorModule.findOne({where: {id:id}})
       if (hasOne.length == 0 ) {
         return { code: 0, msg: '无此数据'}
       }
