@@ -30,21 +30,21 @@ export function getColorList(data) {
 }
 export function addColor(data) {
   return request({
-    url: '/goods/attribute/addColor',
+    url: '/admin/goods/attribute/addColor',
     method: 'post',
     data
   })
 }
 export function editColor(data) {
   return request({
-    url: '/goods/attribute/editColor',
+    url: '/admin/goods/attribute/editColor',
     method: 'post',
     data
   })
 }
 export function deleteColor (data) {
   return request({
-    url: '/godos/attribute/deleteColor',
+    url: '/admin/godos/attribute/deleteColor',
     method: 'post',
     data
   })
