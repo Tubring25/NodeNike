@@ -8,6 +8,7 @@ const banner = require('../../controller/admin/activity/bannerCto');
 const story = require('../../controller/admin/activity/storyCto');
 const commonCto = require('../../controller/admin/common/common');
 const colorCto = require('../../controller/admin/attributes/colorCto');
+const sizeCto = require('../../controller/admin/attributes/sizeCto');
 
 
 router.get('/all', async (req, res, next) => {
@@ -85,6 +86,18 @@ router.post('/goods/attribute/editColor', async(req, res, next) => {
 })
 router.post('/godos/attribute/deleteColor', async(req, res, next) => {
   res.json(await colorCto.deleteColor(req.body))
+})
+router.post('/goods/attribute/getSize', async (req, res, next) => {
+  res.json(await sizeCto.getSizeList())
+})
+router.post('/goods/attribute/addSize', async (req, res, next) => {
+  res.json(await sizeCto.addSize(req.body))
+})
+router.post('/goods/attribute/editSize', async(req, res, next) => {
+  res.json(await sizeCto.editSize(req.body))
+})
+router.post('/godos/attribute/deleteSize', async(req, res, next) => {
+  res.json(await sizeCto.deleteSize(req.body))
 })
 
 

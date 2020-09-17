@@ -49,3 +49,31 @@ export function deleteColor (data) {
     data
   })
 }
+export function getSizeList(data) {
+  return request({
+    url: '/admin/goods/attribute/getSize',
+    method: 'post',
+    data
+  })
+}
+export function addSize(data){
+  return request({
+    url: '/admin/goods/attribute/addSize',
+    method: 'post',
+    data
+  })
+}
+export function editSize(data) {
+  return request({
+    url: '/admin/goods/attribute/editSize',
+    method: 'post',
+    data
+  })
+}
+export function delectSize(data) {
+  return request({
+    url: '/admin/goods/attribute/delectSize',
+    method: 'post',
+    data
+  })
+}

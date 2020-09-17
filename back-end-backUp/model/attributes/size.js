@@ -10,7 +10,7 @@ class sizeModule extends baseModule {
 				autoIncrement: true
       },
       name: Sequelize.STRING,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER, // 0:服饰 1:鞋类
     },
     {
       freezeTableName: true, // 禁止修改表名

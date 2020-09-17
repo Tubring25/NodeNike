@@ -64,8 +64,12 @@ export default {
         this.$message.error('请填写完整')
         return
       }
-      // let reg = /^(#)(?=){8}/
-      // this.loading = true
+      let reg = /^(#)\w{6}$/
+      if(!reg.test(this.colorList[ind].code)) {
+        this.$message.info('仅支持十六进制颜色码')
+        return
+      }
+      this.loading = true
       if(this.colorList[this.colorList.length-1].id == null) {
         addColor(this.colorList[this.colorList.length-1]).then(res=>{
           if(res.code == 1) {

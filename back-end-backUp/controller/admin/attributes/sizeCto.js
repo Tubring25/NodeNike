@@ -43,7 +43,7 @@ class sizeService {
     catch(err) { return {code: 0, data: err}}
   }
   // 删除尺码
-  async deleteColor(data) {
+  async deleteSize(data) {
     let {id} = data
     if(!id) {return {code: 0, data: '缺少id'}}
     try {
