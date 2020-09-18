@@ -7,9 +7,9 @@
       </div>
       <div class="content-box">
         <el-card shadow="hover" class="item" v-for="(item, index) in colorList" :key="index">
-          <div class="delect-box">
+          <div class="delete-box">
           </div>
-          <i class="delect-icon el-icon-close" @click="close(index)"></i>
+          <i class="delete-icon el-icon-close" @click="close(index)"></i>
           <div class="normal" v-if="!item.isEdit">
             <span class="name">{{item.name}}</span>
             <span class="color" :style="{background: item.code}"></span>
@@ -135,23 +135,23 @@ export default {
       height: 15px;
       margin: 0 12px 0 8px;
     }
-    .delect-icon,
-    .delect-box {
+    .delete-icon,
+    .delete-box {
       position: absolute;
       top: 0;
       right: 0;
     }
-    .delect-icon {
+    .delete-icon {
       font-size: 10px;
       color: #fff;
       transform: rotate(0deg);
       transition:all .2s ease-in 0s;
     }
-    .delect-icon:hover {
+    .delete-icon:hover {
       color: rgb(224, 224, 224);
       transform: rotate(45deg);
     }
-    .delect-box {
+    .delete-box {
       width: 0;
       height: 0;
       border-top: solid #f77668;

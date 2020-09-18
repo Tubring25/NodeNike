@@ -70,9 +70,9 @@ export function editSize(data) {
     data
   })
 }
-export function delectSize(data) {
+export function deleteSize(data) {
   return request({
-    url: '/admin/goods/attribute/delectSize',
+    url: '/admin/godos/attribute/deleteSize',
     method: 'post',
     data
   })
