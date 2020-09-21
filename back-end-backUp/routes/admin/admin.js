@@ -9,6 +9,10 @@ const story = require('../../controller/admin/activity/storyCto');
 const commonCto = require('../../controller/admin/common/common');
 const colorCto = require('../../controller/admin/attributes/colorCto');
 const sizeCto = require('../../controller/admin/attributes/sizeCto');
+const materialCto = require('../../controller/admin/attributes/materialCto');
+const specialCto = require('../../controller/admin/attributes/specialCto');
+const suitwayCto = require('../../controller/admin/attributes/suitwayCto');
+const techniqueCto = require('../../controller/admin/attributes/techniqueCto');
 
 
 router.get('/all', async (req, res, next) => {
@@ -98,6 +102,54 @@ router.post('/goods/attribute/editSize', async(req, res, next) => {
 })
 router.post('/godos/attribute/deleteSize', async(req, res, next) => {
   res.json(await sizeCto.deleteSize(req.body))
+})
+router.post('/goods/attribute/getMaterial', async (req, res, next) => {
+  res.json(await materialCto.getList())
+})
+router.post('/goods/attribute/addMaterial', async (req, res, next) => {
+  res.json(await materialCto.addItem(req.body))
+})
+router.post('/goods/attribute/editMaterial', async(req, res, next) => {
+  res.json(await materialCto.editItem(req.body))
+})
+router.post('/godos/attribute/deleteMaterial', async(req, res, next) => {
+  res.json(await materialCto.deleteItem(req.body))
+})
+router.post('/goods/attribute/getSpecial', async (req, res, next) => {
+  res.json(await specialCto.getList())
+})
+router.post('/goods/attribute/addSpecial', async (req, res, next) => {
+  res.json(await specialCto.addItem(req.body))
+})
+router.post('/goods/attribute/editSpecial', async(req, res, next) => {
+  res.json(await specialCto.editItem(req.body))
+})
+router.post('/godos/attribute/deleteSpecial', async(req, res, next) => {
+  res.json(await specialCto.deleteItem(req.body))
+})
+router.post('/goods/attribute/getTechnique', async (req, res, next) => {
+  res.json(await techniqueCto.getList())
+})
+router.post('/goods/attribute/addTechnique', async (req, res, next) => {
+  res.json(await techniqueCto.addItem(req.body))
+})
+router.post('/goods/attribute/editTechnique', async(req, res, next) => {
+  res.json(await techniqueCto.editItem(req.body))
+})
+router.post('/godos/attribute/deleteTechnique', async(req, res, next) => {
+  res.json(await techniqueCto.deleteItem(req.body))
+})
+router.post('/goods/attribute/getSuitway', async (req, res, next) => {
+  res.json(await suitwayCto.getList())
+})
+router.post('/goods/attribute/addSuitway', async (req, res, next) => {
+  res.json(await suitwayCto.addItem(req.body))
+})
+router.post('/goods/attribute/editSuitway', async(req, res, next) => {
+  res.json(await suitwayCto.editItem(req.body))
+})
+router.post('/godos/attribute/deleteSuitway', async(req, res, next) => {
+  res.json(await suitwayCto.deleteItem(req.body))
 })
 
 
