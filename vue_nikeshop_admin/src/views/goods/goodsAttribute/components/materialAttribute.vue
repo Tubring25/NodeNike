@@ -1,8 +1,8 @@
 <template>
-  <div class="size-attribute-container">
+  <div class="material-attribute-container">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>尺码设置</span>
+        <span>材料设置</span>
       </div>
       <div class="content-box">
         <el-card class="clothes-card" v-loading="cloLoading">
@@ -46,10 +46,10 @@ export default {
     }
   },
   created() {
-    this.getSize_()
+    this.getList_()
   },
   methods: {
-    getSize_(){
+    getList_(){
       getSizeList().then(res=>{
         if(res.code == 1) {
           for (let i in res.data) {
@@ -108,13 +108,13 @@ export default {
       if(item.id) {
         editSize({id: item.id, name: item.name.trim(), type: type.toString()}).then(res=>{
           if(res.code == 1) {
-            this.getSize_()
+            this.getList_()
           }
         })
       } else {
         addSize({name: item.name.trim(), type: type.toString()}).then(res=>{
           if(res.code == 1){
-            this.getSize_()
+            this.getList_()
           }
         })
       }
@@ -128,7 +128,7 @@ export default {
         deleteSize({id: item.id}).then(res=>{
           if(res.code == 1) {
             this.$message.success('删除成功')
-            this.getSize_()
+            this.getList_()
           }
         })
       })
