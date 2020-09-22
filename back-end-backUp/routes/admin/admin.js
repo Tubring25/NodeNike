@@ -13,6 +13,7 @@ const materialCto = require('../../controller/admin/attributes/materialCto');
 const specialCto = require('../../controller/admin/attributes/specialCto');
 const suitwayCto = require('../../controller/admin/attributes/suitwayCto');
 const techniqueCto = require('../../controller/admin/attributes/techniqueCto');
+const clothLenCto = require('../../controller/admin/attributes/lengthCto');
 
 
 router.get('/all', async (req, res, next) => {
@@ -150,6 +151,18 @@ router.post('/goods/attribute/editSuitway', async(req, res, next) => {
 })
 router.post('/godos/attribute/deleteSuitway', async(req, res, next) => {
   res.json(await suitwayCto.deleteItem(req.body))
+})
+router.post('/goods/attribute/getClothLength', async (req, res, next) => {
+  res.json(await clothLenCto.getList())
+})
+router.post('/goods/attribute/addClothLength', async (req, res, next) => {
+  res.json(await clothLenCto.addItem(req.body))
+})
+router.post('/goods/attribute/editClothLength', async(req, res, next) => {
+  res.json(await clothLenCto.editItem(req.body))
+})
+router.post('/godos/attribute/deleteClothLength', async(req, res, next) => {
+  res.json(await clothLenCto.deleteItem(req.body))
 })
 
 
