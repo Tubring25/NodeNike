@@ -5,28 +5,29 @@ const Op = Sequelize.Op
 class specialService {
   async getList () {
     try {
-     let res = await specialModule.findAll()
-      return {code:1, data: res}
+      let clothesRes = await specialModule.findAll({where: {type: 0}})
+      let shoeRes = await specialModule.findAll({where: {type: 1}})
+      return {code:1, data: [clothesRes,shoeRes]}
     }catch(err) {return {code: 0, data: err}}
   }
   async addItem (data) {
-    const {name, code} = data
-    if(!name || !code ) {
+    const {name, type} = data
+    if(!name || !type ) {
       return {code: 0, data: '缺少字段'}
     }
     try {
-      let hasOne = await specialModule.findAll({where: {[Op.or]: [{name: name}, {code: code}]}})
+      let hasOne = await specialModule.findAll({where: {name: name, type: type}})
       console.log(hasOne)
       if (hasOne.length > 0 ) {
         return { code: 0, data: '不可重复添加'}
       }
-      specialModule.create({name: name, code: code})
+      specialModule.create({name: name, type: type})
       return {code: 1 , data: '添加成功'}
     } catch(err) { return {code: 0, data: err}}
   }
   async editItem (data) {
-    const {id, name, code} = data
-    if(!id || !name || !code) {
+    const {id, name, type} = data
+    if(!id || !name || !type) {
       return {code: 0, data: '缺少字段'}
     }
     try {
@@ -34,7 +35,7 @@ class specialService {
       if (hasOne.length == 0 ) {
         return { code: 0, data: '无此数据'}
       }
-      specialModule.update({name: name, code: code}, {where:{id:id}})
+      specialModule.update({name: name, type: type}, {where:{id:id}})
       return { code: 1, data: '修改成功' }
     } 
     catch(err) { return {code: 0, data: err}}

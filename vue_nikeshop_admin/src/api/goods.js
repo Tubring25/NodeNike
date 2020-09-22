@@ -44,7 +44,7 @@ export function editColor(data) {
 }
 export function deleteColor (data) {
   return request({
-    url: '/admin/godos/attribute/deleteColor',
+    url: '/admin/goods/attribute/deleteColor',
     method: 'post',
     data
   })
@@ -72,8 +72,124 @@ export function editSize(data) {
 }
 export function deleteSize(data) {
   return request({
-    url: '/admin/godos/attribute/deleteSize',
+    url: '/admin/goods/attribute/deleteSize',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getMaterialList(data) {
+  return request({
+    url: '/admin/goods/attribute/getMaterial',
     method: 'post',
     data
   })
+}
+export function addMaterial(data){
+  return request({
+    url: '/admin/goods/attribute/addMaterial',
+    method: 'post',
+    data
+  })
+}
+export function editMaterial(data) {
+  return request({
+    url: '/admin/goods/attribute/editMaterial',
+    method: 'post',
+    data
+  })
+}
+export function deleteMaterial(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteMaterial',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getSpecialList(data) {
+  return request({
+    url: '/admin/goods/attribute/getSpecial',
+    method: 'post',
+    data
+  })
+}
+export function addSpecial(data){
+  return request({
+    url: '/admin/goods/attribute/addSpecial',
+    method: 'post',
+    data
+  })
+}
+export function editSpecial(data) {
+  return request({
+    url: '/admin/goods/attribute/editSpecial',
+    method: 'post',
+    data
+  })
+}
+export function deleteSpecial(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteSpecial',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getTechniqueList(data) {
+  return request({
+    url: '/admin/goods/attribute/getTechnique',
+    method: 'post',
+    data
+  })
+}
+export function addTechnique(data){
+  return request({
+    url: '/admin/goods/attribute/addTechnique',
+    method: 'post',
+    data
+  })
+}
+export function editTechnique(data) {
+  return request({
+    url: '/admin/goods/attribute/editTechnique',
+    method: 'post',
+    data
+  })
+}
+export function deleteTechnique(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteTechnique',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getSuitwayList(data) {
+  return request({
+    url: '/admin/goods/attribute/getSuitway',
+    method: 'post',
+    data
+  })
+}
+export function addSuitway(data){
+  return request({
+    url: '/admin/goods/attribute/addSuitway',
+    method: 'post',
+    data
+  })
+}
+export function editSuitway(data) {
+  return request({
+    url: '/admin/goods/attribute/editSuitway',
+    method: 'post',
+    data
+  })
+}
+export function deleteSuitway(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteSuitway ',
+    method: 'post',
+    data
+  }) 
 }

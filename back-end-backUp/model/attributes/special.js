@@ -10,7 +10,7 @@ class specialModule extends baseModule {
 				autoIncrement: true
       },
       name: Sequelize.STRING, // 颜色名称
-      code: Sequelize.STRING, // 颜色值
+      type: Sequelize.INTEGER, // 0:服饰 1:鞋类
     },
     {
       freezeTableName: true, // 禁止修改表名

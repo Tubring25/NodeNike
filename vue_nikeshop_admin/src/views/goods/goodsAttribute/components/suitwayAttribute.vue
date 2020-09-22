@@ -1,8 +1,8 @@
 <template>
-  <div class="material-attribute-container">
+  <div class="Suitway-attribute-container">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>材料设置</span>
+        <span>贴合方式</span>
       </div>
       <div class="content-box">
         <el-card class="clothes-card" v-loading="cloLoading">
@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import { getMaterialList, addMaterial, deleteMaterial, editMaterial } from '@/api/goods'
+import { getSuitwayList, addSuitway, deleteSuitway, editSuitway } from '@/api/goods'
 export default {
   data() {
     return {
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     getList_(){
-      getMaterialList().then(res=>{
+      getSuitwayList().then(res=>{
         if(res.code == 1) {
           for (let i in res.data) {
             if(res.data[i].length != 0) {
@@ -106,13 +106,13 @@ export default {
         return
       }
       if(item.id) {
-        editMaterial({id: item.id, name: item.name.trim(), type: type.toString()}).then(res=>{
+        editSuitway({id: item.id, name: item.name.trim(), type: type.toString()}).then(res=>{
           if(res.code == 1) {
             this.getList_()
           }
         })
       } else {
-        addMaterial({name: item.name.trim(), type: type.toString()}).then(res=>{
+        addSuitway({name: item.name.trim(), type: type.toString()}).then(res=>{
           if(res.code == 1){
             this.getList_()
           }
@@ -125,7 +125,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(()=>{
-        deleteMaterial({id: item.id}).then(res=>{
+        deleteSuitway({id: item.id}).then(res=>{
           if(res.code == 1) {
             this.$message.success('删除成功')
             this.getList_()
