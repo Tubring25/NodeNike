@@ -1,10 +1,10 @@
-const lengthModule = require('../../../model/attributes/length_cloth');
+const sportsStarModule = require('../../../model/attributes/sports_star_shoe');
 
-class lengthCto {
+class sportsStarCto {
   constructor() {
-    this.instance = lengthModule
+    this.instance = sportsStarModule
   }
-  async getLength(data) {
+  async getList(data) {
     try {
       let res = await this.instance.findAll()
       return {code: 1, data: res}
@@ -15,10 +15,6 @@ class lengthCto {
     if(!name.trim()){
       return {code: 0, data: '缺少关键字'}
     }
-    let hasOne = await this.instance.findAll({where: {name: name}})
-      if(hasOne.length > 0) {
-        return {code: 0, data: '不可重复添加'}
-      }
     this.instance.create({name: name})
     return {code: 1, data: '添加成功'}
   }
@@ -47,4 +43,4 @@ class lengthCto {
     } catch(err) { return {code: 0, data: err}}
   }
 }
-module.exports = new lengthCto()
+module.exports = new sportsStarCto()

@@ -188,7 +188,65 @@ export function editSuitway(data) {
 }
 export function deleteSuitway(data) {
   return request({
-    url: '/admin/goods/attribute/deleteSuitway ',
+    url: '/admin/goods/attribute/deleteSuitway',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getLengthList(data) {
+  return request({
+    url: '/admin/goods/attribute/getClothLength',
+    method: 'post',
+    data
+  })
+}
+export function addLength(data){
+  return request({
+    url: '/admin/goods/attribute/addClothLength',
+    method: 'post',
+    data
+  })
+}
+export function editLength(data) {
+  return request({
+    url: '/admin/goods/attribute/editClothLength',
+    method: 'post',
+    data
+  })
+}
+export function deleteLength(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteClothLength',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getShoeSportsStar(data) {
+  return request({
+    url: '/admin/goods/attribute/getShoeSportsStar',
+    method: 'post',
+    data
+  })
+}
+export function addShoeSportsStar(data){
+  return request({
+    url: '/admin/goods/attribute/addShoeSportsStar',
+    method: 'post',
+    data
+  })
+}
+export function editShoeSportsStar(data) {
+  return request({
+    url: '/admin/goods/attribute/editShoeSportsStar',
+    method: 'post',
+    data
+  })
+}
+export function deleteShoeSportsStar(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteShoeSportsStar',
     method: 'post',
     data
   }) 

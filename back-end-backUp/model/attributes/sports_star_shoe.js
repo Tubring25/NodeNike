@@ -1,10 +1,9 @@
-const Sequelize = require('sequelize');
 const baseModule = require('../baseModel');
-const moment = require('moment');
+const Sequelize = require('sequelize');
 
-class lengthClothModule extends baseModule {
-  constructor() {
-    super('nk_attribute_length',{
+class sportsStarShoeModule extends baseModule {
+  constructor (){
+    super('nk_sports_star_attribute',{
       id: {
         type: Sequelize.INTEGER(50),
 				primaryKey: true,
@@ -19,4 +18,4 @@ class lengthClothModule extends baseModule {
 		this.model.sync()
   }
 }
-module.exports = new lengthClothModule()
+module.exports = new sportsStarShoeModule()
