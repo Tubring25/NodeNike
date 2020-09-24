@@ -2,7 +2,7 @@
   <div class="material-attribute-container">
     <el-card class="box-card" v-loading="shoeLoading">
       <div slot="header" class="clearfix">
-        <span>运动员(鞋类)</span>
+        <span>鞋高(鞋类)</span>
         <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="add"></i>
       </div>
       <div class="content-box">
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { getShoeSportsStar, addShoeSportsStar, deleteShoeSportsStar, editShoeSportsStar } from '@/api/goods'
+import { getShoeHeight, addShoeHeight, deleteShoeHeight, editShoeHeight } from '@/api/goods'
 export default {
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     getList_(){
-      getShoeSportsStar().then(res=>{
+      getShoeHeight().then(res=>{
         if(res.code == 1) {
           for (let i in res.data) {
             res.data[i].isEdit = false
@@ -58,13 +58,13 @@ export default {
         return
       }
       if(item.id) {
-        editShoeSportsStar({id: item.id, name: item.name.trim()}).then(res=>{
+        editShoeHeight({id: item.id, name: item.name.trim()}).then(res=>{
           if(res.code == 1) {
             this.getList_()
           }
         })
       } else {
-        addShoeSportsStar({name: item.name.trim()}).then(res=>{
+        addShoeHeight({name: item.name.trim()}).then(res=>{
           if(res.code == 1){
             this.getList_()
           }
@@ -77,7 +77,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(()=>{
-        deleteShoeSportsStar({id: item.id}).then(res=>{
+        deleteShoeHeight({id: item.id}).then(res=>{
           if(res.code == 1) {
             this.$message.success('删除成功')
             this.getList_()

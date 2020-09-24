@@ -1,10 +1,10 @@
-const lengthModule = require('../../../model/attributes/length_cloth');
+const gorundTypeShoeModule = require('../../../model/attributes/ground_type_shoe');
 
-class lengthCto {
+class gorundTypeShoeCto {
   constructor() {
-    this.instance = lengthModule
+    this.instance = gorundTypeShoeModule
   }
-  async getLength(data) {
+  async getList(data) {
     try {
       let res = await this.instance.findAll()
       return {code: 1, data: res}
@@ -13,7 +13,7 @@ class lengthCto {
   async addItem (data){
     const {name} = data
     if(!name.trim()){
-      return {code: 0, data: '缺少关键字'} 
+      return {code: 0, data: '缺少关键字'}
     }
     let hasOne = await this.instance.findAll({where: {name: name}})
       if(hasOne.length > 0) {
@@ -47,4 +47,4 @@ class lengthCto {
     } catch(err) { return {code: 0, data: err}}
   }
 }
-module.exports = new lengthCto()
+module.exports = new gorundTypeShoeCto()

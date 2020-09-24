@@ -15,6 +15,9 @@ const suitwayCto = require('../../controller/admin/attributes/suitwayCto');
 const techniqueCto = require('../../controller/admin/attributes/techniqueCto');
 const clothLenCto = require('../../controller/admin/attributes/lengthCto');
 const sportsStarCto = require('../../controller/admin/attributes/sportsStarCto');
+const heightShoeCto = require('../../controller/admin/attributes/heightShoeCto');
+const gorundTypeShoeCto = require('../../controller/admin/attributes/groundTypeShoeCto');
+const groundTypeShoeCto = require('../../controller/admin/attributes/groundTypeShoeCto');
 
 
 
@@ -91,7 +94,7 @@ router.post('/goods/attribute/addColor', async (req, res, next) => {
 router.post('/goods/attribute/editColor', async(req, res, next) => {
   res.json(await colorCto.editColor(req.body))
 })
-router.post('/godos/attribute/deleteColor', async(req, res, next) => {
+router.post('/goods/attribute/deleteColor', async(req, res, next) => {
   res.json(await colorCto.deleteColor(req.body))
 })
 router.post('/goods/attribute/getSize', async (req, res, next) => {
@@ -103,7 +106,7 @@ router.post('/goods/attribute/addSize', async (req, res, next) => {
 router.post('/goods/attribute/editSize', async(req, res, next) => {
   res.json(await sizeCto.editSize(req.body))
 })
-router.post('/godos/attribute/deleteSize', async(req, res, next) => {
+router.post('/goods/attribute/deleteSize', async(req, res, next) => {
   res.json(await sizeCto.deleteSize(req.body))
 })
 router.post('/goods/attribute/getMaterial', async (req, res, next) => {
@@ -115,7 +118,7 @@ router.post('/goods/attribute/addMaterial', async (req, res, next) => {
 router.post('/goods/attribute/editMaterial', async(req, res, next) => {
   res.json(await materialCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteMaterial', async(req, res, next) => {
+router.post('/goods/attribute/deleteMaterial', async(req, res, next) => {
   res.json(await materialCto.deleteItem(req.body))
 })
 router.post('/goods/attribute/getSpecial', async (req, res, next) => {
@@ -127,7 +130,7 @@ router.post('/goods/attribute/addSpecial', async (req, res, next) => {
 router.post('/goods/attribute/editSpecial', async(req, res, next) => {
   res.json(await specialCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteSpecial', async(req, res, next) => {
+router.post('/goods/attribute/deleteSpecial', async(req, res, next) => {
   res.json(await specialCto.deleteItem(req.body))
 })
 router.post('/goods/attribute/getTechnique', async (req, res, next) => {
@@ -139,7 +142,7 @@ router.post('/goods/attribute/addTechnique', async (req, res, next) => {
 router.post('/goods/attribute/editTechnique', async(req, res, next) => {
   res.json(await techniqueCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteTechnique', async(req, res, next) => {
+router.post('/goods/attribute/deleteTechnique', async(req, res, next) => {
   res.json(await techniqueCto.deleteItem(req.body))
 })
 router.post('/goods/attribute/getSuitway', async (req, res, next) => {
@@ -151,7 +154,7 @@ router.post('/goods/attribute/addSuitway', async (req, res, next) => {
 router.post('/goods/attribute/editSuitway', async(req, res, next) => {
   res.json(await suitwayCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteSuitway', async(req, res, next) => {
+router.post('/goods/attribute/deleteSuitway', async(req, res, next) => {
   res.json(await suitwayCto.deleteItem(req.body))
 })
 router.post('/goods/attribute/getClothLength', async (req, res, next) => {
@@ -163,7 +166,7 @@ router.post('/goods/attribute/addClothLength', async (req, res, next) => {
 router.post('/goods/attribute/editClothLength', async(req, res, next) => {
   res.json(await clothLenCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteClothLength', async(req, res, next) => {
+router.post('/goods/attribute/deleteClothLength', async(req, res, next) => {
   res.json(await clothLenCto.deleteItem(req.body))
 })
 router.post('/goods/attribute/getShoeSportsStar', async (req, res, next) => {
@@ -175,10 +178,33 @@ router.post('/goods/attribute/addShoeSportsStar', async (req, res, next) => {
 router.post('/goods/attribute/editShoeSportsStar', async(req, res, next) => {
   res.json(await sportsStarCto.editItem(req.body))
 })
-router.post('/godos/attribute/deleteShoeSportsStar', async(req, res, next) => {
+router.post('/goods/attribute/deleteShoeSportsStar', async(req, res, next) => {
   res.json(await sportsStarCto.deleteItem(req.body))
 })
-
+router.post('/goods/attribute/getShoeHeight', async (req, res, next) => {
+  res.json(await heightShoeCto.getList())
+})
+router.post('/goods/attribute/addShoeHeight', async (req, res, next) => {
+  res.json(await heightShoeCto.addItem(req.body))
+})
+router.post('/goods/attribute/editShoeHeight', async(req, res, next) => {
+  res.json(await heightShoeCto.editItem(req.body))
+})
+router.post('/goods/attribute/deleteShoeHeight', async(req, res, next) => {
+  res.json(await heightShoeCto.deleteItem(req.body))
+})
+router.post('/goods/attribute/getShoeGroundType', async (req, res, next) => {
+  res.json(await groundTypeShoeCto.getList())
+})
+router.post('/goods/attribute/addShoeGroundType', async (req, res, next) => {
+  res.json(await groundTypeShoeCto.addItem(req.body))
+})
+router.post('/goods/attribute/editShoeGroundType', async(req, res, next) => {
+  res.json(await groundTypeShoeCto.editItem(req.body))
+})
+router.post('/goods/attribute/deleteShoeGroundType', async(req, res, next) => {
+  res.json(await groundTypeShoeCto.deleteItem(req.body))
+})
 
 /**
  * 图片上传

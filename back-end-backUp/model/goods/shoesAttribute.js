@@ -2,9 +2,9 @@ const Sequelize = require('sequelize');
 const baseModule = require('../baseModel');
 const moment = require('moment');
 
-class  clothesAttributeModulle extends baseModule {
+class  shoesAttributeModulle extends baseModule {
   constructor(){
-    super('nk_clothes_sku_stock', {
+    super('nk_shoes_sku_stock', {
       sku_id: { // sku编号
         type: Sequelize.INTEGER(50),
 				primaryKey: true,
@@ -15,7 +15,7 @@ class  clothesAttributeModulle extends baseModule {
       size_list: Sequelize.TEXT, // 尺码列表
       technique: Sequelize.INTEGER, // 采用技术
       sports_star: Sequelize.INTEGER, // 运动员
-      shoes_high: Sequelize.INTEGER, // 鞋高
+      shoes_height: Sequelize.INTEGER, // 鞋高
       suit_way: Sequelize.INTEGER, // 贴合方式
       ground_type: Sequelize.INTEGER, // 适用场地
       special: Sequelize.INTEGER, // 特色
@@ -41,4 +41,4 @@ class  clothesAttributeModulle extends baseModule {
   }
 }
 
-module.exports = new clothesAttributeModulle()
+module.exports = new shoesAttributeModulle()

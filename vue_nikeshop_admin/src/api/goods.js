@@ -251,3 +251,61 @@ export function deleteShoeSportsStar(data) {
     data
   }) 
 }
+
+export function getShoeHeight(data) {
+  return request({
+    url: '/admin/goods/attribute/getShoeHeight',
+    method: 'post',
+    data
+  })
+}
+export function addShoeHeight(data){
+  return request({
+    url: '/admin/goods/attribute/addShoeHeight',
+    method: 'post',
+    data
+  })
+}
+export function editShoeHeight(data) {
+  return request({
+    url: '/admin/goods/attribute/editShoeHeight',
+    method: 'post',
+    data
+  })
+}
+export function deleteShoeHeight(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteShoeHeight',
+    method: 'post',
+    data
+  }) 
+}
+
+export function getShoeGroundType(data) {
+  return request({
+    url: '/admin/goods/attribute/getShoeGroundType',
+    method: 'post',
+    data
+  })
+}
+export function addShoeGroundType(data){
+  return request({
+    url: '/admin/goods/attribute/addShoeGroundType',
+    method: 'post',
+    data
+  })
+}
+export function editShoeGroundType(data) {
+  return request({
+    url: '/admin/goods/attribute/editShoeGroundType',
+    method: 'post',
+    data
+  })
+}
+export function deleteShoeGroundType(data) {
+  return request({
+    url: '/admin/goods/attribute/deleteShoeGroundType',
+    method: 'post',
+    data
+  }) 
+}
