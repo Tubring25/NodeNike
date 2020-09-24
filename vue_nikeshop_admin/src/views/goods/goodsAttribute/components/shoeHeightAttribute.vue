@@ -29,7 +29,9 @@ export default {
   methods: {
     getList_(){
       getShoeHeight().then(res=>{
+        this.shoeLoading = true
         if(res.code == 1) {
+          this.shoeLoading = false
           for (let i in res.data) {
             res.data[i].isEdit = false
           }
@@ -58,13 +60,17 @@ export default {
         return
       }
       if(item.id) {
+        this.shoeLoading = true
         editShoeHeight({id: item.id, name: item.name.trim()}).then(res=>{
+          this.shoeLoading = false
           if(res.code == 1) {
             this.getList_()
           }
         })
       } else {
+        this.shoeLoading = true
         addShoeHeight({name: item.name.trim()}).then(res=>{
+          this.shoeLoading = false
           if(res.code == 1){
             this.getList_()
           }
@@ -77,7 +83,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(()=>{
+        this.shoeLoading = true
         deleteShoeHeight({id: item.id}).then(res=>{
+          this.shoeLoading = false
           if(res.code == 1) {
             this.$message.success('删除成功')
             this.getList_()

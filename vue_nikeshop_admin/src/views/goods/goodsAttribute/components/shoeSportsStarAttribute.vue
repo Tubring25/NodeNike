@@ -28,7 +28,9 @@ export default {
   },
   methods: {
     getList_(){
+      this.shoeLoading = true
       getShoeSportsStar().then(res=>{
+        this.shoeLoading = false
         if(res.code == 1) {
           for (let i in res.data) {
             res.data[i].isEdit = false
@@ -57,14 +59,17 @@ export default {
         this.$message.error('请输入完整')
         return
       }
+      this.shoeLoading = true
       if(item.id) {
         editShoeSportsStar({id: item.id, name: item.name.trim()}).then(res=>{
+          this.shoeLoading = false
           if(res.code == 1) {
             this.getList_()
           }
         })
       } else {
         addShoeSportsStar({name: item.name.trim()}).then(res=>{
+          this.shoeLoading = false
           if(res.code == 1){
             this.getList_()
           }

@@ -40,7 +40,9 @@ export default {
   },
   methods: {
     getColorList_() {
+      this.loading = true
       getColorList().then(res=>{
+        this.loading = false
         if(res.code ==1) {
           for (let i in res.data) {
             res.data[i].isEdit = false

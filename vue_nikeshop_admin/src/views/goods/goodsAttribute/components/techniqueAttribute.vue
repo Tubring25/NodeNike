@@ -50,7 +50,11 @@ export default {
   },
   methods: {
     getList_(){
+      this.cloLoading = true
+      this.ShoeLoading = true
       getTechniqueList().then(res=>{
+        this.cloLoading = false
+        this.ShoeLoading = false
         if(res.code == 1) {
           for (let i in res.data) {
             if(res.data[i].length != 0) {
@@ -105,14 +109,17 @@ export default {
         this.$message.error('请输入完整')
         return
       }
+      type == 0 ? this.cloLoading = true : this.ShoeLoading = true
       if(item.id) {
         editTechnique({id: item.id, name: item.name.trim(), type: type.toString()}).then(res=>{
+          type == 0 ? this.cloLoading = false : this.ShoeLoading = false
           if(res.code == 1) {
             this.getList_()
           }
         })
       } else {
         addTechnique({name: item.name.trim(), type: type.toString()}).then(res=>{
+          type == 0 ? this.cloLoading = false : this.ShoeLoading = false
           if(res.code == 1){
             this.getList_()
           }

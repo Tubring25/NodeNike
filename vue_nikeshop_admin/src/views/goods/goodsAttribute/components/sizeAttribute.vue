@@ -50,6 +50,8 @@ export default {
   },
   methods: {
     getSize_(){
+      this.ShoeLoading = true
+      this.cloLoading = true
       getSizeList().then(res=>{
         if(res.code == 1) {
           for (let i in res.data) {
@@ -105,14 +107,17 @@ export default {
         this.$message.error('请输入完整')
         return
       }
+      type == 0 ? this.cloLoading = true : this.ShoeLoading = true
       if(item.id) {
         editSize({id: item.id, name: item.name.trim(), type: type.toString()}).then(res=>{
+          type == 0 ? this.cloLoading = false : this.ShoeLoading = false
           if(res.code == 1) {
             this.getSize_()
           }
         })
       } else {
         addSize({name: item.name.trim(), type: type.toString()}).then(res=>{
+          type == 0 ? this.cloLoading = false : this.ShoeLoading = false
           if(res.code == 1){
             this.getSize_()
           }
