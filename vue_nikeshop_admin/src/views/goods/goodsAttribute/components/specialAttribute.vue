@@ -53,6 +53,8 @@ export default {
       this.ShoeLoading = true
       this.cloLoading = true
       getSpecialList().then(res=>{
+        this.ShoeLoading = false
+        this.cloLoading = false
         if(res.code == 1) {
           for (let i in res.data) {
             if(res.data[i].length != 0) {
@@ -149,6 +151,9 @@ export default {
   color: #a9b4b6;
 }
 .content-box {
+  .shohes-card {
+    margin-top: 15px;
+  }
   .content{
     display: flex;
     flex-direction: row;

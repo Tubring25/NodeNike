@@ -1,16 +1,15 @@
 <template>
   <div class="attribute-container">
-    属性设置
-    <color-attribute></color-attribute>
-    <size-attribute></size-attribute>
-    <material-attribute></material-attribute>
-    <special-attribute></special-attribute>
-    <suitway-attribute></suitway-attribute>
-    <technique-attribute></technique-attribute>
-    <cloth-len-attribute></cloth-len-attribute>
-    <shoe-sports-star-attribute></shoe-sports-star-attribute>
-    <shoe-height-attribute></shoe-height-attribute>
-    <shoe-ground-type-attribute></shoe-ground-type-attribute>
+    <color-attribute class="container"></color-attribute>
+    <size-attribute class="container"></size-attribute>
+    <material-attribute class="container"></material-attribute>
+    <special-attribute class="container"></special-attribute>
+    <suitway-attribute class="container"></suitway-attribute>
+    <technique-attribute class="container"></technique-attribute>
+    <cloth-len-attribute class="container"></cloth-len-attribute>
+    <shoe-sports-star-attribute class="container"></shoe-sports-star-attribute>
+    <shoe-height-attribute class="container"></shoe-height-attribute>
+    <shoe-ground-type-attribute class="container"></shoe-ground-type-attribute>
   </div>
 </template>
 <script>
@@ -32,3 +31,9 @@ export default {
     techniqueAttribute, clothLenAttribute,shoeSportsStarAttribute,shoeHeightAttribute, shoeGroundTypeAttribute }
 }
 </script>
+<style lang="scss" scoped>
+.container {
+  width: 90%;
+  margin: 30px auto;
+}
+</style>

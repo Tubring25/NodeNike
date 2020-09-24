@@ -151,6 +151,9 @@ export default {
   color: #a9b4b6;
 }
 .content-box {
+  .shohes-card {
+    margin-top: 15px;
+  }
   .content{
     display: flex;
     flex-direction: row;
