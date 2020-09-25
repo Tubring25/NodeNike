@@ -24,8 +24,6 @@ import shoeSportsStarAttribute from './components/shoeSportsStarAttribute'
 import shoeHeightAttribute from './components/shoeHeightAttribute'
 import shoeGroundTypeAttribute from './components/shoeGroundTypeAttribute'
 
-
-
 export default {
   components: { colorAttribute, sizeAttribute, materialAttribute, specialAttribute, suitwayAttribute, 
     techniqueAttribute, clothLenAttribute,shoeSportsStarAttribute,shoeHeightAttribute, shoeGroundTypeAttribute }

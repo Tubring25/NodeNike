@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list-container">
-    <el-button type="primary" class="add-goods" @click="addGoods" icon="el-icon-plus">添加商品</el-button>
+    <div class="add-box"><el-button type="primary" class="add-goods" @click="addGoods" icon="el-icon-plus" circle></el-button></div>
     <div class="search-box">
       <el-form :inline="true" :model="search" class="search-form">
         <el-form-item label="商品名称">
@@ -95,9 +95,27 @@ export default {
 <style lang="scss" scoped>
 .goods-list-container {
   width: 100%;
+  position: relative;
 }
-.add-goods {
-  margin: 30px 0 0 30px;
+.add-box {
+  width: 50px;
+  height: 50px;
+  top: 150px;
+  left: 230px;
+  position: fixed;
+  .add-goods {
+    transform: scale(.5);
+    opacity: .2;
+  }
+}
+.add-box:hover {
+  .add-goods {
+    top: 150px;
+    left: 250px;
+    transform: scale(1);
+    transition:all .2s ease-in 0s;
+    opacity: 1;
+  }
 }
 .search-box {
   width: 95%;

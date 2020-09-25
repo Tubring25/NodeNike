@@ -16,9 +16,6 @@ class goodsSpuModel extends baseModule {
       img_list: Sequelize.TEXT, // 图片列表
       sports_type: Sequelize.INTEGER, // 运动分类
       brand_type: Sequelize.INTEGER, // 品牌分类
-      price: Sequelize.DECIMAL(10,2), // 商品价格
-      is_sale: Sequelize.BOOLEAN, // 是否打折
-      sale_price: Sequelize.DECIMAL(10,2), // 折后价
       attribute_list: Sequelize.TEXT(long), // 其他sku属性
       has_evalute: Sequelize.BOOLEAN, // 是否有评价,
       is_onshelf: Sequelize.BOOLEAN, // 是否上架

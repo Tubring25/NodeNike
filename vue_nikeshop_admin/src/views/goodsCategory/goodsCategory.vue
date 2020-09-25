@@ -12,7 +12,7 @@
       <el-table-column prop="desc" label="类别描述"></el-table-column>
       <el-table-column prop="type" label="详细分类" v-if="currentTab==1" width="100">
         <template slot-scope="scope">
-          <span>{{scope.row.type == 0 ? "鞋类": "服装"}}</span>
+          <el-tag :type="scope.row.type == 0 ? 'primary' : 'success'" disable-transitions>{{scope.row.type == 0 ? '鞋类' : '服装'}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150">

@@ -10,6 +10,7 @@ class  shoesAttributeModulle extends baseModule {
 				primaryKey: true,
 				autoIncrement: true
       },
+      goods_id: Sequelize.INTEGER, // 商品id
       color: Sequelize.INTEGER, // 颜色属性
       color_list: Sequelize.TEXT, // 颜色图片
       size_list: Sequelize.TEXT, // 尺码列表
@@ -20,6 +21,10 @@ class  shoesAttributeModulle extends baseModule {
       ground_type: Sequelize.INTEGER, // 适用场地
       special: Sequelize.INTEGER, // 特色
       material: Sequelize.INTEGER, // 材料
+      inventory: Sequelize.INTEGER, // 库存
+      price: Sequelize.DECIMAL(10,2), // 商品价格
+      is_sale: Sequelize.BOOLEAN, // 是否打折
+      sale_price: Sequelize.DECIMAL(10,2), // 折后价
       createdAt: {
         type: Sequelize.DATE,
         get() {
