@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list-container">
-    <div class="add-box"><el-button type="primary" class="add-goods" @click="addGoods" icon="el-icon-plus" circle></el-button></div>
+    <div class="add-box"><el-button type="primary" class="add-goods" @click="addGoodsDialog=true"   icon="el-icon-plus" circle></el-button></div>
     <div class="search-box">
       <el-form :inline="true" :model="search" class="search-form">
         <el-form-item label="商品名称">
@@ -42,6 +42,18 @@
         <span class="showall" @click="showAllQueryCon">{{searchStatus.status}}<i :class="searchStatus.icon"></i></span>
       </div>
     </div>
+
+
+    <el-dialog title="请选择商品类别" :visible.sync="addGoodsDialog" width="30%" center>
+      <el-radio-group v-model="goodsType">
+        <el-radio :label="0">服装</el-radio>
+        <el-radio :label="1">鞋类</el-radio>
+      </el-radio-group>
+      <div slot="footer">
+        <el-button @click="addGoodsDialog=false">取消</el-button>
+        <el-button @click="addConfirm" type="primary">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -57,6 +69,8 @@ export default {
       goodsBaseType: [],
       goodsSportsType: [],
       goodsBrandsType: [],
+      addGoodsDialog: false,
+      goodsType: 0
     }
   },
   created() {
@@ -86,8 +100,9 @@ export default {
     resetSearch() {
       this.search = {title: '', gender: null, baseType: '', brand: '', sport:'', isOnSale: null, inventory: null, sales: null}
     },
-    addGoods() {
-      this.$router.push('/goods/addGood')
+    addConfirm() {
+      this.addGoodsDialog = false
+      this.$router.push({path: '/goods/addGood', query: {type: this.goodsType}})
     }
   },
 }
@@ -100,7 +115,7 @@ export default {
 .add-box {
   width: 50px;
   height: 50px;
-  top: 150px;
+  top: 120px;
   left: 230px;
   position: fixed;
   .add-goods {
@@ -110,7 +125,6 @@ export default {
 }
 .add-box:hover {
   .add-goods {
-    top: 150px;
     left: 250px;
     transform: scale(1);
     transition:all .2s ease-in 0s;
