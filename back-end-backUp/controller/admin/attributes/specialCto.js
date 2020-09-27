@@ -3,8 +3,13 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
 class specialService {
-  async getList () {
+  async getList (data) {
+    let {type} = data
+    let resData
     try {
+      if(type) {
+        resData = await specialModule.findAll({where: {type: type}})
+      }
       let clothesRes = await specialModule.findAll({where: {type: 0}})
       let shoeRes = await specialModule.findAll({where: {type: 1}})
       return {code:1, data: [clothesRes,shoeRes]}

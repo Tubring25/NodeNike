@@ -44,16 +44,46 @@
       </div>
       <div class="content-box">
         <el-form class="add-form" :model="specAtt" :rules="rules" label-width="80px" label-position="left">
-          <el-form-item lable="技术" prop="technique">
-
+          <el-form-item label="技术" prop="technique">
+            <el-select v-model="specAtt.technique" placehoder="请选择技术">
+              <el-option v-for="item in TechniqueList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item lable="贴合方式" prop="suit_way"></el-form-item>
-          <el-form-item lable="特色" prop="special"></el-form-item>
-          <el-form-item lable="材料" prop="material"></el-form-item>
-          <el-form-item lable="长度" prop="length" v-if="goodsType==0"></el-form-item>
-          <el-form-item lable="运动员" prop="sports_star" v-if="goodsType==1">></el-form-item>
-          <el-form-item lable="鞋高" prop="shoes_height" v-if="goodsType==1">></el-form-item>
-          <el-form-item lable="适用场地" prop="ground_type" v-if="goodsType==1">></el-form-item>
+          <el-form-item label="贴合方式" prop="suit_way">
+            <el-select v-model="specAtt.suit_way" placehoder="请选择贴合方式">
+              <el-option v-for="item in SuitwayList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="特色" prop="special">
+            <el-select v-model="specAtt.special" placehoder="请选择特色">
+              <el-option v-for="item in SpecialList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="材料" prop="material">
+            <el-select v-model="specAtt.material" placehoder="请选择材料">
+              <el-option v-for="item in MaterialList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="长度" prop="length" v-if="goodsType==0">
+            <el-select v-model="specAtt.length" placehoder="请选择长度">
+              <el-option v-for="item in LengthList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="运动员" prop="sports_star" v-if="goodsType==1">
+            <el-select v-model="specAtt.sports_star" placehoder="请选择运动员">
+              <el-option v-for="item in ShoeSportsStar" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="鞋高" prop="shoes_height" v-if="goodsType==1">
+            <el-select v-model="specAtt.shoes_height" placehoder="请选择鞋高">
+              <el-option v-for="item in ShoeHeight" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="适用场地" prop="ground_type" v-if="goodsType==1">
+            <el-select v-model="specAtt.ground_type" placehoder="请选择适用场地">
+              <el-option v-for="item in ShoeGroundType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
         </el-form>
       </div>
     </el-card>
@@ -64,9 +94,11 @@ import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuit
 export default {
   data(){
     return {
+      normalLoading: false,
+      specLoading: false,
       goodsType: 0,
       nomalAtt: {title: '', desc: '', imgList: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_shelf: null},
-      specAtt: {color: '', technique: '', suit_way: '', special: '', material: '', length: '',},
+      specAtt: {color: '', technique: '', suit_way: '', special: '', material: '', length: '', sports_star: '', shoes_height: '', ground_typel: ''},
       rules: {
         title: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
         base_type_id: [{required: true, message: '请选择基础分类', trigger: 'change'}],
@@ -114,22 +146,22 @@ export default {
           this.goodsBrandsType = res.data
         }
       })
-      getMaterialList().then(res=>{
+      getMaterialList({type: this.goodsType}).then(res=>{
         if(res.code == 1) {
           this.MaterialList = res.data
         }
       })
-      getSpecialList().then(res=>{
+      getSpecialList({type: this.goodsType}).then(res=>{
         if(res.code ==1) {
           this.SpecialList = res.data
         }
       })
-      getSuitwayList().then(res=>{
+      getSuitwayList({type: this.goodsType}).then(res=>{
         if(res.code ==1) {
           this.SuitwayList = res.data
         }
       })
-      getTechniqueList().then(res=>{
+      getTechniqueList({type: this.goodsType}).then(res=>{
         if(res.code == 1) {
           this.TechniqueList = res.data
         }
@@ -138,6 +170,23 @@ export default {
         getLengthList().then(res=>{
           if(res.code ==1) {
             this.LengthList = res.data
+          }
+        })
+      }
+      if(this.goodsType == 1) {
+        getShoeSportsStar().then(res => {
+          if(res.code==1) {
+            this.ShoeSportsStar = res.data
+          }
+        })
+        getShoeHeight().then(res=>{
+          if(res.code == 1) {
+            this.ShoeHeight = res.data
+          }
+        })
+        getShoeGroundType().then(res=>{
+          if(res.code == 1) {
+            this.ShoeGroundType = res.data
           }
         })
       }
