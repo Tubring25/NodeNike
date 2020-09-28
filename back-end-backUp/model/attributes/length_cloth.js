@@ -10,7 +10,7 @@ class lengthClothModule extends baseModule {
 				primaryKey: true,
 				autoIncrement: true
       },
-      name: Sequelize.STRING(50)
+      name: Sequelize.STRING(50),
     },
     {
       freezeTableName: true, // 禁止修改表名

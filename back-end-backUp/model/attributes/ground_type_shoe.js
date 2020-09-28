@@ -10,7 +10,8 @@ class groundTypeShoeModule extends baseModule {
 				primaryKey: true,
 				autoIncrement: true
       },
-      name: Sequelize.STRING(50)
+      name: Sequelize.STRING(50),
+      sports_type: Sequelize.INTEGER
     },
     {
       freezeTableName: true, // 禁止修改表名

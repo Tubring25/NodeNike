@@ -10,7 +10,8 @@ class heightShoeModule extends baseModule {
 				primaryKey: true,
 				autoIncrement: true
       },
-      name: Sequelize.STRING(50)
+      name: Sequelize.STRING(50),
+      sports_type: Sequelize.INTEGER, // 运动类型
     },
     {
       freezeTableName: true, // 禁止修改表名

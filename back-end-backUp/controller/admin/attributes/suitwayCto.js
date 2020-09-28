@@ -3,11 +3,18 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
 class suitwayService {
-  async getList () {
+  async getList (data) {
+    let {type} = data
+    let resData
     try {
-      let clothesRes = await suitwayModule.findAll({where: {type: 0}})
-      let shoeRes = await suitwayModule.findAll({where: {type: 1}})
-      return {code:1, data: [clothesRes,shoeRes]}
+      if(type) {
+        resData = await suitwayModule.findAll({where: {type: type}})
+      } else {
+        let clothesRes = await suitwayModule.findAll({where: {type: 0}})
+        let shoeRes = await suitwayModule.findAll({where: {type: 1}})
+        resData = [clothesRes, shoeRes]
+      }
+      return {code:1, data: resData}
     }catch(err) {return {code: 0, data: err}}
   }
   async addItem (data) {

@@ -9,10 +9,12 @@ class specialService {
     try {
       if(type) {
         resData = await specialModule.findAll({where: {type: type}})
+      } else {
+        let clothesRes = await specialModule.findAll({where: {type: 0}})
+        let shoeRes = await specialModule.findAll({where: {type: 1}})
+        resData = [clothesRes, shoeRes]
       }
-      let clothesRes = await specialModule.findAll({where: {type: 0}})
-      let shoeRes = await specialModule.findAll({where: {type: 1}})
-      return {code:1, data: [clothesRes,shoeRes]}
+      return {code:1, data: resData}
     }catch(err) {return {code: 0, data: err}}
   }
   async addItem (data) {
