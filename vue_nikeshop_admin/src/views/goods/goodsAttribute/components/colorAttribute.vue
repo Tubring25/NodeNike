@@ -127,6 +127,7 @@ export default {
     font-size: 15px;
     margin-left: 20px;
     position: relative;
+    margin-top: 10px;
     .normal,
     .edit-box{
       margin: 25px;

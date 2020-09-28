@@ -13,7 +13,7 @@
           <div class="content">
             <div class="item" v-for="(item, index) in clothesList" :key="index">
               <span v-if="!item.isEdit" @dblclick="editItem(0, index)"><el-tag closable  @close="close(item)">{{item.name}}</el-tag></span>
-              <el-input class="input" v-else size="small" v-model="item.name" maxlength="10" @keyup.enter.native="confirm(0,item)"></el-input>
+              <el-input class="input" v-else size="small" v-model="item.name" maxlength="20" @keyup.enter.native="confirm(0,item)"></el-input>
             </div>
           </div>
         </el-card>
@@ -25,7 +25,7 @@
           <div class="content">
             <div class="item" v-for="(item, index) in shoeList" :key="index">
               <span v-if="!item.isEdit" @dblclick="editItem(1, index)"><el-tag closable  @close="close(item)">{{item.name}}</el-tag></span>
-              <el-input class="input" v-else size="small" v-model="item.name" maxlength="10" @keyup.enter.native="confirm(1,item)"></el-input>
+              <el-input class="input" v-else size="small" v-model="item.name" maxlength="20" @keyup.enter.native="confirm(1,item)"></el-input>
             </div>
           </div>
         </el-card>
@@ -160,7 +160,7 @@ export default {
     flex-wrap: wrap;
     margin: 20px;
     .item {
-      margin: 0 10px;
+      margin: 5px 10px;
       .input {
         width: 100px;
       }

@@ -31,7 +31,7 @@ const routes = [
 	{
 		path: '/goods',
 		name: 'goods',
-		redirect: '/goods/goodsCategory',
+		redirect: '/goods/goodsList',
 		component: Layout,
 		meta: { title: '商品管理', icon: 'el-icon-goods' },
 		children: [
