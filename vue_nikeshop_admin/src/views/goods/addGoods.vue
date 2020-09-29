@@ -38,7 +38,7 @@
         </el-form>
       </div>
     </el-card>
-    <el-card shadow="hover" class="box-card" v-loading="specLoading">
+    <el-card shadow="hover" class="box-card" v-loading="normalLoading">
       <div slot="header">
         <span>特殊设置</span>
       </div>
@@ -89,18 +89,38 @@
     </el-card>
     <el-card shadow="hover" class="box-card" v-loading="specLoading">
       <div slot="header">
-        <span>SKu设置</span>
+        <span>Sku设置</span>
       </div>
       <div class="content-box">
-        <div class="item-box">
-          
+        <div class="item-box" v-for="(item, index) in skuList" :key="index">
+          <div class="item">
+            <span class="name">颜色</span>
+            <el-select v-model="item.color" placeholder="请选择">
+              <el-option class="opt-box" v-for="color in colorList" :key="color.id" :label="color.name" :value="color.id">
+                <span style="float: left">{{ color.name }}</span>
+                <span class="cube" :style="'display:block; float: right; width:10px;height:10px;margin-top:12px; background:'+color.code">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
+          <div class="item">
+            <span class="name">价格</span>
+            <el-input v-model="item.price" type="number" maxlength="10"></el-input>
+          </div>
+          <div class="item">
+            <span class="name">是否打折</span>
+            <el-switch v-model="item.is_sale"></el-switch>
+          </div>
+          <div class="item" v-show="item.is_sale">
+            <span class="name">折后价</span>
+            <el-input v-model="item.sale_price" type="number" maxlength="10" size="small" max="100000"></el-input>
+          </div>
         </div>
       </div>
     </el-card>
   </div>
 </template>
 <script>
-import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType } from '@/api/goods'
+import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getColorList } from '@/api/goods'
 export default {
   data(){
     return {
@@ -128,7 +148,9 @@ export default {
       LengthList: [],
       ShoeSportsStar: [],
       ShoeHeight: [],
-      ShoeGroundType: []
+      ShoeGroundType: [],
+      colorList: [],
+      skuList: [{color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}]
     }
   },
   created() {
@@ -141,6 +163,8 @@ export default {
   },
   methods: {
     getAllTypes(){
+      this.normalLoading = true
+      this.specLoading = true
       getGoodsType({type:1, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsBaseType = res.data
@@ -176,6 +200,11 @@ export default {
           this.TechniqueList = res.data
         }
       })
+      getColorList().then(res=>{
+        if(res.code == 1) {
+          this.colorList = res.data
+        }
+      })
       if(this.goodsType == 0) {
         getLengthList().then(res=>{
           if(res.code ==1) {
@@ -200,6 +229,8 @@ export default {
           }
         })
       }
+      this.normalLoading = false
+      this.specLoading = false
     },
   },
 }
@@ -212,6 +243,10 @@ export default {
     width: 90%;
     margin: 0 auto;
     margin-top: 30px;
+    .content-box{
+      .item-box{
+      }
+    }
   }
   .add-form {
     width: 100%;
