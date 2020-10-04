@@ -3,6 +3,7 @@ const path = require('path');
 const formiable = require('formidable');
 
 class commonService {
+  // 通用图片上传
   uploadImg(req, res){
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
