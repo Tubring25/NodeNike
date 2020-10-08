@@ -90,6 +90,7 @@
     <el-card shadow="hover" class="box-card" v-loading="specLoading">
       <div slot="header">
         <span>Sku设置</span>
+        <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="add(0)"></i>
       </div>
       <div class="content-box">
         <div class="item-box" v-for="(item, index) in skuList" :key="index">
@@ -104,7 +105,7 @@
           </div>
           <div class="item">
             <span class="name">价格</span>
-            <el-input v-model="item.price" type="number" maxlength="10"></el-input>
+            <el-input v-model="item.price" type="number" max="100000" min="0"></el-input>
           </div>
           <div class="item">
             <span class="name">是否打折</span>
@@ -112,7 +113,10 @@
           </div>
           <div class="item" v-show="item.is_sale">
             <span class="name">折后价</span>
-            <el-input v-model="item.sale_price" type="number" maxlength="10" size="small" max="100000"></el-input>
+            <el-input v-model="item.sale_price" type="number" max="100000" min="0"></el-input>
+          </div>
+          <div class="item" >
+            <el-button type="primary" size="mini" >添加图片</el-button>
           </div>
         </div>
       </div>
@@ -120,7 +124,7 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getColorList } from '@/api/goods'
+import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getColorList, getTempGoodsId } from '@/api/goods'
 export default {
   data(){
     return {
@@ -150,7 +154,8 @@ export default {
       ShoeHeight: [],
       ShoeGroundType: [],
       colorList: [],
-      skuList: [{color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}]
+      skuList: [{color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}],
+      tempId: null,
     }
   },
   created() {
@@ -160,6 +165,7 @@ export default {
     }
     this.goodsType = this.$route.query.type
     this.getAllTypes()
+    this.getTempGoodsId_(this.$route.query.type)
   },
   methods: {
     getAllTypes(){
@@ -232,6 +238,13 @@ export default {
       this.normalLoading = false
       this.specLoading = false
     },
+    getTempGoodsId_(type){
+      getTempGoodsId({type:type}).then(res=>{
+        if(res.code == 1) {
+          this.tempId = res.data
+        }
+      })
+    }
   },
 }
 </script>
@@ -245,6 +258,25 @@ export default {
     margin-top: 30px;
     .content-box{
       .item-box{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: left;
+        .item {
+          margin-right: 25px;
+          span {
+            margin-right: 15px;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+          }
+          .el-select {
+            width: 160px;
+          }
+          .el-input{
+            width: 160px;
+          }
+        }
       }
     }
   }

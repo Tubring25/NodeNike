@@ -309,3 +309,11 @@ export function deleteShoeGroundType(data) {
     data
   }) 
 }
+
+export function getTempGoodsId(data) {
+  return request({
+    url: '/admin/goods/add/tempId', 
+    method: 'post',
+    data
+  })
+}

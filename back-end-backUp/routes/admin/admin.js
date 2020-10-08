@@ -205,6 +205,9 @@ router.post('/goods/attribute/editShoeGroundType', async(req, res, next) => {
 router.post('/goods/attribute/deleteShoeGroundType', async(req, res, next) => {
   res.json(await groundTypeShoeCto.deleteItem(req.body))
 })
+router.post('/goods/add/tempId', async(req,res,next) => {
+  res.json(await commonCto.createTempGoodsId(req.body))
+})
 
 /**
  * 图片上传
