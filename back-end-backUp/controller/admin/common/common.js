@@ -3,11 +3,13 @@ const path = require('path');
 const formiable = require('formidable');
 
 class commonService {
-  // 通用图片上传
-  uploadImg(req, res){
+  // 单张图片上传
+  uploadSingleImg(imgPath, req, res){
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
-    form.uploadDir = path.join(__dirname, '../../../public');
+    console.log(imgPath)
+    fs.mkdirSync(imgPath);
+    form.uploadDir = path.join(__dirname, "../../../public/" + imgPath); 
     form.keepExtensions = true;
     form.maxFieldsSize = 4 * 1024 * 1024;
     
@@ -38,7 +40,7 @@ class commonService {
         if(err) {
           return res.json({code: 0, data: '图片上传失败'})
         } else {
-          return res.json({code: 1, data: {url:  imageName}})
+          return res.json({ code: 1, data: newPath });
         }
       })
     })

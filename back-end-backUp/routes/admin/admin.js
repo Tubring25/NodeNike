@@ -16,8 +16,8 @@ const techniqueCto = require('../../controller/admin/attributes/techniqueCto');
 const clothLenCto = require('../../controller/admin/attributes/lengthCto');
 const sportsStarCto = require('../../controller/admin/attributes/sportsStarCto');
 const heightShoeCto = require('../../controller/admin/attributes/heightShoeCto');
-const gorundTypeShoeCto = require('../../controller/admin/attributes/groundTypeShoeCto');
 const groundTypeShoeCto = require('../../controller/admin/attributes/groundTypeShoeCto');
+const goodsCto = require('../../controller/admin/goods/goodsCto');
 
 
 
@@ -208,6 +208,9 @@ router.post('/goods/attribute/deleteShoeGroundType', async(req, res, next) => {
 router.post('/goods/add/tempId', async(req,res,next) => {
   res.json(await commonCto.createTempGoodsId(req.body))
 })
+router.post("/goods/addSkuImg", async (req, res) => {
+  res.json(await goodsCto.addSkuImg(req));
+});
 
 /**
  * 图片上传
