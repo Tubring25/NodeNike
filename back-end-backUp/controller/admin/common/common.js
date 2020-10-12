@@ -10,12 +10,14 @@ class commonService {
     if (!fs.existsSync(imgPath)) {
       fs.mkdirSync(imgPath);
     }
-    form.uploadDir = path.join(__dirname, "../../../public/" + imgPath); 
+    form.uploadDir = path.join(__dirname, "../../../"+imgPath); 
     form.keepExtensions = true;
     form.maxFieldsSize = 4 * 1024 * 1024;
     
     form.parse(req, (err, fields, files) => {
+      console.log(2111)
       let file = files.file
+      console.log(req);
       if(err) {
         return {code: 0, data: '服务器错误'}
       }
