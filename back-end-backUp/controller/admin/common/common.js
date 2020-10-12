@@ -7,8 +7,9 @@ class commonService {
   uploadSingleImg(imgPath, req, res){
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
-    console.log(imgPath)
-    fs.mkdirSync(imgPath);
+    if (!fs.existsSync(imgPath)) {
+      fs.mkdirSync(imgPath);
+    }
     form.uploadDir = path.join(__dirname, "../../../public/" + imgPath); 
     form.keepExtensions = true;
     form.maxFieldsSize = 4 * 1024 * 1024;

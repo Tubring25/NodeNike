@@ -102,7 +102,7 @@ export default {
     },
     addConfirm() {
       this.addGoodsDialog = false
-      this.$router.push({path: '/goods/addGood', query: {type: this.goodsType}})
+      this.$router.push({path: '/goods/addGood', query: {type: this.goodsType.toString()}})
     }
   },
 }
