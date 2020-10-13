@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const formiable = require('formidable');
+const { callbackify } = require('util');
 
 class commonService {
   // 单张图片上传
-  uploadSingleImg(imgPath, req, res){
+  uploadSingleImg(imgPath, req, callback){
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
     if (!fs.existsSync(imgPath)) {
@@ -15,15 +16,14 @@ class commonService {
     form.maxFieldsSize = 4 * 1024 * 1024;
     
     form.parse(req, (err, fields, files) => {
-      console.log(2111)
       let file = files.file
-      console.log(req);
+      console.log(file.type)
       if(err) {
-        return {code: 0, data: '服务器错误'}
+        callback('服务器错误'+err, null)
       }
       if (file.size>form.maxFileSize) {
         fs.unlink(file.path)
-        return {code: 0, data: '图片不得超过3M'}
+        callback('图片不得超过3M', null)
       }
 
       let extName = ''
@@ -33,7 +33,7 @@ class commonService {
         extName = 'jpg'
       }
       if(extName.length == 0) {
-        return {code: 0, data: '只支持png与jpg格式的图片'}
+        callback('只支持png与jpg格式的图片', null)
       }
       let timestamp = Number(new Date())
       let num = Math.floor(Math.random() * 1000)
@@ -41,9 +41,9 @@ class commonService {
       let newPath = form.uploadDir + '/' + imageName
       fs.rename(file.path, newPath, (err) => {
         if(err) {
-          return res.json({code: 0, data: '图片上传失败'})
+          callback(err, null)
         } else {
-          return res.json({ code: 1, data: newPath });
+          callback(null, newPath)
         }
       })
     })
