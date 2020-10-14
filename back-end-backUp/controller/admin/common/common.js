@@ -1,21 +1,19 @@
 const fs = require('fs');
 const path = require('path');
 const formiable = require('formidable');
-const { callbackify } = require('util');
 
 class commonService {
   // 单张图片上传
-  uploadSingleImg(imgPath, req, callback){
+  uploadSingleImg( req, callback){
     let form = new formiable.IncomingForm();
     form.encoding = 'utf-8';
-    if (!fs.existsSync(imgPath)) {
-      fs.mkdirSync(imgPath);
-    }
-    form.uploadDir = path.join(__dirname, "../../../"+imgPath); 
-    form.keepExtensions = true;
-    form.maxFieldsSize = 4 * 1024 * 1024;
+    
+    form.uploadDir = path.join(__dirname, '../../../public'); 
+    form.keepExtensions = true; // 是否包括 扩展名
+    form.maxFieldsSize = 4 * 1024 * 1024; // 最大字节数
     
     form.parse(req, (err, fields, files) => {
+      console.log(1111)
       let file = files.file
       console.log(file.type)
       if(err) {
