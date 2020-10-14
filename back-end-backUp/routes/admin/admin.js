@@ -216,7 +216,7 @@ router.post("/goods/addSkuImg", async (req, res) => {
  * 图片上传
  */
 router.post('/upload', async (req, res, next) => {
-  commonCto.uploadImg(req, res)
+  commonCto.uploadSingleImg(req, res);
 })
 
 /**

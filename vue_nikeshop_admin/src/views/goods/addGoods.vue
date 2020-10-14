@@ -90,7 +90,7 @@
     <el-card shadow="hover" class="box-card" v-loading="specLoading">
       <div slot="header">
         <span>Sku设置</span>
-        <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="add(0)"></i>
+        <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="addSku"></i>
       </div>
       <div class="content-box">
         <div class="item-box" v-for="(item, index) in skuList" :key="index">
@@ -244,6 +244,12 @@ export default {
           this.tempId = res.data
         }
       })
+    },
+    addSku() {
+      let len = this.skuList.length
+      for(let i in this.skuList) {
+        
+      }
     }
   },
 }
