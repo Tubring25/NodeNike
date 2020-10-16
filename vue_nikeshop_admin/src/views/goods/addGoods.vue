@@ -116,7 +116,10 @@
             <el-input v-model="item.sale_price" type="number" max="100000" min="0"></el-input>
           </div>
           <div class="item" >
-            <el-button type="primary" size="mini" >添加图片</el-button>
+            <el-button class="button" type="primary" size="mini" >添加图片</el-button>
+          </div>
+          <div class="item">
+            <i class="icon el-icon-remove-outline"></i>
           </div>
         </div>
       </div>
@@ -246,10 +249,13 @@ export default {
       })
     },
     addSku() {
-      let len = this.skuList.length
-      for(let i in this.skuList) {
-        
+      let singleItem = {color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}
+      if(this.skuList.length>=30) {
+        this.$message.info('最多支持添加30条信息')
+        return
       }
+
+      this.skuList.push(singleItem)
     }
   },
 }
@@ -270,6 +276,8 @@ export default {
         justify-content: left;
         .item {
           margin-right: 25px;
+          position: relative;
+          min-width: 100px;
           span {
             margin-right: 15px;
             display: inline-block;
@@ -277,10 +285,15 @@ export default {
             line-height: 40px;
           }
           .el-select {
-            width: 160px;
+            width: 120px;
           }
           .el-input{
-            width: 160px;
+            width: 120px;
+          }
+          .button, .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
           }
         }
       }
