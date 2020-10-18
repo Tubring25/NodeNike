@@ -119,7 +119,7 @@
             <el-button class="button" type="primary" size="mini" >添加图片</el-button>
           </div>
           <div class="item">
-            <i class="icon el-icon-remove-outline"></i>
+            <i class="icon el-icon-remove-outline" @click="removeItem(index)"></i>
           </div>
         </div>
       </div>
@@ -256,11 +256,21 @@ export default {
       }
 
       this.skuList.push(singleItem)
+    },
+    removeItem(ind){
+      if(ind == 0 && this.skuList.length == 1 ) {
+        this.$message.info('至少保留一条规格')
+        return
+      }
+      this.skuList.splice(ind, 1)
     }
   },
 }
 </script>
 <style lang="scss" scoped>
+i:hover {
+  cursor: pointer;
+}
 .add-goods-container{
   width: 100%;
   height: 100%;
