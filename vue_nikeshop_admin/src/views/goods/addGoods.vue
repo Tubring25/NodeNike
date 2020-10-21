@@ -92,6 +92,10 @@
         <span>Sku设置</span>
         <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="addSku"></i>
       </div>
+      <div class="button-box">
+        <el-button type="success" round>暂存</el-button>
+        <el-button type="primary" round>下一步</el-button>
+      </div>
       <div class="content-box">
         <div class="item-box" v-for="(item, index) in skuList" :key="index">
           <div class="item">
