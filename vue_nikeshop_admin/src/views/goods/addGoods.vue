@@ -87,47 +87,11 @@
         </el-form>
       </div>
     </el-card>
-    <el-card shadow="hover" class="box-card" v-loading="specLoading">
-      <div slot="header">
-        <span>Sku设置</span>
-        <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="addSku"></i>
-      </div>
-      <div class="button-box">
-        <el-button type="success" round>暂存</el-button>
-        <el-button type="primary" round>下一步</el-button>
-      </div>
-      <div class="content-box">
-        <div class="item-box" v-for="(item, index) in skuList" :key="index">
-          <div class="item">
-            <span class="name">颜色</span>
-            <el-select v-model="item.color" placeholder="请选择">
-              <el-option class="opt-box" v-for="color in colorList" :key="color.id" :label="color.name" :value="color.id">
-                <span style="float: left">{{ color.name }}</span>
-                <span class="cube" :style="'display:block; float: right; width:10px;height:10px;margin-top:12px; background:'+color.code">{{ item.value }}</span>
-              </el-option>
-            </el-select>
-          </div>
-          <div class="item">
-            <span class="name">价格</span>
-            <el-input v-model="item.price" type="number" max="100000" min="0"></el-input>
-          </div>
-          <div class="item">
-            <span class="name">是否打折</span>
-            <el-switch v-model="item.is_sale"></el-switch>
-          </div>
-          <div class="item" v-show="item.is_sale">
-            <span class="name">折后价</span>
-            <el-input v-model="item.sale_price" type="number" max="100000" min="0"></el-input>
-          </div>
-          <div class="item" >
-            <el-button class="button" type="primary" size="mini" >添加图片</el-button>
-          </div>
-          <div class="item">
-            <i class="icon el-icon-remove-outline" @click="removeItem(index)"></i>
-          </div>
-        </div>
-      </div>
-    </el-card>
+    <div class="button-box">
+      <el-button type="success" round @click="btnClick(0)">暂存</el-button>
+      <el-button type="primary" round @click="btnClick(1)">下一步</el-button>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -252,29 +216,16 @@ export default {
         }
       })
     },
-    addSku() {
-      let singleItem = {color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}
-      if(this.skuList.length>=30) {
-        this.$message.info('最多支持添加30条信息')
-        return
+    btnClick(type) {
+      if(type==1) {
+        this.$router.push('/addGoodsSku')
       }
-
-      this.skuList.push(singleItem)
-    },
-    removeItem(ind){
-      if(ind == 0 && this.skuList.length == 1 ) {
-        this.$message.info('至少保留一条规格')
-        return
-      }
-      this.skuList.splice(ind, 1)
+      
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-i:hover {
-  cursor: pointer;
-}
 .add-goods-container{
   width: 100%;
   height: 100%;
@@ -322,6 +273,17 @@ i:hover {
     .el-form-item {
       width: 300px;
       margin-left: 20px;
+    }
+  }
+  .button-box {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    .el-button {
+      width: 100px;
     }
   }
 }

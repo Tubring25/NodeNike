@@ -69,6 +69,13 @@ const routes = [
 				hidden: true,
 				component: () => import('../views/goods/addGoods'),
 				meta: { title: '添加商品', icon: 'el-icon-menu' }
+			},
+			{
+				path: 'addGoodsSku',
+				name: 'AddGoodsSku',
+				hidden: true,
+				component: () => import('../views/goods/addGoodsSku'),
+				meta: { title: '添加商品Sku', icon: 'el-icon-menu' }
 			}
 		]
 	},
