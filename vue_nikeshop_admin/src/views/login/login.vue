@@ -10,6 +10,7 @@
           placeholder="Username"
           tabindex="1"
           type="text"
+          ref="username"
         />
       </el-form-item>
       <el-form-item prop="password">
@@ -20,6 +21,7 @@
           placeholder="password"
           tabindex="1"
           type="password"
+          ref="password"
         />
       </el-form-item>
       <el-form-item>
@@ -58,6 +60,11 @@ export default {
   },
   mounted() {
     this.$refs['login-container'].style.height = document.documentElement.clientHeight + 'px'
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.password.focus()
+    }
   },
   methods: {
     Login() {

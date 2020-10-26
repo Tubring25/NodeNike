@@ -219,8 +219,11 @@ export default {
     btnClick(type) {
       if(type==1) {
         this.$router.push('/addGoodsSku')
+      } else {
+
       }
-      
+    },
+    saveInfo(){
     }
   },
 }
