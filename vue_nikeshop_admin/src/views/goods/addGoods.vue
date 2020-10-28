@@ -220,11 +220,11 @@ export default {
       if(type==1) {
         this.$router.push('/addGoodsSku')
       } else {
+        sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
+        sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
 
       }
     },
-    saveInfo(){
-    }
   },
 }
 </script>
