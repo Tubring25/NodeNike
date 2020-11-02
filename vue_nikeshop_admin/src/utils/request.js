@@ -22,16 +22,17 @@ axios.interceptors.response.use( response=>{
       store.dispatch("user/logout");
       window.location.replace("/login");
     });
-  }
-	if (res.code != 1) {
-		Message({
-			message: res.data || "Error",
-			type: 'error'
-		})
-		return res
-	} else {
-		return res
-	}
+  } else {
+		if (res.code != 1) {
+      Message({
+        message: res.data || "Error",
+        type: "error",
+      });
+      return res;
+    } else {
+      return res;
+    }
+	}	
 })
 
 export default axios;

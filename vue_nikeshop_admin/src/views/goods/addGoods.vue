@@ -134,6 +134,12 @@ export default {
       this.$message.error('缺少参数')
       this.$router.replace('/goods/goodsList')
     }
+    if(sessionStorage.getItem('nomalAtt')) {
+      this.nomalAtt = JSON.parse(sessionStorage.getItem('nomalAtt'))
+    }
+    if(sessionStorage.getItem('specAtt')) {
+      this.specAtt = JSON.parse(sessionStorage.getItem('specAtt'))
+    }
     this.goodsType = this.$route.query.type
     this.getAllTypes()
     this.getTempGoodsId_(this.$route.query.type)
@@ -218,11 +224,16 @@ export default {
     },
     btnClick(type) {
       if(type==1) {
+        let keys = Object.keys(this.nomalAtt)
+        for (let key of keys) {
+          if(this.nomalAtt[key] == '' || this.nomalAtt[key] == undefined) {
+            this.$message.error('请填写完整')
+          }
+        }
         this.$router.push('/addGoodsSku')
       } else {
         sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
         sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
-
       }
     },
   },
