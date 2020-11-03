@@ -102,7 +102,7 @@ export default {
       normalLoading: false,
       specLoading: false,
       goodsType: 0,
-      nomalAtt: {title: '', desc: '', imgList: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_shelf: null},
+      nomalAtt: {title: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_shelf: false},
       specAtt: {color: '', technique: '', suit_way: '', special: '', material: '', length: '', sports_star: '', shoes_height: '', ground_typel: ''},
       rules: {
         title: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
@@ -226,16 +226,22 @@ export default {
       if(type==1) {
         let keys = Object.keys(this.nomalAtt)
         for (let key of keys) {
-          if(this.nomalAtt[key] == '' || this.nomalAtt[key] == undefined) {
+          if(this.nomalAtt[key] === '' || this.nomalAtt[key] === undefined) {
             this.$message.error('请填写完整')
+            console.log(key)
+            return
           }
         }
-        this.$router.push('/addGoodsSku')
+        this.saveInfo()
+        this.$router.push('/goods/addGoodsSku')
       } else {
-        sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
-        sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
+        this.saveInfo()
       }
     },
+    saveInfo(){
+      sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
+      sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
+    }
   },
 }
 </script>
