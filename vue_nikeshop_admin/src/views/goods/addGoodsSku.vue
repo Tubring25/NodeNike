@@ -39,7 +39,15 @@
             <el-input v-model="item.sale_price" type="number" max="100000" min="0"></el-input>
           </div>
           <div class="item">
-            <el-button class="button" type="primary" size="mini">添加图片</el-button>
+            <el-upload
+              class="upload-demo"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              show-file-list="false"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+            <!-- <el-button class="button" type="primary" size="mini">添加图片</el-button> -->
           </div>
           <div class="item">
             <i class="icon el-icon-remove-outline" @click="removeItem(index)"></i>
@@ -90,6 +98,9 @@ export default {
         return;
       }
       this.skuList.splice(ind, 1);
+    },
+    handlePreview(file) {
+      console.log(file)
     }
   }
 };
