@@ -317,3 +317,11 @@ export function getTempGoodsId(data) {
     data
   })
 }
+
+export function addGoodsSkuImg (data) {
+  return request({
+    url: '/admin/goods/addSkuImg',
+    method: 'post',
+    data
+  })
+}

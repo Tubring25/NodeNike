@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getColorList, getTempGoodsId } from '@/api/goods'
+import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getTempGoodsId } from '@/api/goods'
 export default {
   data(){
     return {
@@ -124,7 +124,7 @@ export default {
       ShoeSportsStar: [],
       ShoeHeight: [],
       ShoeGroundType: [],
-      colorList: [],
+      
       skuList: [{color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}],
       tempId: null,
     }
@@ -183,11 +183,7 @@ export default {
           this.TechniqueList = res.data
         }
       })
-      getColorList().then(res=>{
-        if(res.code == 1) {
-          this.colorList = res.data
-        }
-      })
+      
       if(this.goodsType == 0) {
         getLengthList().then(res=>{
           if(res.code ==1) {

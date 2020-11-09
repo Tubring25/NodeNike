@@ -3,7 +3,11 @@
     <el-card shadow="hover" class="box-card" v-loading="specLoading">
       <div slot="header">
         <span>Sku设置</span>
-        <i class="icon el-icon-plus" style="float: right; padding: 3px 0" @click="addSku"></i>
+        <i
+          class="icon el-icon-plus"
+          style="float: right; padding: 3px 0"
+          @click="addSku"
+        ></i>
       </div>
 
       <div class="content-box">
@@ -21,14 +25,23 @@
                 <span style="float: left">{{ color.name }}</span>
                 <span
                   class="cube"
-                  :style="'display:block; float: right; width:10px;height:10px;margin-top:12px; background:'+color.code"
-                >{{ item.value }}</span>
+                  :style="
+                    'display:block; float: right; width:10px;height:10px;margin-top:12px; background:' +
+                      color.code
+                  "
+                  >{{ item.value }}</span
+                >
               </el-option>
             </el-select>
           </div>
           <div class="item">
             <span class="name">价格</span>
-            <el-input v-model="item.price" type="number" max="100000" min="0"></el-input>
+            <el-input
+              v-model="item.price"
+              type="number"
+              max="100000"
+              min="0"
+            ></el-input>
           </div>
           <div class="item">
             <span class="name">是否打折</span>
@@ -36,21 +49,30 @@
           </div>
           <div class="item" v-show="item.is_sale">
             <span class="name">折后价</span>
-            <el-input v-model="item.sale_price" type="number" max="100000" min="0"></el-input>
+            <el-input
+              v-model="item.sale_price"
+              type="number"
+              max="100000"
+              min="0"
+            ></el-input>
           </div>
           <div class="item">
             <el-upload
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
+              action="http://localhost:6741/admin/goods/addSkuImg"
               show-file-list="false"
+              accept="image/png, image/jpeg"
+              :headers="headers"
             >
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
             <!-- <el-button class="button" type="primary" size="mini">添加图片</el-button> -->
           </div>
           <div class="item">
-            <i class="icon el-icon-remove-outline" @click="removeItem(index)"></i>
+            <i
+              class="icon el-icon-remove-outline"
+              @click="removeItem(index)"
+            ></i>
           </div>
         </div>
       </div>
@@ -58,6 +80,7 @@
   </div>
 </template>
 <script>
+import { getColorList, getToken } from "@/utils/auth";
 export default {
   data() {
     return {
@@ -71,8 +94,18 @@ export default {
           is_sale: false,
           sale_price: null
         }
-      ]
+      ],
+      headers: {},
+      colorList: []
     };
+  },
+  created() {
+    this.headers = { "x-token": getToken() };
+    getColorList().then(res => {
+      if (res.code == 1) {
+        this.colorList = res.data;
+      }
+    });
   },
   methods: {
     addSku() {
@@ -100,8 +133,9 @@ export default {
       this.skuList.splice(ind, 1);
     },
     handlePreview(file) {
-      console.log(file)
-    }
+      console.log(file);
+    },
+    addGoodsSkuImg_() {}
   }
 };
 </script>
