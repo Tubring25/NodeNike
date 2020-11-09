@@ -237,6 +237,7 @@ export default {
     saveInfo(){
       sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
       sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
+      sessionStorage.setItem('tempId', JSON.stringify(this.tempId))
     }
   },
 }

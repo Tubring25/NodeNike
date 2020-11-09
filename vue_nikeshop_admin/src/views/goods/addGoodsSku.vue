@@ -1,6 +1,6 @@
 <template>
   <div class="sku-container">
-    <el-card shadow="hover" class="box-card" v-loading="specLoading">
+    <el-card shadow="hover" class="box-card">
       <div slot="header">
         <span>Sku设置</span>
         <i
@@ -60,9 +60,10 @@
             <el-upload
               class="upload-demo"
               action="http://localhost:6741/admin/goods/addSkuImg"
-              show-file-list="false"
+              :show-file-list="false"
               accept="image/png, image/jpeg"
               :headers="headers"
+              :data="tempId"
             >
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -80,7 +81,8 @@
   </div>
 </template>
 <script>
-import { getColorList, getToken } from "@/utils/auth";
+import { getToken } from "@/utils/auth";
+import { getColorList } from '@/api/goods'
 export default {
   data() {
     return {
@@ -96,18 +98,23 @@ export default {
         }
       ],
       headers: {},
-      colorList: []
+      colorList: [],
+      tempId: {}
     };
   },
   created() {
     this.headers = { "x-token": getToken() };
-    getColorList().then(res => {
-      if (res.code == 1) {
-        this.colorList = res.data;
-      }
-    });
+    this.tempId = {tempId: sessionStorage.getItem('tempId')}
+    this.getCOlorList_()
   },
   methods: {
+    getCOlorList_(){
+      getColorList().then(res => {
+        if (res.code == 1) {
+          this.colorList = res.data;
+        }
+      });
+    },
     addSku() {
       let singleItem = {
         color: null,
