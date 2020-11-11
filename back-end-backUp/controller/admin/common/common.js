@@ -44,14 +44,6 @@ class commonService {
       });
     })
   }
-  createTempGoodsId(data){
-    const {type} = data
-    if(type) {
-      return { code: 1, data: 'NK' + type + Number(new Date()) + Math.floor(Math.random() * 1000) }
-    } else {
-      return { code: 0, data: '缺少code' }
-    }
-  }
 }
 
 module.exports = new commonService();
