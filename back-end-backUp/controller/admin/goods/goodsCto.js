@@ -16,7 +16,6 @@ class goodsService {
       that.createFolder('public/goods/' + name).then(res => {
         let form = new formiable.IncomingForm();
         form.encoding = "utf8";
-
         form.uploadDir = path.join(__dirname, "../../../public");
         form.keepExtensions = true; // 是否包括 扩展名
         form.maxFieldsSize = 4 * 1024 * 1024; // 最大字节数
