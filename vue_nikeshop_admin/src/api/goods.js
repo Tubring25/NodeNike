@@ -325,3 +325,11 @@ export function addGoodsSkuImg (data) {
     data
   })
 }
+
+export function addGoodsId (data) {
+  return request({
+    url: '/admin/goods/addGoodsId',
+    method: 'post',
+    data
+  })
+}

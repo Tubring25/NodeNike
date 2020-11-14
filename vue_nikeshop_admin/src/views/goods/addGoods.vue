@@ -89,20 +89,20 @@
     </el-card>
     <div class="button-box">
       <el-button type="success" round @click="btnClick(0)">暂存</el-button>
-      <el-button type="primary" round @click="btnClick(1)">下一步</el-button>
+      <el-button type="primary" round @click="btnClick(1)">创建商品</el-button>
     </div>
     
   </div>
 </template>
 <script>
-import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getTempGoodsId } from '@/api/goods'
+import {getGoodsType, getMaterialList, getSpecialList, getTechniqueList, getSuitwayList, getLengthList, getShoeSportsStar, getShoeHeight, getShoeGroundType, getTempGoodsId, addGoodsId } from '@/api/goods'
 export default {
   data(){
     return {
       normalLoading: false,
       specLoading: false,
       goodsType: 0,
-      nomalAtt: {title: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_shelf: false},
+      nomalAtt: {title: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_onshelf: false},
       specAtt: {color: '', technique: '', suit_way: '', special: '', material: '', length: '', sports_star: '', shoes_height: '', ground_typel: ''},
       rules: {
         title: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
@@ -110,7 +110,6 @@ export default {
         gender_id: [{required: true, message: '请选择性别分类', trigger: 'change'}],
         brand_id: [{required: true, message: '请选择品牌分类', trigger: 'change'}],
         sports_id: [{required: true, message: '请选择运动分类', trigger: 'change'}],
-        is_onshelf: [{required: true}],
         attribute_list: [{required: true}]
       },
       goodsBaseType: [],
@@ -124,7 +123,6 @@ export default {
       ShoeSportsStar: [],
       ShoeHeight: [],
       ShoeGroundType: [],
-      
       skuList: [{color: null, colorImg: null, size: null, inventory: null, price: null, is_sale: false, sale_price: null}],
       tempId: null,
     }
@@ -229,7 +227,11 @@ export default {
           }
         }
         this.saveInfo()
-        this.$router.push('/goods/addGoodsSku')
+        addGoodsId({goodsId: this.tempId, normalAttr: this.nomalAtt, specAttr: this.specAtt}).then(res=>{
+          if(res.code == 1 ) {
+            this.$notify.success({title:'', message: '创建成功'})
+          }
+        })
       } else {
         this.saveInfo()
       }

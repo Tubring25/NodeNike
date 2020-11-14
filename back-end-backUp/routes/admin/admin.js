@@ -206,11 +206,14 @@ router.post('/goods/attribute/deleteShoeGroundType', async(req, res, next) => {
   res.json(await groundTypeShoeCto.deleteItem(req.body))
 })
 router.post('/goods/add/tempId', async(req,res,next) => {
-  res.json(await commonCto.createTempGoodsId(req.body))
+  res.json(await goodsCto.createTempGoodsId(req.body))
 })
 router.post("/goods/addSkuImg", async (req, res) => {
   res.json(await goodsCto.addSkuImg(req));
 });
+router.post('/goods/addGoodsId', async(req, res, next) => {
+  res.json(await goodsCto.addGoodsId(req))
+})
 
 /**
  * 图片上传

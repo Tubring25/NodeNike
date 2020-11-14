@@ -66,17 +66,18 @@ class goodsService {
       });
     });
   }
-  getFileName(req) {
-    return new Promise((resolve, reject) => {
-      let form = new formiable.IncomingForm();
-      form.parse(req, (err, fields, files) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(fields.tempId);
-        }
-      });
-    });
+  async addGoodsId(data) {
+    const { goodsId } = data.body
+    let attributes = Object.assign({goods_id:data.body.goodsId}, data.body.normalAttr, data.body.specAttr)
+    if (!goodsId) {
+      return {code: 0, data: '缺少goodsId'}
+    }
+    try {
+      goodsSpuModule.create(attributes)
+      return { code: 1, data: '添加成功' }
+    }catch (err) {
+			return { code: 0, data: err };
+		}
   }
   createFolder(imgPath) {
     return new Promise((resolve, reject) => {
@@ -92,14 +93,10 @@ class goodsService {
     const { type } = data;
     let goodsId = "NK" + type + Number(new Date()) + Math.floor(Math.random() * 1000)
     if (type) {
-      if (!fs.existsSync(goodsId)) {
-        fs.mkdirSync(goodsId);
-        resolve({ code: 1 });
-      }
-      return {
-        code: 1,
-        data: goodsId,
-      };
+      // if (!fs.existsSync(goodsId)) {
+      //   fs.mkdirSync(goodsId);
+      // }
+      return { code: 1, data: goodsId };
     } else {
       return { code: 0, data: "缺少code" };
     }
