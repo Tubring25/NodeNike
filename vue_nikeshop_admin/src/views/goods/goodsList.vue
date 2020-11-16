@@ -12,11 +12,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="search.baseType" placeholder="请选择">
-            <el-option label="男女同款" value="10"></el-option>
-            <el-option label="女款" value="0"></el-option>
-            <el-option label="男款" value="1"></el-option>
-            <el-option label="儿童" value="2"></el-option>
+          <el-select v-model="search.gender" placeholder="请选择">
+            <el-option label="男女同款" value=d0></el-option>
+            <el-option label="女款" value=0></el-option>
+            <el-option label="男款" value=1></el-option>
+            <el-option label="儿童" value=2></el-option>
           </el-select>
         </el-form-item>
         <el-form-item v-if="searchStatus.status=='收起'"  label="品牌">
@@ -31,13 +31,13 @@
         </el-form-item>
         <el-form-item v-if="searchStatus.status=='收起'"  label="是否打折">
           <el-select v-model="search.isOnSale" placeholder="请选择">
-            <el-option label="是" value="1"></el-option>
-            <el-option label="否" value="0"></el-option>
+            <el-option label="是" value=1></el-option>
+            <el-option label="否" value=0></el-option>
           </el-select>
         </el-form-item>
       </el-form>
       <div class="handle-box">
-        <el-button type="primary" >搜索</el-button>
+        <el-button type="primary" @click="searchGoods">搜索</el-button>
         <el-button @click="resetSearch">重置</el-button>
         <span class="showall" @click="showAllQueryCon">{{searchStatus.status}}<i :class="searchStatus.icon"></i></span>
       </div>
@@ -57,14 +57,14 @@
   </div>
 </template>
 <script>
-import {getGoodsType} from '@/api/goods'
+import {getGoodsType, getGoodsList} from '@/api/goods'
 export default {
   data() {
     return {
       goodsList: [],
       currentGoods: {},
       showDetail: false,
-      search: {title: '', gender: null, baseType: '', brand: '', sport:'', isOnSale: null, inventory: null, sales: null},
+      search: {title: '', gender: null, baseType: '', brand: '', sport:'', isOnSale: null, sales: null},
       searchStatus: {status: '展开', icon: 'el-icon-arrow-down'},
       goodsBaseType: [],
       goodsSportsType: [],
@@ -93,6 +93,9 @@ export default {
           this.goodsBrandsType = res.data
         }
       })
+    },
+    searchGoods() {
+      getGoodsList(this.search)
     },
     showAllQueryCon(){
       this.searchStatus.status == '展开' ? this.searchStatus = {status: '收起', icon: 'el-icon-arrow-up'} : this.searchStatus = {status: '展开', icon: 'el-icon-arrow-down'}

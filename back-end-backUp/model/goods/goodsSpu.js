@@ -15,6 +15,7 @@ class goodsSpuModel extends baseModule {
       title: Sequelize.STRING(50), // 商品标题
       desc: Sequelize.TEXT(), // 商品介绍
       base_type: Sequelize.INTEGER, // 基础分类
+      gender_type: Sequelize.INTEGER, // 性别分类
       img_list: Sequelize.TEXT, // 图片列表
       sports_type: Sequelize.INTEGER, // 运动分类
       brand_type: Sequelize.INTEGER, // 品牌分类

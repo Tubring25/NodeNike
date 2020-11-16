@@ -214,6 +214,9 @@ router.post("/goods/addSkuImg", async (req, res) => {
 router.post('/goods/addGoodsId', async(req, res, next) => {
   res.json(await goodsCto.addGoodsId(req))
 })
+router.post('/goods/getGoodsList', async(req, res, next) => {
+  res.json(await goodsCto.getGoodsList(req.body))
+})
 
 /**
  * 图片上传

@@ -66,6 +66,10 @@ class goodsService {
       });
     });
   }
+  async getGoodsList(query) {
+    let { title, baseType: base_type, gender:gender_type, sport: sports_type, brand: brand_type, isOnSale: is_onshelf } = query
+    console.log(title, base_type, gender_type, sports_type)
+  }
   async addGoodsId(data) {
     const { goodsId } = data.body
     let attributes = Object.assign({goods_id:data.body.goodsId}, data.body.normalAttr, data.body.specAttr)

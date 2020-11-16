@@ -333,3 +333,10 @@ export function addGoodsId (data) {
     data
   })
 }
+export function getGoodsList(data) {
+  return request({
+    url: '/admin/goods/getGoodsList',
+    method: 'post', 
+    data
+  })
+}
