@@ -68,7 +68,14 @@ class goodsService {
   }
   async getGoodsList(query) {
     let { title, baseType: base_type, gender:gender_type, sport: sports_type, brand: brand_type, isOnSale: is_onshelf } = query
-    console.log(title, base_type, gender_type, sports_type)
+    let queryConditions = Object.assign({},{title: title}, {base_type:base_type} , {gender_type: gender_type}, {sports_type: sports_type}, {brand_type: brand_type}, {is_onshelf:is_onshelf})
+    let keys = Object.keys(queryConditions)
+    for (let key of keys ) {
+      if (queryConditions[key] == null || queryConditions[key] == undefined || queryConditions[key] == '') {
+        delete queryConditions[key]
+      }
+    }
+    console.log(queryConditions)
   }
   async addGoodsId(data) {
     const { goodsId } = data.body
