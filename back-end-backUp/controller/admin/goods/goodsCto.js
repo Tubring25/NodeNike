@@ -67,15 +67,45 @@ class goodsService {
     });
   }
   async getGoodsList(query) {
-    let { title, baseType: base_type, gender:gender_type, sport: sports_type, brand: brand_type, isOnSale: is_onshelf } = query
-    let queryConditions = Object.assign({},{title: title}, {base_type:base_type} , {gender_type: gender_type}, {sports_type: sports_type}, {brand_type: brand_type}, {is_onshelf:is_onshelf})
-    let keys = Object.keys(queryConditions)
-    for (let key of keys ) {
-      if (queryConditions[key] == null || queryConditions[key] == undefined || queryConditions[key] == '') {
-        delete queryConditions[key]
+    try {
+      let {
+        title,
+        baseType: base_type,
+        gender: gender_type,
+        sport: sports_type,
+        brand: brand_type,
+        isOnSale: is_onshelf,
+        page,
+        pageSize,
+      } = query;
+      let queryConditions = Object.assign(
+        {},
+        { title: title },
+        { base_type: base_type },
+        { gender_type: gender_type },
+        { sports_type: sports_type },
+        { brand_type: brand_type },
+        { is_onshelf: is_onshelf }
+      );
+      let keys = Object.keys(queryConditions);
+      for (let key of keys) {
+        if (
+          queryConditions[key] == null ||
+          queryConditions[key] == undefined ||
+          queryConditions[key] == ""
+        ) {
+          delete queryConditions[key];
+        }
       }
+      let res = await goodsSpuModule.findAndCount({
+        limit: Number(pageSize),
+        offset: Number(page - 1) * Number(pageSize),
+        where: queryConditions,
+      });
+      return {code:1, data: res}
+    } catch (err) {
+      return { code: 0, data: err };
     }
-    console.log(queryConditions)
   }
   async addGoodsId(data) {
     const { goodsId } = data.body
