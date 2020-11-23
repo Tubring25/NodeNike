@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item label="性别">
           <el-select v-model="search.gender" placeholder="请选择">
-            <el-option label="男女同款" value=d0></el-option>
+            <el-option label="男女同款" value=10></el-option>
             <el-option label="女款" value=0></el-option>
             <el-option label="男款" value=1></el-option>
             <el-option label="儿童" value=2></el-option>
@@ -75,6 +75,7 @@ export default {
   },
   created() {
     this.getAllTypes()
+    this.searchGoods()
   },
   methods: {
     getAllTypes(){
@@ -95,7 +96,10 @@ export default {
       })
     },
     searchGoods() {
-      getGoodsList(this.search)
+
+      getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{
+        console.log(res)
+      })
     },
     showAllQueryCon(){
       this.searchStatus.status == '展开' ? this.searchStatus = {status: '收起', icon: 'el-icon-arrow-up'} : this.searchStatus = {status: '展开', icon: 'el-icon-arrow-down'}

@@ -9,8 +9,8 @@
           <el-form-item label="商品名称" prop="title">
             <el-input v-model="nomalAtt.title" maxlength="50"></el-input>
           </el-form-item>
-          <el-form-item label="商品类型" prop="base_type_id">
-            <el-select v-model="nomalAtt.base_type_id" placeholder="请选择">
+          <el-form-item label="商品类型" prop="base_id">
+            <el-select v-model="nomalAtt.base_id" placeholder="请选择">
               <el-option v-for="item in goodsBaseType" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -102,11 +102,11 @@ export default {
       normalLoading: false,
       specLoading: false,
       goodsType: 0,
-      nomalAtt: {title: '', gender_id: null, base_type_id: '', brand_id: '', sports_id:'', is_onshelf: false},
+      nomalAtt: {title: '', gender_id: null, base_id: '', brand_id: '', sports_id:'', is_onshelf: false},
       specAtt: {color: '', technique: '', suit_way: '', special: '', material: '', length: '', sports_star: '', shoes_height: '', ground_typel: ''},
       rules: {
         title: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
-        base_type_id: [{required: true, message: '请选择基础分类', trigger: 'change'}],
+        base_id: [{required: true, message: '请选择基础分类', trigger: 'change'}],
         gender_id: [{required: true, message: '请选择性别分类', trigger: 'change'}],
         brand_id: [{required: true, message: '请选择品牌分类', trigger: 'change'}],
         sports_id: [{required: true, message: '请选择运动分类', trigger: 'change'}],
@@ -226,10 +226,11 @@ export default {
             return
           }
         }
-        this.saveInfo()
         addGoodsId({goodsId: this.tempId, normalAttr: this.nomalAtt, specAttr: this.specAtt}).then(res=>{
           if(res.code == 1 ) {
+            this.removeInfo()
             this.$notify.success({title:'', message: '创建成功'})
+            this.$router.replace('/goods/goodsList')
           }
         })
       } else {
@@ -240,6 +241,11 @@ export default {
       sessionStorage.setItem('nomalAtt', JSON.stringify(this.nomalAtt))
       sessionStorage.setItem('specAtt', JSON.stringify(this.specAtt))
       sessionStorage.setItem('tempId', JSON.stringify(this.tempId))
+    },
+    removeInfo() {
+      sessionStorage.removeItem('nomalAtt');
+      sessionStorage.removeItem('specAtt');
+      sessionStorage.removeItem('tempId');
     }
   },
 }

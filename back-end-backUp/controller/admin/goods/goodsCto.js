@@ -70,10 +70,10 @@ class goodsService {
     try {
       let {
         title,
-        baseType: base_type,
-        gender: gender_type,
-        sport: sports_type,
-        brand: brand_type,
+        baseType: base_id,
+        gender: gender_id,
+        sport: sports_id,
+        brand: brand_id,
         isOnSale: is_onshelf,
         page,
         pageSize,
@@ -81,10 +81,10 @@ class goodsService {
       let queryConditions = Object.assign(
         {},
         { title: title },
-        { base_type: base_type },
-        { gender_type: gender_type },
-        { sports_type: sports_type },
-        { brand_type: brand_type },
+        { base_id: base_id },
+        { gender_id: gender_id },
+        { sports_id: sports_id },
+        { brand_id: brand_id },
         { is_onshelf: is_onshelf }
       );
       let keys = Object.keys(queryConditions);
