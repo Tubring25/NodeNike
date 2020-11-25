@@ -37,12 +37,23 @@
         </el-form-item>
       </el-form>
       <div class="handle-box">
-        <el-button type="primary" @click="searchGoods">搜索</el-button>
+        <el-button type="primary" @click="getGoodList_">搜索</el-button>
         <el-button @click="resetSearch">重置</el-button>
         <span class="showall" @click="showAllQueryCon">{{searchStatus.status}}<i :class="searchStatus.icon"></i></span>
       </div>
     </div>
 
+    <el-table :data="goodsList" border style="width: 100%; text-align:center">
+      <el-table-column prop="goods_id" label="商品id" fixed width="150"></el-table-column>
+      <el-teble-column prop="title" label="商品名称" width="150"></el-teble-column>
+      <el-table-column label="商品分类" width="120">
+        <template>
+          
+        </template>
+      </el-table-column>
+
+      
+    </el-table>    
 
     <el-dialog title="请选择商品类别" :visible.sync="addGoodsDialog" width="30%" center>
       <el-radio-group v-model="goodsType">
@@ -75,7 +86,7 @@ export default {
   },
   created() {
     this.getAllTypes()
-    this.searchGoods()
+    this.getGoodList_()
   },
   methods: {
     getAllTypes(){
@@ -95,10 +106,11 @@ export default {
         }
       })
     },
-    searchGoods() {
-
+    getGoodList_() {
       getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{
-        console.log(res)
+        if(res.code == 1 ) {
+          this.goodsList = res.data.rows
+        }
       })
     },
     showAllQueryCon(){
