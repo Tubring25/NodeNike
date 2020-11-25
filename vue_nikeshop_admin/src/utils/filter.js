@@ -46,3 +46,19 @@ export function parseTime(time, cFormat) {
   })
   return time_str
 }
+
+/**
+ * parse base_id
+ * @param {(string|number)} base_id
+ * @returns {string}
+ */
+// export function parseBaseId(id) {
+//   switch (id) {
+//     case value:
+      
+//       break;
+  
+//     default:
+//       break;
+//   }
+// }

@@ -45,10 +45,10 @@
 
     <el-table :data="goodsList" border style="width: 100%; text-align:center">
       <el-table-column prop="goods_id" label="商品id" fixed width="150"></el-table-column>
-      <el-teble-column prop="title" label="商品名称" width="150"></el-teble-column>
+      <el-table-column prop="title" label="商品名称" width="150"></el-table-column>
       <el-table-column label="商品分类" width="120">
-        <template>
-          
+        <template slot-scope="{row}">
+          <span>{{row.base_id | parseAllTypeId(goodsBaseType)}}</span>
         </template>
       </el-table-column>
 
@@ -82,6 +82,12 @@ export default {
       goodsBrandsType: [],
       addGoodsDialog: false,
       goodsType: 0
+    }
+  },
+  filters: {
+    parseAllTypeId(id, type) {
+      if(!id) return '暂无'
+      return (type.filter(a=>a.id == id))[0].name
     }
   },
   created() {
@@ -156,9 +162,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .search-form {
-    // width: 1000px;
-  }
   .handle-box {
     min-width: 300px;
     .el-button{
