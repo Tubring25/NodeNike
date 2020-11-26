@@ -43,12 +43,55 @@
       </div>
     </div>
 
-    <el-table :data="goodsList" border style="width: 100%; text-align:center">
-      <el-table-column prop="goods_id" label="商品id" fixed width="150"></el-table-column>
-      <el-table-column prop="title" label="商品名称" width="150"></el-table-column>
-      <el-table-column label="商品分类" width="120">
+    <el-table :data="goodsList" border class="goods-table" fit style="width: 95%;margin: 0 auto;">
+      <el-table-column prop="goods_id" label="商品id" align="center" fixed width="200"></el-table-column>
+      <el-table-column prop="title" label="商品名称" align="center" width="150">
+        <template slot-scope="{row}">
+           <el-tooltip effect="dark" :content="row.title" placement="top">
+             <span style="display:inline-block;width:100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{row.title}}</span>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品分类" align="center" width="120">
         <template slot-scope="{row}">
           <span>{{row.base_id | parseAllTypeId(goodsBaseType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="性别" align="center" width="120">
+        <template slot-scope="{row}">
+          <span>{{row.gender_id | parseAllTypeId(goodsGenderType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="运动类别" align="center" width="120">
+        <template slot-scope="{row}">
+          <span>{{row.sports_id | parseAllTypeId(goodsSportsType)}}</span>
+        </template>
+      </el-table-column> 
+      <el-table-column label="品牌" align="center" width="150">
+        <template slot-scope="{row}">
+          <span>{{row.brand_id | parseAllTypeId(goodsBrandsType)}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否上架" align="center" width="120" >
+        <template slot-scope="{row}">
+            <el-switch v-model="row.is_onshelf" active-color="#13ce66" ></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column label="添加时间" align="center" width="120">
+        <template slot-scope="{row}">
+          <span>{{row.createdAt | parseTime('{y}-{m}-{d}')}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="修改时间" align="center" width="120">
+        <template slot-scope="{row}">
+          <span>{{row.updatedAt | parseTime('{y}-{m}-{d}')}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" fixed="right" width="250">
+        <template slot-scope="{row}">
+          <el-button size="mini" type="info">查看详情</el-button>
+          <el-button size="mini" type="primary">编辑</el-button>
+          <el-button size="mini" type="danger">删除</el-button>
         </template>
       </el-table-column>
 
@@ -68,7 +111,8 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getGoodsList} from '@/api/goods'
+import {getGoodsType, getGoodsList} from '@/api/goods';
+import { parseTime } from '@/utils/filter'
 export default {
   data() {
     return {
@@ -81,7 +125,8 @@ export default {
       goodsSportsType: [],
       goodsBrandsType: [],
       addGoodsDialog: false,
-      goodsType: 0
+      goodsType: 0,
+      goodsGenderType: [{id: 10, name: '男女同款'}, {id: 0, name: '女'}, {id: 1, name: '男'}, {id: 2, name: '儿童'}]
     }
   },
   filters: {
@@ -175,5 +220,8 @@ export default {
       opacity: .7;
     }
   }
+}
+.goods-table {
+  text-align: center;
 }
 </style>
