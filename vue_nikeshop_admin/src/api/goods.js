@@ -340,3 +340,11 @@ export function getGoodsList(data) {
     data
   })
 }
+
+export function deleteGoods(data) {
+  return request({
+    url: '/admin/goods/deleteGoods',
+    method: 'post',
+    data
+  })
+}

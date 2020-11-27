@@ -91,7 +91,7 @@
         <template slot-scope="{row}">
           <el-button size="mini" type="info">查看详情</el-button>
           <el-button size="mini" type="primary">编辑</el-button>
-          <el-button size="mini" type="danger">删除</el-button>
+          <el-button size="mini" type="danger" @click="deleteGoods_(row.goods_id)">删除</el-button>
         </template>
       </el-table-column>
 
@@ -111,7 +111,7 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getGoodsList} from '@/api/goods';
+import {getGoodsType, getGoodsList, deleteGoods} from '@/api/goods';
 import { parseTime } from '@/utils/filter'
 export default {
   data() {
@@ -173,6 +173,14 @@ export default {
     addConfirm() {
       this.addGoodsDialog = false
       this.$router.push({path: '/goods/addGood', query: {type: this.goodsType.toString()}})
+    },
+    deleteGoods_(goods_id) {
+      deleteGoods({goods_id: goods_id}).then(res=>{
+        if(res.code==1) {
+          this.$message.success('删除成功')
+          this.getGoodList_()
+        }
+      })
     }
   },
 }

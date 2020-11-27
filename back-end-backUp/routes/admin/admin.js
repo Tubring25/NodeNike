@@ -217,6 +217,9 @@ router.post('/goods/addGoodsId', async(req, res, next) => {
 router.post('/goods/getGoodsList', async(req, res, next) => {
   res.json(await goodsCto.getGoodsList(req.body))
 })
+router.post('/goods/deleteGoods', async(req, res, next) => {
+  res.json(await goodsCto.deleteGoods(req.body))
+})
 
 /**
  * 图片上传

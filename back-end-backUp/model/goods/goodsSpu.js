@@ -20,7 +20,6 @@ class goodsSpuModel extends baseModule {
       sports_id: Sequelize.INTEGER, // 运动分类
       brand_id: Sequelize.INTEGER, // 品牌分类
       attribute_list: Sequelize.TEXT(), // 其他sku属性
-      has_evalute: Sequelize.BOOLEAN, // 是否有评价,
       is_onshelf: Sequelize.BOOLEAN, // 是否上架
       is_delete: { type: Sequelize.BOOLEAN, defaultValue: false},
       createdAt: {

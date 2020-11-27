@@ -142,6 +142,17 @@ class goodsService {
       return { code: 0, data: "缺少code" };
     }
   }
+  async deleteGoods(data){
+    try {
+      const {goods_id} = data
+      if(!goods_id) return {code: 0, data: '缺少goods_id'}
+      await goodsSpuModule.deleteItem({where: {goods_id: goods_id}})
+      return {code:1 ,data: '删除成功'}
+    } catch (err) {
+      return { code: 0, data: err };
+    }
+    
+  }
 }
 
 module.exports = new goodsService()
