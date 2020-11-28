@@ -348,3 +348,11 @@ export function deleteGoods(data) {
     data
   })
 }
+
+export function getGoodsById(data) {
+  return request({
+    url: '/admin/goods/getGoodsById',
+    method: 'post',
+    data
+  })
+}

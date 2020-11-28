@@ -153,6 +153,14 @@ class goodsService {
     }
     
   }
+  async getGoodsById (data){
+    try {
+      const {goods_id} = data
+      if(!goods_id) return {code:0, data: '缺少goods_id'}
+      let res = await goodsSpuModule.getGoodsList({where: {goods_id: goods_id}})
+      return {code: 1, data: res}
+    } catch(err) {return {code: 0, data: err}}
+  }
 }
 
 module.exports = new goodsService()

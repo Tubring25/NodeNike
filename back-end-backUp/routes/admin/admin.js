@@ -220,6 +220,9 @@ router.post('/goods/getGoodsList', async(req, res, next) => {
 router.post('/goods/deleteGoods', async(req, res, next) => {
   res.json(await goodsCto.deleteGoods(req.body))
 })
+router.post('/goods/getGoodsById', async(req, res, next) => {
+  res.json(await goodsCto.getGoodsById(req.body))
+})
 
 /**
  * 图片上传

@@ -89,7 +89,7 @@
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="250">
         <template slot-scope="{row}">
-          <el-button size="mini" type="info">查看详情</el-button>
+          <el-button size="mini" type="info" @click="goGoodsDetail(row.goods_id)">查看详情</el-button>
           <el-button size="mini" type="primary">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteGoods_(row.goods_id)">删除</el-button>
         </template>
@@ -181,6 +181,10 @@ export default {
           this.getGoodList_()
         }
       })
+    },
+    goGoodsDetail(id){
+      if(!id) return
+      this.$router.push({path: '/goods/goodsDetail', query: {goods_id: id}})
     }
   },
 }
