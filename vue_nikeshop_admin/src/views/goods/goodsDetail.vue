@@ -1,37 +1,55 @@
 <template>
   <div class="goods-detail-container">
-    商品详情
+    <div class="info-box">
+      <div class="item">
+        <span class="title">商品Id</span>
+        <span class="info">{{goodsInfo.goods_id}}</span>
+      </div>
+      <div class="item">
+        <div class="item">
+        <span class="title">商品名称</span>
+        <span class="info">{{goodsInfo.title}}</span>
+      </div>
+      </div>
+      <div class="item">
+        <span class="title">商品分类</span>
+      </div>
+      <div class="item"><span class="title"></span></div>
+      <div class="item"><span class="title"></span></div>
+      <div class="item"><span class="title"></span></div>
+      <div class="item"><span class="title"></span></div>
+      <div class="item"><span class="title"></span></div>
+    </div>
   </div>
 </template>
 <script>
-import {getGoodsById} from '@/api/goods'
+import { getGoodsById } from "@/api/goods";
 export default {
   data() {
     return {
-      goodsInfo: {}, 
-    }
+      goodsInfo: {},
+      infoKeys: [],
+    };
   },
   created() {
-    if(this.$route.query.goods_id) {
-      this.getGoodsById_(this.$route.query.goods_id)
+    if (this.$route.query.goods_id) {
+      this.getGoodsById_(this.$route.query.goods_id);
     } else {
-      this.$alert('缺少商品Id', '', {
-        confirmButtonText: '确定',
-        callbace: action => {
-          // this.$router.go(-1)
-          console.log(this.$router);
-        }
-      })
+      this.$message.error("缺少商品Id");
+      setTimeout(() => {
+        this.$router.go(-1);
+      }, 2000);
     }
   },
   methods: {
-    getGoodsById_(id){
-      getGoodsById({goods_id:id}).then(res=>{
-        if(res.code == 1) {
-          console.log(res);
+    getGoodsById_(id) {
+      getGoodsById({ goods_id: id }).then((res) => {
+        if (res.code == 1) {
+          this.goodsInfo = res.data[0];
+          this.infoKeys = Object.keys(this.goodsInfo);
         }
-      })      
-    }
+      });
+    },
   },
-}
+};
 </script>
