@@ -15,9 +15,9 @@
         <span class="title">商品分类</span>
         <span class="info">{{goodsInfo.base_id | parseAllTypeId(base_type)}}</span>
       </div>
-      <div class="item"><span class="title"></span></div>
-      <div class="item"><span class="title"></span></div>
-      <div class="item"><span class="title"></span></div>
+      <div class="item"><span class="title">性别</span><span class="info">{{goodsInfo.gender_id | parseAllTypeId(gender_type)}}</span></div>
+      <div class="item"><span class="title">运动类别</span><span class="info">{{goodsInfo.sports_id | parseAllTypeId(sports_type)}}</span></div>
+      <div class="item"><span class="title">品牌</span><span class="info">{{goodsInfo.brand_id | parseAllTypeId(brands_type)}}</span></div>
       <div class="item"><span class="title"></span></div>
       <div class="item"><span class="title"></span></div>
     </div>
