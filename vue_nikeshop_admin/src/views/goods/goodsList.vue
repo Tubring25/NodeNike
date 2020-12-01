@@ -112,7 +112,8 @@
 </template>
 <script>
 import {getGoodsType, getGoodsList, deleteGoods} from '@/api/goods';
-import { parseTime } from '@/utils/filter'
+import { parseTime } from '@/utils/filter';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -139,23 +140,32 @@ export default {
     this.getAllTypes()
     this.getGoodList_()
   },
+  computed: {
+    ...mapGetters([
+      'base_type'
+    ])
+  },
   methods: {
     getAllTypes(){
       getGoodsType({type:1, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsBaseType = res.data
+          this.saveType({type:'base', data: res.data})
         }
       })
       getGoodsType({type:2, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsSportsType = res.data
+          this.saveType({type:'sports', data: res.data})
         }
       })
       getGoodsType({type:3, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsBrandsType = res.data
+          this.saveType({type:'brands', data: res.data})
         }
       })
+      this.saveType({type:'gender', data: this.goodsGenderType})
     },
     getGoodList_() {
       getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{
@@ -185,7 +195,10 @@ export default {
     goGoodsDetail(id){
       if(!id) return
       this.$router.push({path: '/goods/goodsDetail', query: {goods_id: id}})
-    }
+    },
+    ...mapActions([
+      'saveType'
+    ]),
   },
 }
 </script>
