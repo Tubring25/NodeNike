@@ -25,7 +25,8 @@
 </template>
 <script>
 import { getGoodsById } from "@/api/goods";
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+import { tools } from '@/utils/tools'
 export default {
   data() {
     return {
@@ -50,11 +51,13 @@ export default {
     if (this.$route.query.goods_id) {
       this.getGoodsById_(this.$route.query.goods_id);
     } else {
+      
       this.$message.error("缺少商品Id");
       setTimeout(() => {
         this.$router.go(-1);
       }, 2000);
     }
+    tools.forbidBrowsersRefreshing()
   },
   methods: {
     getGoodsById_(id) {
