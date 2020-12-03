@@ -111,7 +111,7 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getGoodsList, deleteGoods} from '@/api/goods';
+import {getGoodsType, getGoodsList, deleteGoods, getShoeGroundType, getShoeHeight, getShoeSportsStar, getLengthList, getSuitwayList, getTechniqueList, getSpecialList, getMaterialList, getSizeList, getColorList } from '@/api/goods';
 import { parseTime } from '@/utils/filter';
 import { mapActions, mapGetters } from 'vuex';
 import { setSession } from '@/utils/tools'
