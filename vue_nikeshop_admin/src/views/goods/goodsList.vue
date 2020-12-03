@@ -114,6 +114,7 @@
 import {getGoodsType, getGoodsList, deleteGoods} from '@/api/goods';
 import { parseTime } from '@/utils/filter';
 import { mapActions, mapGetters } from 'vuex';
+import { setSession } from '@/utils/tools'
 export default {
   data() {
     return {
@@ -137,13 +138,20 @@ export default {
     }
   },
   created() {
-    this.getAllTypes()
-    this.getGoodList_()
   },
   computed: {
     ...mapGetters([
-      'base_type'
+      'base_type',
+      'gender_type',
+      'brands_type',
+      'sports_type'
     ])
+  },
+  mounted() {
+    if(this.base_type.length == 0) {
+      this.getAllTypes()
+    }
+    this.getGoodList_()
   },
   methods: {
     getAllTypes(){
@@ -151,21 +159,26 @@ export default {
         if(res.code == 1) {
           this.goodsBaseType = res.data
           this.saveType({type:'base', data: res.data})
+          setSession('base_type', res.data)
         }
       })
       getGoodsType({type:2, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsSportsType = res.data
           this.saveType({type:'sports', data: res.data})
+          setSession('sports_type', res.data)
+
         }
       })
       getGoodsType({type:3, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsBrandsType = res.data
           this.saveType({type:'brands', data: res.data})
+          setSession('brands_type', res.data)
         }
       })
       this.saveType({type:'gender', data: this.goodsGenderType})
+      setSession('gender_type', this.goodsGenderType)
     },
     getGoodList_() {
       getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{

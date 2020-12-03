@@ -25,8 +25,9 @@
 </template>
 <script>
 import { getGoodsById } from "@/api/goods";
-import { mapGetters } from 'vuex';
-import { tools } from '@/utils/tools'
+import { mapActions, mapGetters } from 'vuex';
+import { tools } from '@/utils/tools';
+import { getSession } from '@/utils/tools'
 export default {
   data() {
     return {
@@ -48,16 +49,24 @@ export default {
     ])
   },
   created() {
-    if (this.$route.query.goods_id) {
-      this.getGoodsById_(this.$route.query.goods_id);
-    } else {
-      
+    if (!this.$route.query.goods_id) {
       this.$message.error("缺少商品Id");
-      setTimeout(() => {
-        this.$router.go(-1);
-      }, 2000);
+        setTimeout(() => {
+          this.$router.go(-1);
+        }, 2000);
     }
-    tools.forbidBrowsersRefreshing()
+    if(this.base_type.length == 0) {
+      this.saveType({type:'base', data: getSession('base_type')})
+      this.saveType({type:'gender', data: getSession('gender_type')})
+      this.saveType({type:'brands', data: getSession('brands_type')})
+      this.saveType({type:'sports', data: getSession('sports_type')})
+    }
+  },
+  mounted() {
+    setTimeout(() =>{
+      this.getGoodsById_(this.$route.query.goods_id);
+    }, 1000)
+    
   },
   methods: {
     getGoodsById_(id) {
@@ -70,6 +79,9 @@ export default {
         }
       });
     },
+    ...mapActions([
+      'saveType'
+    ]),
   },
 };
 </script>
