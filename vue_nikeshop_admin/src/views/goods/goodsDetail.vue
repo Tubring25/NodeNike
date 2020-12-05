@@ -85,3 +85,22 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.info-box {
+  width: 80%;
+  margin: 20px auto;
+  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.3);
+  .item {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    .title {
+      width: 80%;
+      margin: 10px auto;
+    }
+  }
+}
+</style>

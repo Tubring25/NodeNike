@@ -152,6 +152,7 @@ export default {
       this.getAllTypes()
     }
     this.getGoodList_()
+    this.getSkuTypes()
   },
   methods: {
     getAllTypes(){
@@ -179,6 +180,68 @@ export default {
       })
       this.saveType({type:'gender', data: this.goodsGenderType})
       setSession('gender_type', this.goodsGenderType)
+    },
+    getSkuTypes() {
+      getShoeGroundType().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_ground', data: res.data})
+          setSession('shoe_ground', res.data)
+        }
+      })
+      getShoeHeight().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_height', data: res.data})
+          setSession('shoe_height', res.data)
+        }
+      })
+      getShoeSportsStar().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_sport', data: res.data})
+          setSession('shoe_sport', res.data)
+        }
+      })
+      getLengthList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'length', data: res.data})
+          setSession('length', res.data)
+        }
+      })
+      getSuitwayList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'suitway', data: res.data})
+          setSession('suitway', res.data)
+        }
+      })
+      getTechniqueList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'technique', data: res.data})
+          setSession('technique', res.data)
+        }
+      })
+      getSpecialList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'sepcial', data: res.data})
+          setSession('sepcial', res.data)
+        }
+      })
+      getMaterialList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'material', data: res.data})
+          setSession('material', res.data)
+        }
+      })
+      getSizeList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'size', data: res.data})
+          setSession('size', res.data)
+        }
+      })
+      getColorList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'color', data: res.data})
+          setSession('color', res.data)
+        }
+      })
     },
     getGoodList_() {
       getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{
