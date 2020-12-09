@@ -15,9 +15,9 @@
         <span class="title">商品分类</span>
         <span class="info">{{goodsInfo.base_id | parseAllTypeId(base_type)}}</span>
       </div>
-      <div class="item"><span class="title">性别</span><span class="info">{{goodsInfo.gender_id | parseAllTypeId(gender_type)}}</span></div>
-      <div class="item"><span class="title">运动类别</span><span class="info">{{goodsInfo.sports_id | parseAllTypeId(sports_type)}}</span></div>
-      <div class="item"><span class="title">品牌</span><span class="info">{{goodsInfo.brand_id | parseAllTypeId(brands_type)}}</span></div>
+      <!-- <div class="item"><span class="title">性别</span><span class="info">{{goodsInfo.gender_id | parseAllTypeId(gender_type)}}</span></div> -->
+      <!-- <div class="item"><span class="title">运动类别</span><span class="info">{{goodsInfo.sports_id | parseAllTypeId(sports_type)}}</span></div> -->
+      <!-- <div class="item"><span class="title">品牌</span><span class="info">{{goodsInfo.brand_id | parseAllTypeId(brands_type)}}</span></div> -->
       <div class="item"><span class="title"></span></div>
       <div class="item"><span class="title"></span></div>
     </div>
@@ -35,7 +35,9 @@ export default {
   },
   filters: {
     parseAllTypeId(id, type) {
-      return (type.filter(a=>a.id == id))[0].name
+      console.log(type);
+      
+      return (type.filter(a=>a.id == id)).name
     }
   },
   computed: {
@@ -48,13 +50,14 @@ export default {
   },
   created() {
     if (this.$route.query.goods_id) {
-      this.getGoodsById_(this.$route.query.goods_id);
+      // this.getGoodsById_(this.$route.query.goods_id);
     } else {
       this.$message.error("缺少商品Id");
       setTimeout(() => {
         this.$router.go(-1);
       }, 2000);
     }
+    // console.log(this.base_type)
   },
   methods: {
     getGoodsById_(id) {
