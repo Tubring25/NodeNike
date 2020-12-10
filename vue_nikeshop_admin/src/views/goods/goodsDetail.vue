@@ -6,10 +6,8 @@
         <span class="info">{{goodsInfo.goods_id}}</span>
       </div>
       <div class="item">
-        <div class="item">
         <span class="title">商品名称</span>
         <span class="info">{{goodsInfo.title}}</span>
-      </div>
       </div>
       <div class="item">
         <span class="title">商品分类</span>
@@ -21,6 +19,19 @@
       <div class="item"><span class="title"></span></div>
       <div class="item"><span class="title"></span></div>
     </div>
+    <table>
+      <tr>
+        <td>商品Id</td>
+        <td>{{goodsInfo.goods_id}}</td>
+        <td>商品名称</td>
+        <td>{{goodsInfo.title}}</td>
+        <td>商品分类</td>
+        <td>{{goodsInfo.base_id | parseAllTypeId(base_type)}}</td>
+      </tr>
+      <tr>
+        
+      </tr>
+    </table>
   </div>
 </template>
 <script>
@@ -90,16 +101,21 @@ export default {
   width: 80%;
   margin: 20px auto;
   border: 1px solid rgba($color: #000000, $alpha: 0.2);
-  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.3);
   .item {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     border-bottom: 1px solid rgba(0,0,0,0.2);
     height: 50px;
     line-height: 50px;
-    font-size: 20px;
+    font-size: 17px;
     .title {
-      width: 80%;
-      margin: 10px auto;
+      display: inline-block;
+      width: 100px;
+      color: rgba($color: #000000, $alpha: 0.7);
+      padding:0 20px;
+    }
+    .info {
+      color: #111;
     }
   }
 }
