@@ -111,9 +111,10 @@
   </div>
 </template>
 <script>
-import {getGoodsType, getGoodsList, deleteGoods} from '@/api/goods';
+import {getGoodsType, getGoodsList, deleteGoods, getShoeGroundType, getShoeHeight, getShoeSportsStar, getLengthList, getSuitwayList, getTechniqueList, getSpecialList, getMaterialList, getSizeList, getColorList } from '@/api/goods';
 import { parseTime } from '@/utils/filter';
 import { mapActions, mapGetters } from 'vuex';
+import { setSession } from '@/utils/tools'
 export default {
   data() {
     return {
@@ -137,13 +138,21 @@ export default {
     }
   },
   created() {
-    this.getAllTypes()
-    this.getGoodList_()
   },
   computed: {
     ...mapGetters([
-      'base_type'
+      'base_type',
+      'gender_type',
+      'brands_type',
+      'sports_type'
     ])
+  },
+  mounted() {
+    if(this.base_type.length == 0) {
+      this.getAllTypes()
+    }
+    this.getGoodList_()
+    this.getSkuTypes()
   },
   methods: {
     getAllTypes(){
@@ -151,21 +160,88 @@ export default {
         if(res.code == 1) {
           this.goodsBaseType = res.data
           this.saveType({type:'base', data: res.data})
+          setSession('base_type', res.data)
         }
       })
       getGoodsType({type:2, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsSportsType = res.data
           this.saveType({type:'sports', data: res.data})
+          setSession('sports_type', res.data)
+
         }
       })
       getGoodsType({type:3, pageSize: 50, page: 1}).then(res=>{
         if(res.code == 1) {
           this.goodsBrandsType = res.data
           this.saveType({type:'brands', data: res.data})
+          setSession('brands_type', res.data)
         }
       })
       this.saveType({type:'gender', data: this.goodsGenderType})
+      setSession('gender_type', this.goodsGenderType)
+    },
+    getSkuTypes() {
+      getShoeGroundType().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_ground', data: res.data})
+          setSession('shoe_ground', res.data)
+        }
+      })
+      getShoeHeight().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_height', data: res.data})
+          setSession('shoe_height', res.data)
+        }
+      })
+      getShoeSportsStar().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'shoe_sport', data: res.data})
+          setSession('shoe_sport', res.data)
+        }
+      })
+      getLengthList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'length', data: res.data})
+          setSession('length', res.data)
+        }
+      })
+      getSuitwayList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'suitway', data: res.data})
+          setSession('suitway', res.data)
+        }
+      })
+      getTechniqueList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'technique', data: res.data})
+          setSession('technique', res.data)
+        }
+      })
+      getSpecialList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'sepcial', data: res.data})
+          setSession('sepcial', res.data)
+        }
+      })
+      getMaterialList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'material', data: res.data})
+          setSession('material', res.data)
+        }
+      })
+      getSizeList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'size', data: res.data})
+          setSession('size', res.data)
+        }
+      })
+      getColorList().then(res=>{
+        if(res.code == 1) {
+          this.saveType({type:'color', data: res.data})
+          setSession('color', res.data)
+        }
+      })
     },
     getGoodList_() {
       getGoodsList(Object.assign(this.search, {pageSize: 50, page: 1})).then(res=>{
