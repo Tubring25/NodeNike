@@ -120,23 +120,14 @@ class goodsService {
 			return { code: 0, data: err };
 		}
   }
-  createFolder(imgPath) {
-    return new Promise((resolve, reject) => {
-      if (!fs.existsSync(imgPath)) {
-        fs.mkdirSync(imgPath);
-        resolve({ code: 1 });
-      } else {
-        resolve({ code: 1 });
-      }
-    });
-  }
+
   createTempGoodsId(data) {
     const { type } = data;
     let goodsId = "NK" + type + Number(new Date()) + Math.floor(Math.random() * 1000)
     if (type) {
-      // if (!fs.existsSync(goodsId)) {
-      //   fs.mkdirSync(goodsId);
-      // }
+      if (!fs.existsSync("public/goods/" + goodsId)) {
+        fs.mkdirSync("public/goods/" + goodsId);
+      }
       return { code: 1, data: goodsId };
     } else {
       return { code: 0, data: "缺少code" };
